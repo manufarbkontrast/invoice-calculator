@@ -861,11 +861,11 @@ export default function Dashboard() {
                               style={{ backgroundColor: displayColor }}
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-lg text-black truncate">{project.name}</h3>
-                              <p className="text-black/50 text-base mt-1">
+                              <h3 className="font-medium text-lg text-gray-900 truncate">{project.name}</h3>
+                              <p className="text-gray-600 text-base mt-1">
                                 {projectInvoices.length} Rechnungen
                               </p>
-                              <p className="text-black font-medium text-xl mt-2">
+                              <p className="text-gray-900 font-medium text-xl mt-2">
                                 €{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                               </p>
                             </div>
@@ -887,20 +887,20 @@ export default function Dashboard() {
           transition={{ delay: 0.4 }}
         >
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center">
-              <Calendar className="h-6 w-6 text-black/60" />
+            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+              <Calendar className="h-6 w-6" style={{ color: appTheme.colors.blue }} />
             </div>
-            <h2 className="text-2xl font-medium text-black">Monatliche Übersicht</h2>
+            <h2 className="text-2xl font-medium text-gray-900">Monatliche Übersicht</h2>
           </div>
 
           {months.length === 0 ? (
             <Card className="border-blue-100 rounded-3xl bg-white">
               <CardContent className="py-20 text-center">
-                <div className="w-20 h-20 bg-black/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Receipt className="h-10 w-10 text-black/30" />
+                <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <Receipt className="h-10 w-10" style={{ color: appTheme.colors.blue + '60' }} />
                 </div>
-                <h3 className="text-2xl font-medium text-black/70 mb-3">Noch keine Rechnungen</h3>
-                <p className="text-lg text-black/40 max-w-md mx-auto">
+                <h3 className="text-2xl font-medium text-gray-700 mb-3">Noch keine Rechnungen</h3>
+                <p className="text-lg text-gray-600 max-w-md mx-auto">
                   Laden Sie Ihre erste Rechnung hoch, um mit der Verwaltung zu beginnen.
                 </p>
               </CardContent>

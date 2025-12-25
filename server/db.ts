@@ -106,16 +106,18 @@ export async function getUserInvoices(userId: string): Promise<Invoice[]> {
   const db = await getDb();
   if (!db) return [];
   
-  return db.select().from(invoices).where(eq(invoices.userId, userId)).orderBy(desc(invoices.createdAt));
+  const results = await db.select().from(invoices).where(eq(invoices.userId, userId)).orderBy(desc(invoices.createdAt));
+  return results as Invoice[];
 }
 
 export async function getInvoicesByMonth(userId: string, month: string): Promise<Invoice[]> {
   const db = await getDb();
   if (!db) return [];
   
-  return db.select().from(invoices)
+  const results = await db.select().from(invoices)
     .where(and(eq(invoices.userId, userId), eq(invoices.month, month)))
     .orderBy(desc(invoices.createdAt));
+  return results as Invoice[];
 }
 
 export async function getInvoice(id: number, userId: string): Promise<Invoice | undefined> {
@@ -126,7 +128,7 @@ export async function getInvoice(id: number, userId: string): Promise<Invoice | 
     .where(and(eq(invoices.id, id), eq(invoices.userId, userId)))
     .limit(1);
   
-  return result[0];
+  return result[0] as Invoice | undefined;
 }
 
 export async function deleteInvoice(id: number, userId: string): Promise<void> {

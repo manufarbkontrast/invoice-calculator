@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1761222614061,
+      "tag": "0000_cynical_ares",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1761222641645,
+      "tag": "0001_abnormal_hulk",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1761225756996,
+      "tag": "0002_unknown_captain_america",
+      "breakpoints": true
+    }
+  ]
+}

@@ -2,14 +2,15 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_TITLE } from "@/const";
-import { Receipt, ArrowRight, Upload, FileSpreadsheet, Shield, Clock, Zap, BarChart3, Cloud } from "lucide-react";
+import { Receipt, ArrowRight, TrendingUp, FileSpreadsheet, Lightbulb, Shield, FileText, BarChart3, AlertCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
-import { useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
-const neonBlue = "#3b82f6";
-const neonPurple = "#a855f7";
-const darkBg = "#0a0a0f";
+const lightBlue = "#60a5fa";
+const blue = "#3b82f6";
+const darkBlue = "#2563eb";
+const bgGradient = "linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%)";
 
 // Stagger animation variants from Context7
 const container = {
@@ -28,11 +29,13 @@ const item = {
   show: { opacity: 1, y: 0 }
 };
 
+// Falling animation for documents - will be used directly in motion.g
+
 export default function Home() {
   const { isAuthenticated, loading } = useAuth();
   const [, setLocation] = useLocation();
   const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   useEffect(() => {
     if (!loading && isAuthenticated) {
@@ -42,14 +45,14 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: darkBg }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: bgGradient }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-gray-800 border-t-blue-500 rounded-full animate-spin" />
-          <span className="text-xl text-gray-400">Lädt...</span>
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
     );
@@ -60,56 +63,16 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: darkBg }}>
-      {/* Animated Background Waves */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-0 w-full h-full opacity-20"
-          animate={{
-            background: [
-              `radial-gradient(circle at 20% 30%, ${neonBlue} 0%, transparent 50%)`,
-              `radial-gradient(circle at 80% 70%, ${neonPurple} 0%, transparent 50%)`,
-              `radial-gradient(circle at 20% 30%, ${neonBlue} 0%, transparent 50%)`,
-            ],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-30"
-          style={{
-            background: `radial-gradient(circle, ${neonBlue} 0%, transparent 70%)`,
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-30"
-          style={{
-            background: `radial-gradient(circle, ${neonPurple} 0%, transparent 70%)`,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -80, 0],
-            y: [0, 80, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+    <div className="min-h-screen relative overflow-hidden" style={{ background: bgGradient }}>
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(${blue} 1px, transparent 1px),
+            linear-gradient(90deg, ${blue} 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+        }} />
       </div>
 
       {/* Header */}
@@ -117,7 +80,7 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 shadow-sm"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <motion.div 
@@ -127,398 +90,400 @@ export default function Home() {
             <div 
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{
-                background: `linear-gradient(135deg, ${neonBlue} 0%, ${neonPurple} 100%)`,
-                boxShadow: `0 0 20px ${neonBlue}40`,
+                background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
+                boxShadow: `0 4px 12px ${blue}30`,
               }}
             >
               <Receipt className="h-5 w-5 text-white" strokeWidth={2} />
             </div>
-            <span className="text-xl font-semibold text-white">{APP_TITLE}</span>
+            <span className="text-xl font-semibold text-gray-900">{APP_TITLE}</span>
           </motion.div>
           
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button 
-              onClick={() => setLocation("/auth")}
-              className="rounded-lg px-6 h-10 text-sm font-medium text-white"
-              style={{
-                background: neonBlue,
-                boxShadow: `0 4px 14px ${neonBlue}40`,
-              }}
-            >
-              Anmelden
-            </Button>
-          </motion.div>
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Features</a>
+            <a href="#modules" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">KI-Module</a>
+            <a href="#pricing" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Preise</a>
+            <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Kontakt</a>
+          </nav>
         </div>
       </motion.header>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative z-10">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="text-center space-y-8"
-          >
-            {/* Badge */}
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Text */}
             <motion.div
-              variants={item}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-blue-500/30 bg-blue-500/10 text-blue-300 backdrop-blur-sm"
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className="space-y-6"
             >
-              <Zap className="h-4 w-4" />
-              <span>Automatische Rechnungsverarbeitung</span>
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              variants={item}
-              className="text-5xl md:text-7xl font-bold leading-tight text-white"
-            >
-              Rechnungen verwalten.
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Ohne Aufwand.
-              </span>
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              variants={item}
-              className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto"
-            >
-              Laden Sie PDF-Rechnungen hoch und erhalten Sie automatisch eine übersichtliche Kalkulation. 
-              Exportieren Sie monatliche Zusammenfassungen als Excel-Datei.
-            </motion.p>
-
-            {/* CTA Button */}
-            <motion.div
-              variants={item}
-              className="pt-4"
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <motion.h1
+                variants={item}
+                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900"
               >
-                <Button 
-                  onClick={() => setLocation("/auth")}
-                  size="lg" 
-                  className="rounded-lg px-8 h-14 text-base font-semibold text-white"
-                  style={{
-                    background: neonBlue,
-                    boxShadow: `0 8px 24px ${neonBlue}40`,
-                  }}
+                Rechnungen verwalten.
+                <br />
+                <span className="text-blue-600">KI-gestützt.</span>
+                <br />
+                <span className="text-gray-700">Mühelos.</span>
+              </motion.h1>
+
+              <motion.p
+                variants={item}
+                className="text-lg md:text-xl text-gray-600 leading-relaxed"
+              >
+                Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
+                Sparen Sie Zeit und behalten Sie den Überblick.
+              </motion.p>
+
+              <motion.div
+                variants={item}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <span className="flex items-center gap-2">
-                    Jetzt kostenlos starten
-                    <ArrowRight className="h-5 w-5" />
-                  </span>
-                </Button>
+                  <Button 
+                    onClick={() => setLocation("/auth")}
+                    size="lg" 
+                    className="rounded-lg px-8 h-14 text-base font-semibold text-white shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
+                      boxShadow: `0 8px 24px ${blue}30`,
+                    }}
+                  >
+                    Jetzt KI erleben
+                  </Button>
+                </motion.div>
               </motion.div>
             </motion.div>
 
-            {/* 3D Funnel Visual - Centered */}
+            {/* Right Side - 3D Funnel Visual */}
             <motion.div
-              variants={item}
-              className="flex justify-center pt-12"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative"
             >
               <div 
-                className="rounded-2xl p-8 backdrop-blur-xl border border-white/10 relative"
+                className="rounded-2xl p-8 bg-white/60 backdrop-blur-sm border border-blue-100 shadow-xl"
                 style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)",
-                  boxShadow: `0 8px 32px rgba(59, 130, 246, 0.2)`,
+                  boxShadow: `0 20px 60px ${blue}20`,
                 }}
               >
-                <div className="relative w-80 h-80 flex items-center justify-center">
+                <div className="relative h-96 flex items-center justify-center overflow-hidden">
                   <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                     {/* Funnel */}
                     <motion.path
                       d="M200 50 L350 200 L300 350 L100 350 L50 200 Z"
                       fill="url(#funnelGradient)"
-                      opacity="0.3"
-                      animate={{
-                        opacity: [0.3, 0.5, 0.3],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
+                      opacity="0.4"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 1.5 }}
                     />
                     <defs>
                       <linearGradient id="funnelGradient" x1="200" y1="50" x2="200" y2="350">
-                        <stop offset="0%" stopColor={neonBlue} />
-                        <stop offset="100%" stopColor={neonPurple} />
+                        <stop offset="0%" stopColor={blue} />
+                        <stop offset="100%" stopColor={darkBlue} />
                       </linearGradient>
                     </defs>
                     
-                    {/* Credit Card */}
+                    {/* Falling Documents */}
+                    {[
+                      { x: 150, delay: 0, type: "pdf" },
+                      { x: 200, delay: 0.5, type: "doc" },
+                      { x: 250, delay: 1, type: "sheet" },
+                    ].map((doc, i) => (
+                      <motion.g
+                        key={i}
+                        initial={{ y: -100, opacity: 0, rotate: 0 }}
+                        animate={{
+                          y: [0, 400],
+                          opacity: [0, 1, 1, 0],
+                          rotate: [0, Math.random() * 20 - 10],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          delay: doc.delay,
+                          ease: "easeIn"
+                        }}
+                      >
+                        {doc.type === "pdf" && (
+                          <>
+                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#dc2626" />
+                            <text x={doc.x + 15} y="75" fill="white" fontSize="10" fontFamily="monospace" fontWeight="bold">PDF</text>
+                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
+                            <line x1={doc.x + 10} y1="100" x2={doc.x + 40} y2="100" stroke="white" strokeWidth="1" />
+                          </>
+                        )}
+                        {doc.type === "doc" && (
+                          <>
+                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#3b82f6" />
+                            <text x={doc.x + 10} y="75" fill="white" fontSize="10" fontFamily="monospace">DOC</text>
+                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
+                          </>
+                        )}
+                        {doc.type === "sheet" && (
+                          <>
+                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#10b981" />
+                            <text x={doc.x + 5} y="75" fill="white" fontSize="10" fontFamily="monospace">XLS</text>
+                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
+                            <line x1={doc.x + 10} y1="100" x2={doc.x + 30} y2="100" stroke="white" strokeWidth="1" />
+                          </>
+                        )}
+                      </motion.g>
+                    ))}
+
+                    {/* Glow Effect Below Funnel */}
                     <motion.g
-                      initial={{ y: 0, opacity: 0 }}
+                      initial={{ opacity: 0, scale: 0 }}
                       animate={{ 
-                        y: [0, 80, 0],
-                        opacity: [0, 1, 0]
+                        opacity: [0.3, 0.6, 0.3],
+                        scale: [0.8, 1.2, 0.8]
                       }}
-                      transition={{ 
-                        duration: 2.5, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: 0.5
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
                       }}
                     >
-                      <rect x="150" y="100" width="100" height="60" rx="8" fill="#1a1a2e" stroke={neonBlue} strokeWidth="2" />
-                      <rect x="160" y="120" width="20" height="15" rx="2" fill="#FFD700" />
-                      <text x="190" y="145" fill="white" fontSize="10" fontFamily="monospace">****</text>
-                    </motion.g>
-                    
-                    {/* PDF Document */}
-                    <motion.g
-                      initial={{ y: 0, opacity: 0 }}
-                      animate={{ 
-                        y: [0, 100, 0],
-                        opacity: [0, 1, 0]
-                      }}
-                      transition={{ 
-                        duration: 2.5, 
-                        repeat: Infinity, 
-                        ease: "easeInOut", 
-                        delay: 0.8 
-                      }}
-                    >
-                      <rect x="180" y="50" width="60" height="80" rx="4" fill="#dc2626" />
-                      <text x="195" y="75" fill="white" fontSize="12" fontFamily="monospace" fontWeight="bold">PDF</text>
-                      <line x1="190" y1="90" x2="230" y2="90" stroke="white" strokeWidth="1" />
-                      <line x1="190" y1="100" x2="230" y2="100" stroke="white" strokeWidth="1" />
-                      <line x1="190" y1="110" x2="220" y2="110" stroke="white" strokeWidth="1" />
+                      <circle cx="200" cy="380" r="40" fill={blue} opacity="0.2" />
+                      <circle cx="200" cy="380" r="30" fill={blue} opacity="0.3" />
+                      <circle cx="200" cy="380" r="20" fill={blue} opacity="0.4" />
+                      
+                      {/* X= Icon */}
+                      <text x="185" y="385" fill={blue} fontSize="16" fontFamily="monospace" fontWeight="bold">X=</text>
+                      
+                      {/* Spreadsheet Icon */}
+                      <rect x="210" y="370" width="20" height="20" rx="2" fill="#10b981" />
+                      <line x1="213" y1="375" x2="227" y2="375" stroke="white" strokeWidth="1" />
+                      <line x1="213" y1="380" x2="227" y2="380" stroke="white" strokeWidth="1" />
                     </motion.g>
                   </svg>
                 </div>
               </div>
             </motion.div>
-
-            {/* Trust Badges */}
-            <motion.div
-              variants={item}
-              className="flex flex-wrap items-center justify-center gap-8 pt-8"
-            >
-              {[
-                { icon: Shield, text: "Sicher & Verschlüsselt" },
-                { icon: Clock, text: "Sofortige Verarbeitung" },
-                { icon: Zap, text: "KI-Extraktion" }
-              ].map((badge, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg"
-                  style={{
-                    background: "rgba(59, 130, 246, 0.1)",
-                    border: `1px solid ${neonBlue}30`,
-                  }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <badge.icon className="h-5 w-5" style={{ color: neonBlue }} />
-                  <span className="text-sm font-medium text-white/80">{badge.text}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Content Section */}
       <section className="py-20 px-6 relative z-10">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
-              Alles was Sie brauchen
-            </h2>
-            <p className="text-lg text-white/60">
-              Leistungsstarke Funktionen für Ihre Rechnungsverwaltung
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid md:grid-cols-2 gap-6"
-          >
-            {/* Top-Left: Data Extraction with glowing numbers */}
-            <motion.div
-              variants={item}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Card 
-                className="rounded-2xl h-full border border-white/10 overflow-hidden backdrop-blur-xl"
-                style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)",
-                }}
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Left Side - Feature Cards */}
+            <div>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-4xl font-bold mb-8 text-gray-900"
               >
-                <CardContent className="p-8">
-                  <div className="space-y-3 mb-6 font-mono text-lg">
-                    {[
-                      { values: ["24.99", "6.77"], colors: ["text-yellow-400", "text-blue-400"] },
-                      { values: ["91.26", "7968"], colors: ["text-white/60", "text-blue-400"] },
-                      { values: ["9026", "12637", "8739"], colors: ["text-white/60", "text-purple-400", "text-white/60"] },
-                      { values: ["12079", "7858"], colors: ["text-blue-400", "text-white/60"] },
-                    ].map((row, i) => (
-                      <motion.div
-                        key={i}
-                        className="flex gap-4"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                      >
-                        {row.values.map((val, j) => (
-                          <span key={j} className={row.colors[j] || "text-white/60"}>
-                            {val}
-                          </span>
-                        ))}
-                      </motion.div>
-                    ))}
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Data extraction</h3>
-                  <p className="text-white/60 text-sm leading-relaxed">
-                    Automatische Datenextraktion und intelligente Verarbeitung. Exportieren Sie Ihre Daten nahtlos.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+                Alles was Sie brauchen
+              </motion.h2>
 
-            {/* Top-Right: Drag & Drop with pulsing border */}
-            <motion.div
-              variants={item}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Card 
-                className="rounded-2xl h-full border-2 overflow-hidden backdrop-blur-xl relative"
-                style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%)",
-                  borderColor: neonBlue,
-                }}
+              <motion.div
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-50px" }}
+                className="grid grid-cols-2 gap-4"
               >
-                <motion.div
-                  className="absolute inset-0 rounded-2xl"
-                  style={{
-                    border: `2px solid ${neonBlue}`,
-                    boxShadow: `0 0 20px ${neonBlue}40`,
-                  }}
-                  animate={{
-                    boxShadow: [
-                      `0 0 20px ${neonBlue}40`,
-                      `0 0 40px ${neonBlue}60`,
-                      `0 0 20px ${neonBlue}40`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <CardContent className="p-8 relative z-10">
-                  <div 
-                    className="mb-6 rounded-xl border-2 border-dashed p-12 flex flex-col items-center justify-center"
-                    style={{
-                      borderColor: neonBlue,
-                      background: "rgba(59, 130, 246, 0.05)",
-                    }}
+                {[
+                  { icon: TrendingUp, text: "Datenautomatisierung. Reibungslos die Reste." },
+                  { icon: BarChart3, text: "Monatliche Übersicht" },
+                  { icon: Lightbulb, text: "Dokumente hochladen, KI macht den Rest." },
+                  { icon: Sparkles, text: "Klar strukturierte Kalkulationen, die überzeugen" },
+                  { icon: FileText, text: "Risikofreie Übersicht" },
+                  { icon: Shield, text: "Sichere Datenverarbeitung" },
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    variants={item}
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
                   >
-                    <motion.div
-                      animate={{ y: [0, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    <Card 
+                      className="rounded-xl h-full border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      style={{
+                        borderColor: hoveredCard === index ? blue : undefined,
+                        boxShadow: hoveredCard === index ? `0 8px 24px ${blue}20` : undefined,
+                      }}
                     >
-                      <Upload className="h-12 w-12 mb-3" style={{ color: neonBlue }} strokeWidth={1.5} />
-                    </motion.div>
-                    <p className="text-white/80 text-sm text-center font-medium">Drag & Drop</p>
-                    <p className="text-white/40 text-xs text-center mt-1">Pulsing Border Beam</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                      <CardContent className="p-6">
+                        <div 
+                          className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                          style={{
+                            background: `linear-gradient(135deg, ${blue}15 0%, ${lightBlue}15 100%)`,
+                          }}
+                        >
+                          <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
+                        </div>
+                        <p className="text-sm text-gray-700 leading-relaxed">{feature.text}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
 
-            {/* Bottom-Left: Einfacher Upload */}
-            <motion.div
-              variants={item}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Card 
-                className="rounded-2xl h-full border border-white/10 overflow-hidden backdrop-blur-xl"
-                style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)",
-                }}
+            {/* Right Side - Next-Gen KI-Modules */}
+            <div>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-4xl font-bold mb-8 text-gray-900"
               >
-                <CardContent className="p-8">
-                  <div className="mb-6 flex items-center justify-center">
-                    <Cloud className="h-16 w-16" style={{ color: neonBlue }} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Einfacher Upload</h3>
-                  <p className="text-white/60 text-sm leading-relaxed">
-                    Ziehen Sie PDF-Rechnungen einfach per Drag & Drop in die Anwendung oder wählen Sie Dateien aus. Die KI erkennt automatisch alle wichtigen Informationen.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+                Next-Gen KI-Modules
+              </motion.h2>
 
-            {/* Bottom-Right: Excel-Export */}
-            <motion.div
-              variants={item}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Card 
-                className="rounded-2xl h-full border border-white/10 overflow-hidden backdrop-blur-xl"
-                style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)",
-                }}
-              >
-                <CardContent className="p-8">
-                  <div className="mb-6 flex items-center justify-center">
-                    <BarChart3 className="h-16 w-16" style={{ color: "#FFD700" }} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Excel-Export</h3>
-                  <p className="text-white/60 text-sm leading-relaxed">
-                    Alle Rechnungen werden automatisch nach Monaten gruppiert. Sehen Sie auf einen Blick, wie viel Sie in jedem Monat ausgegeben haben.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
+              <div className="space-y-6">
+                {/* Module Card 1 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-bold mb-4 text-gray-900">Next-Gen KI-Modules</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <div className="h-32 mb-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                              <motion.polyline
+                                points="10,60 30,45 50,50 70,30 90,40 110,25"
+                                fill="none"
+                                stroke={blue}
+                                strokeWidth="2"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                              />
+                              {[10, 30, 50, 70, 90, 110].map((x, i) => (
+                                <motion.circle
+                                  key={i}
+                                  cx={x}
+                                  cy={[60, 45, 50, 30, 40, 25][i]}
+                                  r="4"
+                                  fill={blue}
+                                  initial={{ scale: 0 }}
+                                  whileInView={{ scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: i * 0.1 + 0.5 }}
+                                />
+                              ))}
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-600">Klare Zahlen: Immer den Blick.</p>
+                        </div>
+                        <div>
+                          <div className="h-32 mb-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-center">
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                              <motion.polyline
+                                points="10,50 30,40 50,45 70,35 90,30 110,20"
+                                fill="none"
+                                stroke="#a855f7"
+                                strokeWidth="2"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
+                              />
+                              {[10, 30, 50, 70, 90, 110].map((x, i) => (
+                                <motion.circle
+                                  key={i}
+                                  cx={x}
+                                  cy={[50, 40, 45, 35, 30, 20][i]}
+                                  r="4"
+                                  fill="#a855f7"
+                                  initial={{ scale: 0 }}
+                                  whileInView={{ scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: i * 0.1 + 0.8 }}
+                                />
+                              ))}
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-600">Zuverlässige Prognosen. Treffende Entscheidungen.</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                {/* Module Card 2 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-bold mb-4 text-gray-900">Next-Gen KI-Module</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <div className="h-32 mb-3 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center relative">
+                            <FileText className="h-12 w-12 absolute" style={{ color: "#10b981" }} />
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                              <motion.polyline
+                                points="10,40 30,35 50,30 70,25 90,20 110,15"
+                                fill="none"
+                                stroke="#10b981"
+                                strokeWidth="2"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
+                              />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-600">Rechtschreibung automatisiert. Immer aktuell.</p>
+                        </div>
+                        <div>
+                          <div className="h-32 mb-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center relative">
+                            <motion.div
+                              animate={{ 
+                                scale: [1, 1.2, 1],
+                                rotate: [0, 5, -5, 0]
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                            >
+                              <AlertCircle className="h-12 w-12" style={{ color: "#f97316" }} />
+                            </motion.div>
+                          </div>
+                          <p className="text-sm text-gray-600">Ungewöhnliche Abweichungen? KI schlägt Alarm</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Bottom CTA */}
       <section className="py-20 px-6 relative z-10">
-        <div className="container mx-auto max-w-3xl">
+        <div className="container mx-auto max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-2xl p-12 text-center"
-            style={{
-              background: neonBlue,
-              boxShadow: `0 8px 32px ${neonBlue}40`,
-            }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              Bereit durchzustarten?
-            </h2>
-            <p className="text-lg mb-8 text-blue-100 max-w-xl mx-auto">
-              Starten Sie jetzt und sparen Sie Zeit bei der Verwaltung Ihrer Tool-Ausgaben. 
-              Kostenlos und ohne Kreditkarte.
-            </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -526,9 +491,13 @@ export default function Home() {
               <Button 
                 onClick={() => setLocation("/auth")}
                 size="lg" 
-                className="rounded-lg px-8 h-12 text-base font-semibold bg-white text-blue-600 hover:bg-gray-50 shadow-lg"
+                className="rounded-lg px-12 h-16 text-lg font-semibold text-white shadow-xl"
+                style={{
+                  background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
+                  boxShadow: `0 12px 40px ${blue}30`,
+                }}
               >
-                Kostenlos registrieren
+                Zukunft jetzt starten
               </Button>
             </motion.div>
           </motion.div>
@@ -536,20 +505,20 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-white/10 relative z-10">
+      <footer className="py-12 px-6 border-t border-blue-100 bg-white/60 backdrop-blur-sm">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div 
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background: `linear-gradient(135deg, ${neonBlue} 0%, ${neonPurple} 100%)`,
+                background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
               }}
             >
               <Receipt className="h-4 w-4 text-white" strokeWidth={2} />
             </div>
-            <span className="text-lg font-semibold text-white">{APP_TITLE}</span>
+            <span className="text-lg font-semibold text-gray-900">{APP_TITLE}</span>
           </div>
-          <p className="text-white/40 text-sm">© 2025 {APP_TITLE}. Automatische Rechnungsverarbeitung.</p>
+          <p className="text-white/60 text-sm">© 2025 {APP_TITLE}. Automatische Rechnungsverarbeitung.</p>
         </div>
       </footer>
     </div>

@@ -294,12 +294,12 @@ export default function Home() {
                 className="grid grid-cols-2 gap-4"
               >
                 {[
-                  { icon: TrendingUp, text: "Datenautomatisierung. Reibungslos die Reste." },
-                  { icon: BarChart3, text: "Monatliche Übersicht" },
-                  { icon: Lightbulb, text: "Dokumente hochladen, KI macht den Rest." },
-                  { icon: Sparkles, text: "Klar strukturierte Kalkulationen, die überzeugen" },
-                  { icon: FileText, text: "Risikofreie Übersicht" },
-                  { icon: Shield, text: "Sichere Datenverarbeitung" },
+                  { icon: TrendingUp, title: "Datenautomatisierung", text: "Reibungslose Verarbeitung aller Rechnungen ohne manuellen Aufwand." },
+                  { icon: BarChart3, title: "Monatliche Übersicht", text: "Automatische Gruppierung nach Monaten mit detaillierter Kostenanalyse." },
+                  { icon: Lightbulb, title: "KI-gestützte Extraktion", text: "Dokumente hochladen, KI erkennt automatisch alle wichtigen Informationen." },
+                  { icon: Sparkles, title: "Strukturierte Kalkulationen", text: "Klar strukturierte Auswertungen, die überzeugen und Zeit sparen." },
+                  { icon: FileText, title: "Risikofreie Übersicht", text: "Vollständige Transparenz über alle Ausgaben und Rechnungen." },
+                  { icon: Shield, title: "Sichere Datenverarbeitung", text: "Ihre Daten sind sicher verschlüsselt und geschützt." },
                 ].map((feature, index) => (
                   <motion.div
                     key={index}
@@ -323,7 +323,8 @@ export default function Home() {
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
                         </div>
-                        <p className="text-sm text-gray-700 leading-relaxed">{feature.text}</p>
+                        <h3 className="text-base font-semibold mb-2 text-gray-900">{feature.title}</h3>
+                        <p className="text-sm text-gray-600 leading-relaxed">{feature.text}</p>
                       </CardContent>
                     </Card>
                   </motion.div>

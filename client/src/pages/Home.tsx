@@ -353,7 +353,6 @@ export default function Home() {
                 >
                   <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-bold mb-4 text-gray-900">Next-Gen KI-Modules</h3>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <div className="h-32 mb-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">

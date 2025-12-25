@@ -6,11 +6,12 @@ import { Receipt, ArrowRight, TrendingUp, FileSpreadsheet, Lightbulb, Shield, Fi
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { theme } from "@/theme";
 
-const lightBlue = "#60a5fa";
-const blue = "#3b82f6";
-const darkBlue = "#2563eb";
-const bgGradient = "linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%)";
+const { lightBlue, blue, darkBlue, bgGradient } = theme.colors;
+
+
+
 
 // Stagger animation variants from Context7
 const container = {
@@ -45,7 +46,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: bgGradient }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: theme.colors.bgGradient }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -63,13 +64,13 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: bgGradient }}>
+    <div className="min-h-screen relative overflow-hidden" style={{ background: theme.colors.bgGradient }}>
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(${blue} 1px, transparent 1px),
-            linear-gradient(90deg, ${blue} 1px, transparent 1px)
+            linear-gradient(${theme.colors.blue} 1px, transparent 1px),
+            linear-gradient(90deg, ${theme.colors.blue} 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }} />
@@ -90,8 +91,8 @@ export default function Home() {
             <div 
               className="w-10 h-10 rounded-lg flex items-center justify-center"
               style={{
-                background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
-                boxShadow: `0 4px 12px ${blue}30`,
+                background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                boxShadow: `0 4px 12px ${theme.colors.blue}30`,
               }}
             >
               <Receipt className="h-5 w-5 text-white" strokeWidth={2} />
@@ -150,8 +151,8 @@ export default function Home() {
                     size="lg" 
                     className="rounded-lg px-8 h-14 text-base font-semibold text-white shadow-lg"
                     style={{
-                      background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
-                      boxShadow: `0 8px 24px ${blue}30`,
+                      background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                      boxShadow: `0 8px 24px ${theme.colors.blue}30`,
                     }}
                   >
                     Jetzt KI erleben
@@ -170,7 +171,7 @@ export default function Home() {
               <div 
                 className="rounded-2xl p-8 bg-white/60 backdrop-blur-sm border border-blue-100 shadow-xl"
                 style={{
-                  boxShadow: `0 20px 60px ${blue}20`,
+                  boxShadow: `0 20px 60px ${theme.colors.blue}20`,
                 }}
               >
                 <div className="relative h-96 flex items-center justify-center overflow-hidden">
@@ -251,12 +252,12 @@ export default function Home() {
                         ease: "easeInOut"
                       }}
                     >
-                      <circle cx="200" cy="380" r="40" fill={blue} opacity="0.2" />
-                      <circle cx="200" cy="380" r="30" fill={blue} opacity="0.3" />
-                      <circle cx="200" cy="380" r="20" fill={blue} opacity="0.4" />
+                      <circle cx="200" cy="380" r="40" fill={theme.colors.blue} opacity="0.2" />
+                      <circle cx="200" cy="380" r="30" fill={theme.colors.blue} opacity="0.3" />
+                      <circle cx="200" cy="380" r="20" fill={theme.colors.blue} opacity="0.4" />
                       
                       {/* X= Icon */}
-                      <text x="185" y="385" fill={blue} fontSize="16" fontFamily="monospace" fontWeight="bold">X=</text>
+                      <text x="185" y="385" fill={theme.colors.blue} fontSize="16" fontFamily="monospace" fontWeight="bold">X=</text>
                       
                       {/* Spreadsheet Icon */}
                       <rect x="210" y="370" width="20" height="20" rx="2" fill="#10b981" />
@@ -311,14 +312,14 @@ export default function Home() {
                       className="rounded-xl h-full border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
                       style={{
                         borderColor: hoveredCard === index ? blue : undefined,
-                        boxShadow: hoveredCard === index ? `0 8px 24px ${blue}20` : undefined,
+                        boxShadow: hoveredCard === index ? `0 8px 24px ${theme.colors.blue}20` : undefined,
                       }}
                     >
                       <CardContent className="p-6">
                         <div 
                           className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                           style={{
-                            background: `linear-gradient(135deg, ${blue}15 0%, ${lightBlue}15 100%)`,
+                            background: `linear-gradient(135deg, ${theme.colors.blue}15 0%, ${theme.colors.lightBlue}15 100%)`,
                           }}
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
@@ -360,7 +361,7 @@ export default function Home() {
                               <motion.polyline
                                 points="10,60 30,45 50,50 70,30 90,40 110,25"
                                 fill="none"
-                                stroke={blue}
+                                stroke={theme.colors.blue}
                                 strokeWidth="2"
                                 initial={{ pathLength: 0 }}
                                 whileInView={{ pathLength: 1 }}
@@ -373,7 +374,7 @@ export default function Home() {
                                   cx={x}
                                   cy={[60, 45, 50, 30, 40, 25][i]}
                                   r="4"
-                                  fill={blue}
+                                  fill={theme.colors.blue}
                                   initial={{ scale: 0 }}
                                   whileInView={{ scale: 1 }}
                                   viewport={{ once: true }}
@@ -492,8 +493,8 @@ export default function Home() {
                 size="lg" 
                 className="rounded-lg px-12 h-16 text-lg font-semibold text-white shadow-xl"
                 style={{
-                  background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
-                  boxShadow: `0 12px 40px ${blue}30`,
+                  background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                  boxShadow: `0 12px 40px ${theme.colors.blue}30`,
                 }}
               >
                 Zukunft jetzt starten
@@ -510,7 +511,7 @@ export default function Home() {
             <div 
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background: `linear-gradient(135deg, ${blue} 0%, ${lightBlue} 100%)`,
+                background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
               }}
             >
               <Receipt className="h-4 w-4 text-white" strokeWidth={2} />

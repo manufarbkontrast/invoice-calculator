@@ -1,4 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
+import { theme } from "@/theme";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -150,7 +151,7 @@ export default function Teams() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: theme.colors.bgGradient }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -171,7 +172,7 @@ export default function Teams() {
   const canManageTeam = selectedTeam?.role === "owner" || selectedTeam?.role === "admin";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen" style={{ background: theme.colors.bgGradient }}>
       {/* Header */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}

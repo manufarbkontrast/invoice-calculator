@@ -6,6 +6,7 @@ import { trpc } from "@/lib/trpc";
 import { APP_TITLE } from "@/const";
 import { FileUp, LogOut, Receipt, Calendar, TrendingUp, FolderKanban, Plus, Upload, CloudUpload, Sparkles, Loader2, Search, Moon, Sun, X, Users, BarChart3, Settings, Home, ChevronRight, PanelRightOpen, PanelRightClose } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { theme as appTheme } from "@/theme";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
@@ -319,7 +320,7 @@ export default function Dashboard() {
   }, 0) || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900">
+    <div className="min-h-screen" style={{ background: appTheme.colors.bgGradient }}>
       {/* Sidebar Overlay */}
       <AnimatePresence>
         {sidebarOpen && (

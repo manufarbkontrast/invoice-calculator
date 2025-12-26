@@ -112,8 +112,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center relative">
-            {/* Left Side - Text with 3D Illustration */}
+          <div className="max-w-4xl mx-auto relative">
+            {/* Text with 3D Illustration Background */}
             <motion.div
               variants={container}
               initial="hidden"

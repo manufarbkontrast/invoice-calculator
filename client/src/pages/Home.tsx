@@ -289,6 +289,159 @@ export default function Home() {
                   ))}
                 </motion.div>
               </div>
+
+              {/* Mobile Version - Simplified & Smaller */}
+              <div className="lg:hidden absolute -right-8 -top-8 w-48 h-56 opacity-15 pointer-events-none">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative w-full h-full"
+                >
+                  {/* Main Document - Simplified for Mobile */}
+                  <motion.div
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  >
+                    <div
+                      className="w-32 h-40 bg-white rounded-xl shadow-lg p-3 relative"
+                      style={{
+                        transform: "rotateY(-3deg) rotateX(3deg)",
+                        boxShadow: `0 10px 30px rgba(0,0,0,0.1)`,
+                      }}
+                    >
+                      {/* Document Icon */}
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.7, type: "spring" }}
+                        className="absolute -top-1.5 left-3 w-5 h-5 rounded-md flex items-center justify-center"
+                        style={{
+                          background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                        }}
+                      >
+                        <FileText className="h-3 w-3 text-white" />
+                      </motion.div>
+
+                      {/* Gray Lines */}
+                      <div className="space-y-1 mt-5">
+                        {[1, 2, 3].map((i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ delay: 0.8 + i * 0.1, duration: 0.4 }}
+                            className="h-1 bg-gray-200 rounded"
+                          />
+                        ))}
+                      </div>
+
+                      {/* Blue Data Section */}
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        transition={{ delay: 1.1, duration: 0.5 }}
+                        className="mt-2 p-2 rounded-md"
+                        style={{ backgroundColor: `${theme.colors.blue}15` }}
+                      >
+                        <div className="space-y-1">
+                          {[1, 2, 3].map((i) => (
+                            <div key={i} className="h-0.5 bg-gray-300 rounded" />
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {/* More Gray Lines */}
+                      <div className="space-y-1 mt-2">
+                        {[1, 2].map((i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ delay: 1.3 + i * 0.1, duration: 0.4 }}
+                            className="h-1 bg-gray-200 rounded"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Small Card - Mobile */}
+                  <motion.div
+                    initial={{ x: -20, y: 20, opacity: 0, scale: 0.8 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.5, type: "spring" }}
+                    className="absolute bottom-8 left-4 w-16 h-12 bg-white rounded-lg shadow-md p-1.5"
+                    style={{
+                      transform: "rotateZ(-3deg)",
+                    }}
+                  >
+                    <div className="flex items-center gap-1">
+                      <svg width="20" height="20" viewBox="0 0 40 40" className="flex-shrink-0">
+                        <circle cx="20" cy="20" r="15" fill="#ef4444" />
+                        <path d="M20 5 A15 15 0 0 1 35 20 L20 20 Z" fill="#10b981" />
+                      </svg>
+                      <div className="flex-1 space-y-0.5">
+                        <div className="h-0.5 bg-gray-200 rounded" />
+                        <div className="h-0.5 bg-gray-200 rounded w-2/3" />
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Document Icon - Mobile */}
+                  <motion.div
+                    initial={{ x: -15, y: -15, opacity: 0, scale: 0 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.7, type: "spring" }}
+                    className="absolute top-6 left-6 w-8 h-8 rounded-lg flex items-center justify-center shadow-md"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                    }}
+                  >
+                    <FileText className="h-4 w-4 text-white" />
+                  </motion.div>
+
+                  {/* Bar Chart Icon - Mobile */}
+                  <motion.div
+                    initial={{ x: 15, y: -15, opacity: 0, scale: 0 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.9, type: "spring" }}
+                    className="absolute top-8 right-8 w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-md"
+                  >
+                    <BarChart3 className="h-4 w-4" style={{ color: theme.colors.blue }} />
+                  </motion.div>
+
+                  {/* Floating Balls - Mobile (fewer) */}
+                  {[
+                    { x: "8%", y: "25%", color: theme.colors.lightBlue, delay: 2.1 },
+                    { x: "85%", y: "20%", color: "#f472b6", delay: 2.3 },
+                    { x: "12%", y: "70%", color: "#fb923c", delay: 2.5 },
+                  ].map((ball, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.7, 0.5],
+                      }}
+                      transition={{ 
+                        delay: ball.delay, 
+                        type: "spring",
+                        repeat: Infinity,
+                        duration: 2,
+                      }}
+                      className="absolute w-2 h-2 rounded-full"
+                      style={{
+                        left: ball.x,
+                        top: ball.y,
+                        backgroundColor: ball.color,
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              </div>
             
             <motion.h1 
                 variants={item}

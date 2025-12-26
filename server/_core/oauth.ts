@@ -5,17 +5,20 @@ import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
 
 function getQueryParam(req: Request, key: string): string | undefined {
-  const value = req.query[key];
+  const reqAny = req as any;
+  const value = reqAny.query?.[key];
   return typeof value === "string" ? value : undefined;
 }
 
 export function registerOAuthRoutes(app: Express) {
-  app.get("/api/oauth/callback", async (req: Request, res: Response) => {
+  const appAny = app as any;
+  appAny.get("/api/oauth/callback", async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
 
+    const resAny = res as any;
     if (!code || !state) {
-      res.status(400).json({ error: "code and state are required" });
+      resAny.status(400).json({ error: "code and state are required" });
       return;
     }
 
@@ -24,12 +27,12 @@ export function registerOAuthRoutes(app: Express) {
       const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
 
       if (!userInfo.openId) {
-        res.status(400).json({ error: "openId missing from user info" });
+        resAny.status(400).json({ error: "openId missing from user info" });
         return;
       }
 
       if (!userInfo.email) {
-        res.status(400).json({ error: "email missing from user info" });
+        resAny.status(400).json({ error: "email missing from user info" });
         return;
       }
       
@@ -45,12 +48,12 @@ export function registerOAuthRoutes(app: Express) {
       });
 
       const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      resAny.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
 
-      res.redirect(302, "/");
+      resAny.redirect(302, "/");
     } catch (error) {
       console.error("[OAuth] Callback failed", error);
-      res.status(500).json({ error: "OAuth callback failed" });
+      resAny.status(500).json({ error: "OAuth callback failed" });
     }
   });
 }

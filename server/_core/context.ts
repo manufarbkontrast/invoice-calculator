@@ -15,7 +15,7 @@ export async function createContext(
   let user: User | null = null;
 
   try {
-    const authHeader = opts.req.headers.authorization;
+    const authHeader = (opts.req as any).headers?.authorization;
     
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.substring(7);

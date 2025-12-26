@@ -10,9 +10,10 @@ function isIpAddress(host: string) {
 }
 
 function isSecureRequest(req: Request): boolean {
-  if (req.protocol === "https") return true;
+  const reqAny = req as any;
+  if (reqAny.protocol === "https") return true;
 
-  const forwardedProto = (req.headers as Record<string, string | string[] | undefined>)["x-forwarded-proto"];
+  const forwardedProto = reqAny.headers?.["x-forwarded-proto"];
   if (!forwardedProto) return false;
 
   const protoList = Array.isArray(forwardedProto)

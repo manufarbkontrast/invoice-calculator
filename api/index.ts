@@ -32,12 +32,14 @@ if (fs.existsSync(distPath)) {
   
   // Fall through to index.html for SPA routing
   app.use("*", (_req: express.Request, res: express.Response) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    const resAny = res as any;
+    resAny.sendFile(path.resolve(distPath, "index.html"));
   });
 } else {
   // If dist doesn't exist, return a simple message
   app.use("*", (_req: express.Request, res: express.Response) => {
-    res.status(404).send("Build directory not found. Please run 'npm run build' first.");
+    const resAny = res as any;
+    resAny.status(404).send("Build directory not found. Please run 'npm run build' first.");
   });
 }
 

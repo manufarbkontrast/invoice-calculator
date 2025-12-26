@@ -264,10 +264,8 @@ export default function Home() {
                       <line x1="213" y1="375" x2="227" y2="375" stroke="white" strokeWidth="1" />
                       <line x1="213" y1="380" x2="227" y2="380" stroke="white" strokeWidth="1" />
                     </motion.g>
-                  </svg>
-                </div>
-              </div>
-            </motion.div>
+                    </svg>
+              </motion.div>
           </div>
         </div>
       </section>

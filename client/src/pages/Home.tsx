@@ -540,8 +540,8 @@ export default function Home() {
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
                     </div>
-                        <h3 className="text-base font-semibold mb-2 text-gray-900">{feature.title}</h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">{feature.text}</p>
+                        <h3 className="text-sm sm:text-base font-semibold mb-2 text-gray-900">{feature.title}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{feature.text}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -599,11 +599,11 @@ export default function Home() {
                               ))}
                             </svg>
                           </div>
-                          <p className="text-sm text-gray-600">Klare Zahlen: Immer den Blick.</p>
+                          <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Klare Zahlen: Immer den Blick.</p>
                         </div>
                         <div>
-                          <div className="h-32 mb-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-center">
-                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                          <div className="h-24 sm:h-32 mb-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-center">
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible" style={{ maxWidth: "100%", height: "auto" }}>
                               <motion.polyline
                                 points="10,50 30,40 50,45 70,35 90,30 110,20"
                                 fill="none"
@@ -662,12 +662,12 @@ export default function Home() {
                               />
                             </svg>
                           </div>
-                          <p className="text-sm text-gray-600">Rechtschreibung automatisiert. Immer aktuell.</p>
+                          <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Rechtschreibung automatisiert. Immer aktuell.</p>
                         </div>
                         <div>
-                          <div className="h-32 mb-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center relative">
+                          <div className="h-24 sm:h-32 mb-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center relative">
                             <motion.div
-                              animate={{ 
+                              animate={{
                                 scale: [1, 1.2, 1],
                                 rotate: [0, 5, -5, 0]
                               }}
@@ -677,10 +677,10 @@ export default function Home() {
                                 ease: "easeInOut"
                               }}
                             >
-                              <AlertCircle className="h-12 w-12" style={{ color: "#f97316" }} />
+                              <AlertCircle className="h-8 w-8 sm:h-12 sm:w-12" style={{ color: "#f97316" }} />
                             </motion.div>
                           </div>
-                          <p className="text-sm text-gray-600">Ungewöhnliche Abweichungen? KI schlägt Alarm</p>
+                          <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Ungewöhnliche Abweichungen? KI schlägt Alarm</p>
                         </div>
                       </div>
                     </CardContent>

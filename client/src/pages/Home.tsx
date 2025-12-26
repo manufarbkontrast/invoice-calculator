@@ -452,8 +452,6 @@ export default function Home() {
             
             <motion.h1 
                 variants={item}
-                initial="hidden"
-                animate="show"
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight md:leading-tight lg:leading-tight text-gray-900 relative z-10 px-4 sm:px-0"
             >
                 Rechnungen verwalten.
@@ -465,8 +463,6 @@ export default function Home() {
             
             <motion.p 
                 variants={item}
-                initial="hidden"
-                animate="show"
                 className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed sm:leading-relaxed md:leading-relaxed relative z-10 px-4 sm:px-0 max-w-2xl mx-auto sm:mx-0"
             >
                 Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
@@ -475,8 +471,6 @@ export default function Home() {
 
               <motion.div
                 variants={item}
-                initial="hidden"
-                animate="show"
                 className="relative z-10 px-4 sm:px-0"
               >
                 <motion.div

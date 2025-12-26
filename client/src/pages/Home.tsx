@@ -113,16 +113,69 @@ export default function Home() {
       <section className="pt-32 pb-20 px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Text */}
+            {/* Left Side - Text with Falling Documents */}
             <motion.div
               variants={container}
               initial="hidden"
               animate="show"
-              className="space-y-6"
+              className="space-y-6 relative"
             >
+              {/* Falling Documents Animation */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <svg className="w-full h-full" viewBox="0 0 400 600" fill="none" style={{ position: 'absolute', top: 0, left: 0 }}>
+                  {[
+                    { x: 50, delay: 0, type: "pdf" },
+                    { x: 120, delay: 0.5, type: "doc" },
+                    { x: 200, delay: 1, type: "sheet" },
+                    { x: 280, delay: 1.5, type: "pdf" },
+                    { x: 350, delay: 2, type: "doc" },
+                  ].map((doc, i) => (
+                    <motion.g
+                      key={i}
+                      initial={{ y: -100, opacity: 0, rotate: 0 }}
+                      animate={{
+                        y: [0, 700],
+                        opacity: [0, 1, 1, 0],
+                        rotate: [0, Math.random() * 20 - 10],
+                      }}
+                      transition={{
+                        duration: 3 + i * 0.3,
+                        repeat: Infinity,
+                        delay: doc.delay,
+                        ease: "easeIn"
+                      }}
+                    >
+                      {doc.type === "pdf" && (
+                        <>
+                          <rect x={doc.x} y="0" width="40" height="55" rx="3" fill="#dc2626" opacity="0.7" />
+                          <text x={doc.x + 12} y="20" fill="white" fontSize="8" fontFamily="monospace" fontWeight="bold">PDF</text>
+                          <line x1={doc.x + 8} y1="30" x2={doc.x + 32} y2="30" stroke="white" strokeWidth="0.8" />
+                          <line x1={doc.x + 8} y1="38" x2={doc.x + 32} y2="38" stroke="white" strokeWidth="0.8" />
+                        </>
+                      )}
+                      {doc.type === "doc" && (
+                        <>
+                          <rect x={doc.x} y="0" width="40" height="55" rx="3" fill="#3b82f6" opacity="0.7" />
+                          <text x={doc.x + 10} y="20" fill="white" fontSize="8" fontFamily="monospace">DOC</text>
+                          <line x1={doc.x + 8} y1="30" x2={doc.x + 32} y2="30" stroke="white" strokeWidth="0.8" />
+                        </>
+                      )}
+                      {doc.type === "sheet" && (
+                        <>
+                          <rect x={doc.x} y="0" width="40" height="55" rx="3" fill="#10b981" opacity="0.7" />
+                          <text x={doc.x + 8} y="20" fill="white" fontSize="8" fontFamily="monospace">XLS</text>
+                          <line x1={doc.x + 8} y1="30" x2={doc.x + 32} y2="30" stroke="white" strokeWidth="0.8" />
+                          <line x1={doc.x + 8} y1="38" x2={doc.x + 28} y2="38" stroke="white" strokeWidth="0.8" />
+                        </>
+                      )}
+                    </motion.g>
+                  ))}
+                </svg>
+              </div>
+
               <motion.h1
                 variants={item}
-                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900"
+                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900 relative z-10"
               >
                 Rechnungen verwalten.
                 <br />
@@ -133,7 +186,7 @@ export default function Home() {
 
               <motion.p
                 variants={item}
-                className="text-lg md:text-xl text-gray-600 leading-relaxed"
+                className="text-lg md:text-xl text-gray-600 leading-relaxed relative z-10"
               >
                 Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
                 Sparen Sie Zeit und behalten Sie den Überblick.
@@ -141,6 +194,7 @@ export default function Home() {
 
               <motion.div
                 variants={item}
+                className="relative z-10"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}

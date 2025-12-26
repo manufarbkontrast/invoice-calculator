@@ -110,9 +110,9 @@ export default function Home() {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 relative z-10">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
-          <div className="max-w-4xl mx-auto relative">
+          <div className="max-w-4xl mx-auto relative text-center sm:text-left">
             {/* Text with 3D Illustration Background */}
             <motion.div
               variants={container}
@@ -445,18 +445,18 @@ export default function Home() {
             
             <motion.h1 
                 variants={item}
-                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900 relative z-10"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight md:leading-tight lg:leading-tight text-gray-900 relative z-10 px-4 sm:px-0"
             >
                 Rechnungen verwalten.
                 <br />
                 <span className="text-blue-600">KI-gestützt.</span>
-              <br />
+                <br />
                 <span className="text-gray-700">Mühelos.</span>
             </motion.h1>
             
             <motion.p 
                 variants={item}
-                className="text-lg md:text-xl text-gray-600 leading-relaxed relative z-10"
+                className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed sm:leading-relaxed md:leading-relaxed relative z-10 px-4 sm:px-0 max-w-2xl mx-auto sm:mx-0"
             >
                 Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
                 Sparen Sie Zeit und behalten Sie den Überblick.
@@ -508,7 +508,7 @@ export default function Home() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: "-50px" }}
-                className="grid grid-cols-2 gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               >
                 {[
                   { icon: TrendingUp, title: "Datenautomatisierung", text: "Reibungslose Verarbeitung aller Rechnungen ohne manuellen Aufwand." },
@@ -572,8 +572,8 @@ export default function Home() {
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <div className="h-32 mb-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
-                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                                 <div className="h-24 sm:h-32 mb-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
+                                   <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible" style={{ maxWidth: "100%", height: "auto" }}>
                               <motion.polyline
                                 points="10,60 30,45 50,50 70,30 90,40 110,25"
                                 fill="none"

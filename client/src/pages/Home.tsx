@@ -112,7 +112,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-3xl mx-auto text-center">
             {/* Left Side - Text */}
             <motion.div
               variants={container}
@@ -161,104 +161,6 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Right Side - 3D Funnel Visual */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative h-96 flex items-center justify-center overflow-hidden"
-            >
-              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
-                    {/* Funnel */}
-                    <motion.path
-                      d="M200 50 L350 200 L300 350 L100 350 L50 200 Z"
-                      fill="url(#funnelGradient)"
-                      opacity="0.4"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 1.5 }}
-                    />
-                    <defs>
-                      <linearGradient id="funnelGradient" x1="200" y1="50" x2="200" y2="350">
-                        <stop offset="0%" stopColor={blue} />
-                        <stop offset="100%" stopColor={darkBlue} />
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Falling Documents */}
-                    {[
-                      { x: 150, delay: 0, type: "pdf" },
-                      { x: 200, delay: 0.5, type: "doc" },
-                      { x: 250, delay: 1, type: "sheet" },
-                    ].map((doc, i) => (
-                      <motion.g
-                        key={i}
-                        initial={{ y: -100, opacity: 0, rotate: 0 }}
-                        animate={{
-                          y: [0, 400],
-                          opacity: [0, 1, 1, 0],
-                          rotate: [0, Math.random() * 20 - 10],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          delay: doc.delay,
-                          ease: "easeIn"
-                        }}
-                      >
-                        {doc.type === "pdf" && (
-                          <>
-                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#dc2626" />
-                            <text x={doc.x + 15} y="75" fill="white" fontSize="10" fontFamily="monospace" fontWeight="bold">PDF</text>
-                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
-                            <line x1={doc.x + 10} y1="100" x2={doc.x + 40} y2="100" stroke="white" strokeWidth="1" />
-                          </>
-                        )}
-                        {doc.type === "doc" && (
-                          <>
-                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#3b82f6" />
-                            <text x={doc.x + 10} y="75" fill="white" fontSize="10" fontFamily="monospace">DOC</text>
-                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
-                          </>
-                        )}
-                        {doc.type === "sheet" && (
-                          <>
-                            <rect x={doc.x} y="50" width="50" height="70" rx="4" fill="#10b981" />
-                            <text x={doc.x + 5} y="75" fill="white" fontSize="10" fontFamily="monospace">XLS</text>
-                            <line x1={doc.x + 10} y1="90" x2={doc.x + 40} y2="90" stroke="white" strokeWidth="1" />
-                            <line x1={doc.x + 10} y1="100" x2={doc.x + 30} y2="100" stroke="white" strokeWidth="1" />
-                          </>
-                        )}
-                      </motion.g>
-                    ))}
-
-                    {/* Glow Effect Below Funnel */}
-                    <motion.g
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ 
-                        opacity: [0.3, 0.6, 0.3],
-                        scale: [0.8, 1.2, 0.8]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      <circle cx="200" cy="380" r="40" fill={theme.colors.blue} opacity="0.2" />
-                      <circle cx="200" cy="380" r="30" fill={theme.colors.blue} opacity="0.3" />
-                      <circle cx="200" cy="380" r="20" fill={theme.colors.blue} opacity="0.4" />
-                      
-                      {/* X= Icon */}
-                      <text x="185" y="385" fill={theme.colors.blue} fontSize="16" fontFamily="monospace" fontWeight="bold">X=</text>
-                      
-                      {/* Spreadsheet Icon */}
-                      <rect x="210" y="370" width="20" height="20" rx="2" fill="#10b981" />
-                      <line x1="213" y1="375" x2="227" y2="375" stroke="white" strokeWidth="1" />
-                      <line x1="213" y1="380" x2="227" y2="380" stroke="white" strokeWidth="1" />
-                    </motion.g>
-                    </svg>
-              </motion.div>
           </div>
         </div>
       </section>

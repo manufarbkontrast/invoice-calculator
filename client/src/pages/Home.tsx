@@ -113,16 +113,185 @@ export default function Home() {
       <section className="pt-32 pb-20 px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center relative">
-            {/* Left Side - Text */}
+            {/* Left Side - Text with 3D Illustration */}
             <motion.div
               variants={container}
               initial="hidden"
               animate="show"
-              className="space-y-6"
+              className="space-y-6 relative"
             >
+              {/* 3D Document Illustration - Background */}
+              <div className="absolute -right-20 -top-20 w-80 h-96 opacity-20 pointer-events-none">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+                  className="relative w-full h-full"
+                  style={{ perspective: "1000px" }}
+                >
+                  {/* Background - Diagonal Split */}
+                  <motion.div
+                    initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+                    animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                    transition={{ duration: 1.2, delay: 0.5 }}
+                    className="absolute inset-0 rounded-3xl overflow-hidden"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.white} 0%, ${theme.colors.white} 45%, ${theme.colors.blue} 45%, ${theme.colors.blue} 100%)`,
+                    }}
+                  />
+
+                  {/* Main Document - Center */}
+                  <motion.div
+                    initial={{ y: 50, opacity: 0, rotateX: -20 }}
+                    animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                    transition={{ duration: 1, delay: 0.8, type: "spring", stiffness: 100 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <div
+                      className="w-48 h-60 bg-white rounded-2xl shadow-2xl p-4 relative"
+                      style={{
+                        transform: "rotateY(-5deg) rotateX(5deg)",
+                        boxShadow: `0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)`,
+                      }}
+                    >
+                      {/* Document Icon on Top */}
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1, type: "spring" }}
+                        className="absolute -top-2 left-4 w-6 h-6 rounded-lg flex items-center justify-center"
+                        style={{
+                          background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                        }}
+                      >
+                        <FileText className="h-4 w-4 text-white" />
+                      </motion.div>
+
+                      {/* Gray Lines */}
+                      <div className="space-y-1.5 mt-6">
+                        {[1, 2, 3].map((i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ delay: 1.1 + i * 0.1, duration: 0.5 }}
+                            className="h-1.5 bg-gray-200 rounded"
+                          />
+                        ))}
+                      </div>
+
+                      {/* Blue Data Section */}
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        transition={{ delay: 1.4, duration: 0.6 }}
+                        className="mt-3 p-3 rounded-lg"
+                        style={{ backgroundColor: `${theme.colors.blue}15` }}
+                      >
+                        <div className="space-y-1.5">
+                          {[1, 2, 3, 4].map((i) => (
+                            <div key={i} className="h-1 bg-gray-300 rounded" />
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {/* More Gray Lines */}
+                      <div className="space-y-1.5 mt-3">
+                        {[1, 2, 3].map((i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ delay: 1.6 + i * 0.1, duration: 0.5 }}
+                            className="h-1.5 bg-gray-200 rounded"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Small Card - Bottom Left */}
+                  <motion.div
+                    initial={{ x: -50, y: 50, opacity: 0, scale: 0.8 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.8, type: "spring", stiffness: 150 }}
+                    className="absolute bottom-16 left-6 w-24 h-18 bg-white rounded-xl shadow-lg p-2"
+                    style={{
+                      transform: "rotateZ(-5deg)",
+                      boxShadow: `0 10px 30px rgba(0,0,0,0.1)`,
+                    }}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <svg width="30" height="30" viewBox="0 0 40 40" className="flex-shrink-0">
+                        <circle cx="20" cy="20" r="15" fill="#ef4444" />
+                        <path d="M20 5 A15 15 0 0 1 35 20 L20 20 Z" fill="#10b981" />
+                      </svg>
+                      <div className="flex-1 space-y-1">
+                        <div className="h-1 bg-gray-200 rounded" />
+                        <div className="h-1 bg-gray-200 rounded w-3/4" />
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Document Icon - Top Left */}
+                  <motion.div
+                    initial={{ x: -30, y: -30, opacity: 0, scale: 0 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 2, type: "spring" }}
+                    className="absolute top-12 left-8 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                      boxShadow: theme.shadows.md,
+                    }}
+                  >
+                    <FileText className="h-5 w-5 text-white" />
+                  </motion.div>
+
+                  {/* Bar Chart Icon - Top Right */}
+                  <motion.div
+                    initial={{ x: 30, y: -30, opacity: 0, scale: 0 }}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: 2.2, type: "spring" }}
+                    className="absolute top-16 right-12 w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg"
+                    style={{ boxShadow: theme.shadows.md }}
+                  >
+                    <BarChart3 className="h-5 w-5" style={{ color: theme.colors.blue }} />
+                  </motion.div>
+
+                  {/* Floating Balls */}
+                  {[
+                    { x: "10%", y: "30%", color: theme.colors.lightBlue, delay: 2.4 },
+                    { x: "85%", y: "25%", color: "#f472b6", delay: 2.6 },
+                    { x: "15%", y: "70%", color: "#fb923c", delay: 2.8 },
+                  ].map((ball, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.6, 0.8, 0.6],
+                      }}
+                      transition={{ 
+                        delay: ball.delay, 
+                        type: "spring",
+                        repeat: Infinity,
+                        duration: 2,
+                      }}
+                      className="absolute w-2.5 h-2.5 rounded-full"
+                      style={{
+                        left: ball.x,
+                        top: ball.y,
+                        backgroundColor: ball.color,
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              </div>
+
               <motion.h1
                 variants={item}
-                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900"
+                className="text-5xl md:text-6xl font-bold leading-tight text-gray-900 relative z-10"
               >
                 Rechnungen verwalten.
                 <br />
@@ -133,7 +302,7 @@ export default function Home() {
 
               <motion.p
                 variants={item}
-                className="text-lg md:text-xl text-gray-600 leading-relaxed"
+                className="text-lg md:text-xl text-gray-600 leading-relaxed relative z-10"
               >
                 Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
                 Sparen Sie Zeit und behalten Sie den Überblick.
@@ -141,6 +310,7 @@ export default function Home() {
 
               <motion.div
                 variants={item}
+                className="relative z-10"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}

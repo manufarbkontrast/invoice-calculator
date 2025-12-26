@@ -43,6 +43,16 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-// Export as Vercel serverless function
-export default app;
+// Export as Vercel serverless function handler
+export default async function handler(req: any, res: any) {
+  return new Promise<void>((resolve, reject) => {
+    app(req, res, (err?: any) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
 

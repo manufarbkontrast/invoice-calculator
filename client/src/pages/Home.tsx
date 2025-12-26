@@ -629,7 +629,7 @@ export default function Home() {
                               ))}
                             </svg>
                           </div>
-                          <p className="text-sm text-gray-600">Zuverlässige Prognosen. Treffende Entscheidungen.</p>
+                          <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Zuverlässige Prognosen. Treffende Entscheidungen.</p>
                         </div>
                       </div>
                     </CardContent>
@@ -647,9 +647,9 @@ export default function Home() {
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <div className="h-32 mb-3 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center relative">
-                            <FileText className="h-12 w-12 absolute" style={{ color: "#10b981" }} />
-                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                          <div className="h-24 sm:h-32 mb-3 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center relative">
+                            <FileText className="h-8 w-8 sm:h-12 sm:w-12 absolute" style={{ color: "#10b981" }} />
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible" style={{ maxWidth: "100%", height: "auto" }}>
                               <motion.polyline
                                 points="10,40 30,35 50,30 70,25 90,20 110,15"
                                 fill="none"

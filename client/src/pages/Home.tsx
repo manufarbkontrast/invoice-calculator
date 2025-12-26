@@ -166,16 +166,9 @@ export default function Home() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="relative"
+              className="relative h-96 flex items-center justify-center overflow-hidden"
             >
-              <div 
-                className="rounded-2xl p-8 bg-white/60 backdrop-blur-sm border border-blue-100 shadow-xl"
-                style={{
-                  boxShadow: `0 20px 60px ${theme.colors.blue}20`,
-                }}
-              >
-                <div className="relative h-96 flex items-center justify-center overflow-hidden">
-                  <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                     {/* Funnel */}
                     <motion.path
                       d="M200 50 L350 200 L300 350 L100 350 L50 200 Z"

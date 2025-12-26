@@ -21,7 +21,8 @@ export async function createContext(
       const token = authHeader.substring(7);
       
       // Verify the JWT token with Supabase
-      const { data: { user: supabaseUser }, error } = await supabaseAdmin.auth.getUser(token);
+      const supabaseAuth = supabaseAdmin.auth as any;
+      const { data: { user: supabaseUser }, error } = await supabaseAuth.getUser(token);
       
       if (error || !supabaseUser) {
         return { req: opts.req, res: opts.res, user: null };

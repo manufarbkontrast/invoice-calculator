@@ -724,7 +724,7 @@ export default function Dashboard() {
               <DialogTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="w-full h-12 border-2 border-black/20 hover:bg-black hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                  className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
                 >
                   <Plus className="h-4 w-4" />
                   Projekt hinzufügen
@@ -940,24 +940,21 @@ export default function Dashboard() {
                           <div className="flex items-center gap-6">
                             <div 
                               className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors"
-                              style={{
-                                backgroundColor: 'transparent',
-                              }}
                             >
-                              <Calendar className="h-8 w-8" />
+                              <Calendar className="h-8 w-8" style={{ color: appTheme.colors.blue }} />
                             </div>
                             <div>
-                              <h3 className="text-2xl font-medium text-black group-hover:translate-x-2 transition-transform">
+                              <h3 className="text-2xl font-medium text-gray-900 group-hover:translate-x-2 transition-transform">
                                 {monthName}
                               </h3>
-                              <p className="text-lg text-black/50 mt-1">
+                              <p className="text-lg text-gray-600 mt-1">
                                 {monthInvoices.length} Rechnung{monthInvoices.length !== 1 ? 'en' : ''}
                               </p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm text-black/40 mb-1">Gesamt</p>
-                            <p className="text-3xl font-medium text-black">
+                            <p className="text-sm text-gray-500 mb-1">Gesamt</p>
+                            <p className="text-3xl font-medium text-gray-900">
                               €{(totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                             </p>
                           </div>

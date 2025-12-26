@@ -557,51 +557,51 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid md:grid-cols-3 gap-6 mb-12"
+          className="grid md:grid-cols-3 gap-4 mb-8"
         >
           <Card 
-            className="border-0 text-white rounded-3xl overflow-hidden"
+            className="border-0 text-white rounded-xl overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${appTheme.colors.blue} 0%, ${appTheme.colors.lightBlue} 100%)`,
-              boxShadow: appTheme.shadows.lg,
+              boxShadow: appTheme.shadows.sm,
             }}
           >
-            <CardContent className="p-8">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-lg mb-2">Gesamtausgaben</p>
-                  <p className="text-5xl font-light">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-white/80 text-xs mb-1">Gesamtausgaben</p>
+                  <p className="text-2xl font-medium">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-white" />
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="h-5 w-5 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-8">
+          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-lg mb-2">Rechnungen</p>
-                  <p className="text-5xl font-light text-gray-900">{totalInvoices}</p>
+                  <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
+                  <p className="text-2xl font-medium text-gray-900">{totalInvoices}</p>
                 </div>
-                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
-                  <Receipt className="h-8 w-8" style={{ color: appTheme.colors.blue }} />
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                  <Receipt className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-8">
+          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-lg mb-2">Projekte</p>
-                  <p className="text-5xl font-light text-gray-900">{projects?.length || 0}</p>
+                  <p className="text-gray-600 text-xs mb-1">Projekte</p>
+                  <p className="text-2xl font-medium text-gray-900">{projects?.length || 0}</p>
                 </div>
-                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
-                  <FolderKanban className="h-8 w-8" style={{ color: appTheme.colors.blue }} />
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                  <FolderKanban className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
                 </div>
               </div>
             </CardContent>

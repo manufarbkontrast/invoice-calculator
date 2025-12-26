@@ -121,7 +121,8 @@ export default function Home() {
               className="space-y-6 relative"
             >
               {/* 3D Document Illustration - Background */}
-              <div className="absolute -right-20 -top-20 w-80 h-96 opacity-20 pointer-events-none">
+              {/* Desktop Version */}
+              <div className="hidden lg:block absolute -right-20 -top-20 w-80 h-96 opacity-20 pointer-events-none">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
                   animate={{ opacity: 1, scale: 1, rotateY: 0 }}

@@ -249,7 +249,7 @@ export default function Home() {
                   </motion.div>
 
                   {/* Bar Chart Icon - Top Right */}
-                  <motion.div
+          <motion.div 
                     initial={{ x: 30, y: -30, opacity: 0, scale: 0 }}
                     animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
                     transition={{ delay: 2.2, type: "spring" }}
@@ -257,7 +257,7 @@ export default function Home() {
                     style={{ boxShadow: theme.shadows.md }}
                   >
                     <BarChart3 className="h-5 w-5" style={{ color: theme.colors.blue }} />
-                  </motion.div>
+            </motion.div>
 
                   {/* Floating Balls */}
                   {[
@@ -288,25 +288,25 @@ export default function Home() {
                   ))}
                 </motion.div>
               </div>
-
-              <motion.h1
+            
+            <motion.h1 
                 variants={item}
                 className="text-5xl md:text-6xl font-bold leading-tight text-gray-900 relative z-10"
-              >
+            >
                 Rechnungen verwalten.
                 <br />
                 <span className="text-blue-600">KI-gestützt.</span>
-                <br />
+              <br />
                 <span className="text-gray-700">Mühelos.</span>
-              </motion.h1>
-
-              <motion.p
+            </motion.h1>
+            
+            <motion.p 
                 variants={item}
                 className="text-lg md:text-xl text-gray-600 leading-relaxed relative z-10"
-              >
+            >
                 Automatische Rechnungsverarbeitung mit künstlicher Intelligenz. 
                 Sparen Sie Zeit und behalten Sie den Überblick.
-              </motion.p>
+            </motion.p>
 
               <motion.div
                 variants={item}
@@ -316,9 +316,9 @@ export default function Home() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button 
-                    onClick={() => setLocation("/auth")}
-                    size="lg" 
+              <Button 
+                onClick={() => setLocation("/auth")}
+                size="lg" 
                     className="rounded-lg px-8 h-14 text-base font-semibold text-white shadow-lg"
                     style={{
                       background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
@@ -326,201 +326,9 @@ export default function Home() {
                     }}
                   >
                     Jetzt KI erleben
-                  </Button>
-                </motion.div>
-              </motion.div>
+              </Button>
             </motion.div>
-
-            {/* Right Side - 3D Document Illustration */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative h-[500px] flex items-center justify-center"
-              style={{ perspective: "1000px" }}
-            >
-              <div className="relative w-full h-full max-w-md">
-                {/* Background - Diagonal Split */}
-                <motion.div
-                  initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
-                  animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-                  transition={{ duration: 1.2, delay: 0.3 }}
-                  className="absolute inset-0 rounded-3xl overflow-hidden"
-                  style={{
-                    background: `linear-gradient(135deg, ${theme.colors.white} 0%, ${theme.colors.white} 45%, ${theme.colors.blue} 45%, ${theme.colors.blue} 100%)`,
-                  }}
-                />
-
-                {/* Wavy Blue Line */}
-                <motion.svg
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.5, delay: 0.5 }}
-                  className="absolute inset-0 w-full h-full"
-                  viewBox="0 0 400 400"
-                  fill="none"
-                >
-                  <motion.path
-                    d="M0 200 Q100 150 200 200 T400 200"
-                    stroke={theme.colors.blue}
-                    strokeWidth="3"
-                    fill="none"
-                    opacity="0.3"
-                  />
-                </motion.svg>
-
-                {/* Main Document - Center */}
-                <motion.div
-                  initial={{ y: 50, opacity: 0, rotateX: -20 }}
-                  animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                  transition={{ duration: 1, delay: 0.6, type: "spring", stiffness: 100 }}
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <div
-                    className="w-64 h-80 bg-white rounded-2xl shadow-2xl p-6 relative"
-                    style={{
-                      transform: "rotateY(-5deg) rotateX(5deg)",
-                      boxShadow: `0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)`,
-                    }}
-                  >
-                    {/* Document Icon on Top */}
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.8, type: "spring" }}
-                      className="absolute -top-3 left-6 w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{
-                        background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
-                      }}
-                    >
-                      <FileText className="h-5 w-5 text-white" />
-                    </motion.div>
-
-                    {/* Gray Lines (Text Simulation) */}
-                    <div className="space-y-2 mt-8">
-                      {[1, 2, 3].map((i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ width: 0 }}
-                          animate={{ width: "100%" }}
-                          transition={{ delay: 0.9 + i * 0.1, duration: 0.5 }}
-                          className="h-2 bg-gray-200 rounded"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Blue Data Section */}
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      transition={{ delay: 1.2, duration: 0.6 }}
-                      className="mt-4 p-4 rounded-lg"
-                      style={{ backgroundColor: `${theme.colors.blue}15` }}
-                    >
-                      <div className="space-y-2">
-                        {[1, 2, 3, 4].map((i) => (
-                          <div key={i} className="h-1.5 bg-gray-300 rounded" />
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    {/* More Gray Lines Below */}
-                    <div className="space-y-2 mt-4">
-                      {[1, 2, 3].map((i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ width: 0 }}
-                          animate={{ width: "100%" }}
-                          transition={{ delay: 1.4 + i * 0.1, duration: 0.5 }}
-                          className="h-2 bg-gray-200 rounded"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Small Card - Bottom Left */}
-                <motion.div
-                  initial={{ x: -50, y: 50, opacity: 0, scale: 0.8 }}
-                  animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6, type: "spring", stiffness: 150 }}
-                  className="absolute bottom-20 left-8 w-32 h-24 bg-white rounded-xl shadow-lg p-3"
-                  style={{
-                    transform: "rotateZ(-5deg)",
-                    boxShadow: `0 10px 30px rgba(0,0,0,0.1)`,
-                  }}
-                >
-                  {/* Pie Chart */}
-                  <div className="flex items-center gap-2">
-                    <svg width="40" height="40" viewBox="0 0 40 40" className="flex-shrink-0">
-                      <circle cx="20" cy="20" r="15" fill="#ef4444" />
-                      <path
-                        d="M20 5 A15 15 0 0 1 35 20 L20 20 Z"
-                        fill="#10b981"
-                      />
-                    </svg>
-                    <div className="flex-1 space-y-1">
-                      <div className="h-1.5 bg-gray-200 rounded" />
-                      <div className="h-1.5 bg-gray-200 rounded w-3/4" />
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Document Icon - Top Left */}
-                <motion.div
-                  initial={{ x: -30, y: -30, opacity: 0, scale: 0 }}
-                  animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.8, type: "spring" }}
-                  className="absolute top-16 left-12 w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
-                  style={{
-                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
-                    boxShadow: theme.shadows.md,
-                  }}
-                >
-                  <FileText className="h-6 w-6 text-white" />
-                </motion.div>
-
-                {/* Bar Chart Icon - Top Right */}
-                <motion.div
-                  initial={{ x: 30, y: -30, opacity: 0, scale: 0 }}
-                  animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  transition={{ delay: 2, type: "spring" }}
-                  className="absolute top-20 right-16 w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg"
-                  style={{ boxShadow: theme.shadows.md }}
-                >
-                  <BarChart3 className="h-6 w-6" style={{ color: theme.colors.blue }} />
-                </motion.div>
-
-                {/* Floating Balls */}
-                {[
-                  { x: "10%", y: "30%", color: theme.colors.lightBlue, delay: 2.2 },
-                  { x: "85%", y: "25%", color: "#f472b6", delay: 2.4 },
-                  { x: "15%", y: "70%", color: "#fb923c", delay: 2.6 },
-                  { x: "80%", y: "75%", color: theme.colors.blue, delay: 2.8 },
-                ].map((ball, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.6, 0.8, 0.6],
-                    }}
-                    transition={{ 
-                      delay: ball.delay, 
-                      type: "spring",
-                      repeat: Infinity,
-                      duration: 2,
-                    }}
-                    className="absolute w-3 h-3 rounded-full"
-                    style={{
-                      left: ball.x,
-                      top: ball.y,
-                      backgroundColor: ball.color,
-                    }}
-                  />
-                ))}
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -533,15 +341,15 @@ export default function Home() {
             {/* Left Side - Feature Cards */}
             <div>
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
                 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900"
-              >
-                Alles was Sie brauchen
+          >
+              Alles was Sie brauchen
               </motion.h2>
 
-              <motion.div
+          <motion.div 
                 variants={container}
                 initial="hidden"
                 whileInView="show"
@@ -555,7 +363,7 @@ export default function Home() {
                   { icon: Sparkles, title: "Strukturierte Kalkulationen", text: "Klar strukturierte Auswertungen, die überzeugen und Zeit sparen." },
                   { icon: FileText, title: "Risikofreie Übersicht", text: "Vollständige Transparenz über alle Ausgaben und Rechnungen." },
                   { icon: Shield, title: "Sichere Datenverarbeitung", text: "Ihre Daten sind sicher verschlüsselt und geschützt." },
-                ].map((feature, index) => (
+            ].map((feature, index) => (
                   <motion.div
                     key={index}
                     variants={item}
@@ -577,14 +385,14 @@ export default function Home() {
                           }}
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
-                        </div>
+                    </div>
                         <h3 className="text-base font-semibold mb-2 text-gray-900">{feature.title}</h3>
                         <p className="text-sm text-gray-600 leading-relaxed">{feature.text}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                  </CardContent>
+                </Card>
               </motion.div>
+            ))}
+          </motion.div>
             </div>
 
             {/* Right Side - Next-Gen KI-Modules */}
@@ -733,7 +541,7 @@ export default function Home() {
       {/* Bottom CTA */}
       <section className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-3xl text-center">
-          <motion.div
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

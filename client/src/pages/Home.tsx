@@ -19,8 +19,8 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
     }
   }
 };
@@ -28,19 +28,19 @@ const container = {
 const item = {
   hidden: { 
     opacity: 0, 
-    y: 50,
-    scale: 0.85
+    y: 60,
+    scale: 0.9
   },
   show: { 
     opacity: 1, 
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.9,
+      duration: 0.8,
       ease: [0.16, 1, 0.3, 1],
       type: "spring",
-      stiffness: 80,
-      damping: 12
+      stiffness: 100,
+      damping: 15
     }
   }
 };

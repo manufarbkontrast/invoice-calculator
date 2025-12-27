@@ -327,7 +327,10 @@ export default function Dashboard() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSidebarOpen(false)}
-            className="fixed inset-0 bg-black/20 z-40 backdrop-blur-sm"
+            className="fixed inset-0 z-40 backdrop-blur-sm"
+            style={{
+              backgroundColor: `${appTheme.colors.blue}15`,
+            }}
           />
         )}
       </AnimatePresence>

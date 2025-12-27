@@ -39,6 +39,11 @@ import {
   Check,
   Mail,
   Loader2,
+  PanelRightOpen,
+  X,
+  Home,
+  BarChart3,
+  FolderKanban,
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
@@ -82,6 +87,7 @@ export default function Teams() {
   const [inviteRole, setInviteRole] = useState<"admin" | "member" | "viewer">("member");
   const [selectedTeamId, setSelectedTeamId] = useState<number | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: teams, refetch: refetchTeams } = trpc.teams.list.useQuery(undefined, {
     enabled: isAuthenticated,

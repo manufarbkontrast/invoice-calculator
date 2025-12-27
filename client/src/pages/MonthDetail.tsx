@@ -80,6 +80,7 @@ export default function MonthDetail() {
     amountMax: "",
     currency: "",
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: projects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,

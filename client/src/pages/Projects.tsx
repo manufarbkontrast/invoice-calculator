@@ -45,6 +45,12 @@ import {
   Download,
   Loader2,
   FolderArchive,
+  PanelRightOpen,
+  X,
+  Home,
+  BarChart3,
+  Users,
+  User,
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
@@ -78,6 +84,7 @@ export default function Projects() {
   const [sortBy, setSortBy] = useState<string>("name-asc");
   const [editingColorProjectId, setEditingColorProjectId] = useState<number | null>(null);
   const [editingColor, setEditingColor] = useState("#000000");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: projects, refetch: refetchProjects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,

@@ -64,9 +64,9 @@ export default function ExportHistoryPage() {
 
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-6 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-6xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 flex items-center gap-3">
             <History className="h-8 w-8" />
             Export-Historie
           </h1>
@@ -88,8 +88,8 @@ export default function ExportHistoryPage() {
             {exports.map((exportItem) => (
               <Card key={exportItem.id}>
                 <CardContent className="p-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4 flex-1">
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                    <div className="flex items-start gap-4 flex-1 w-full sm:w-auto">
                       <div className="p-3 bg-blue-50 rounded-lg">
                         {getExportIcon(exportItem.exportType)}
                       </div>

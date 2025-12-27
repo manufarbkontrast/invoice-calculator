@@ -4,8 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { APP_TITLE } from "@/const";
-import { FileUp, LogOut, Receipt, Calendar, TrendingUp, FolderKanban, Plus, Upload, CloudUpload, Sparkles, Loader2, Search, Moon, Sun, X, Users, BarChart3, Settings, Home, ChevronRight, PanelRightOpen, PanelRightClose } from "lucide-react";
-import { useTheme } from "@/contexts/ThemeContext";
+import { FileUp, LogOut, Receipt, Calendar, TrendingUp, FolderKanban, Plus, Upload, CloudUpload, Sparkles, Loader2, Search, X, Users, BarChart3, Settings, Home, ChevronRight, PanelRightOpen, PanelRightClose } from "lucide-react";
 import { theme as appTheme } from "@/theme";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
@@ -56,7 +55,6 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
   
   const { data: invoices, refetch } = trpc.invoices.list.useQuery(undefined, {
     enabled: isAuthenticated,
@@ -408,23 +406,6 @@ export default function Dashboard() {
                 <span>Teams</span>
               </button>
 
-              <div className="pt-4 mt-4 border-t border-blue-100">
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-3 mb-3">Einstellungen</p>
-                
-                {toggleTheme && (
-                  <button
-                    onClick={toggleTheme}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-                  >
-                    {theme === "dark" ? (
-                      <Sun className="h-5 w-5" />
-                    ) : (
-                      <Moon className="h-5 w-5" />
-                    )}
-                    <span>{theme === "dark" ? "Hellmodus" : "Dunkelmodus"}</span>
-                  </button>
-                )}
-              </div>
             </nav>
 
             {/* User Info */}

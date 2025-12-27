@@ -157,8 +157,8 @@ export default function Teams() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-          <span className="text-xl text-black/50">Lädt...</span>
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
     );
@@ -177,25 +177,31 @@ export default function Teams() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5"
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center">
+            <div 
+              className="w-12 h-12 rounded-2xl flex items-center justify-center"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                boxShadow: theme.shadows.md,
+              }}
+            >
               <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <h1 className="text-2xl font-medium tracking-tight text-black">{APP_TITLE}</h1>
-              <p className="text-sm text-black/40">Rechnungsverwaltung</p>
+              <h1 className="text-xl sm:text-2xl font-medium tracking-tight text-gray-900">{APP_TITLE}</h1>
+              <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-base text-black/60">{user?.email}</span>
+            <span className="text-sm sm:text-base text-gray-600 hidden sm:inline">{user?.email}</span>
             <Button 
               variant="outline" 
               size="lg"
               onClick={logout}
-              className="border-black/20 text-black hover:bg-black hover:text-white transition-all duration-300 rounded-xl px-6"
+              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
               <LogOut className="h-5 w-5 mr-2" />
               Abmelden
@@ -204,7 +210,7 @@ export default function Teams() {
         </div>
       </motion.header>
 
-      <div className="container mx-auto px-6 py-12 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-7xl">
         {/* Back Button & Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -216,17 +222,17 @@ export default function Teams() {
               variant="outline" 
               size="lg"
               onClick={() => setLocation("/dashboard")} 
-              className="border-black/20 text-black hover:bg-black hover:text-white transition-all rounded-xl"
+              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-sm sm:text-base px-4 sm:px-6"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Zurück
             </Button>
             <div>
-              <h2 className="text-4xl font-light text-black flex items-center gap-3">
-                <Users className="h-10 w-10" strokeWidth={1.5} />
+              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 flex items-center gap-3">
+                <Users className="h-8 w-8 sm:h-10 sm:w-10" style={{ color: theme.colors.blue }} strokeWidth={1.5} />
                 Teams
               </h2>
-              <p className="text-lg text-black/50 mt-1">Verwalten Sie Ihre Teams</p>
+              <p className="text-base sm:text-lg text-gray-600 mt-1">Verwalten Sie Ihre Teams</p>
             </div>
           </div>
 
@@ -234,7 +240,11 @@ export default function Teams() {
             <DialogTrigger asChild>
               <Button 
                 size="lg"
-                className="bg-black hover:bg-black/90 text-white rounded-xl px-8"
+                className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                  boxShadow: theme.shadows.md,
+                }}
               >
                 <Plus className="h-5 w-5 mr-2" />
                 Neues Team
@@ -263,7 +273,11 @@ export default function Teams() {
                 <Button
                   onClick={() => createTeamMutation.mutate({ name: newTeamName })}
                   disabled={!newTeamName.trim() || createTeamMutation.isPending}
-                  className="bg-black hover:bg-black/90 text-white rounded-xl px-6"
+                  className="text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                    boxShadow: theme.shadows.md,
+                  }}
                 >
                   {createTeamMutation.isPending ? (
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -287,7 +301,7 @@ export default function Teams() {
               transition={{ delay: 0.1 }}
               className="md:col-span-1"
             >
-              <Card className="border-black/10 rounded-3xl overflow-hidden">
+              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-6 pb-4">
                   <CardTitle className="text-xl font-light">Ihre Teams</CardTitle>
                 </CardHeader>
@@ -298,27 +312,31 @@ export default function Teams() {
                       <button
                         key={team.id}
                         onClick={() => setSelectedTeamId(team.id)}
-                        className={`w-full p-4 rounded-xl text-left transition-all ${
+                        className={`w-full p-3 sm:p-4 rounded-xl text-left transition-all ${
                           selectedTeamId === team.id 
-                            ? "bg-black text-white" 
-                            : "bg-black/5 hover:bg-black/10"
+                            ? "text-white" 
+                            : "bg-blue-50 hover:bg-blue-100"
                         }`}
+                        style={selectedTeamId === team.id ? {
+                          background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                          boxShadow: theme.shadows.md,
+                        } : {}}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                              selectedTeamId === team.id ? "bg-white/20" : "bg-black/10"
+                              selectedTeamId === team.id ? "bg-white/20" : "bg-blue-50"
                             }`}>
                               <Users className="h-5 w-5" />
                             </div>
                             <div>
                               <p className="font-medium">{team.name}</p>
-                              <p className={`text-sm ${selectedTeamId === team.id ? "text-white/60" : "text-black/40"}`}>
+                              <p className={`text-sm ${selectedTeamId === team.id ? "text-white/90" : "text-gray-600"}`}>
                                 {roleLabels[team.role as keyof typeof roleLabels]}
                               </p>
                             </div>
                           </div>
-                          <RoleIcon className={`h-5 w-5 ${selectedTeamId === team.id ? "text-white/60" : "text-black/40"}`} />
+                          <RoleIcon className={`h-5 w-5 ${selectedTeamId === team.id ? "text-white/90" : "text-gray-500"}`} />
                         </div>
                       </button>
                     );
@@ -335,12 +353,12 @@ export default function Teams() {
               className="md:col-span-2"
             >
               {selectedTeam ? (
-                <Card className="border-black/10 rounded-3xl overflow-hidden">
+                <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                   <CardHeader className="p-8 pb-4">
                     <div className="flex items-center justify-between">
                       <div>
                         <CardTitle className="text-2xl font-light">{selectedTeam.name}</CardTitle>
-                        <CardDescription className="text-black/40 text-base mt-1">
+                        <CardDescription className="text-gray-600 text-sm sm:text-base mt-1">
                           Team-Mitglieder verwalten
                         </CardDescription>
                       </div>
@@ -348,7 +366,11 @@ export default function Teams() {
                         <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
                           <DialogTrigger asChild>
                             <Button 
-                              className="bg-black hover:bg-black/90 text-white rounded-xl px-6"
+                              className="text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                    boxShadow: theme.shadows.md,
+                  }}
                             >
                               <UserPlus className="h-5 w-5 mr-2" />
                               Einladen
@@ -410,7 +432,11 @@ export default function Teams() {
                                   role: inviteRole,
                                 })}
                                 disabled={!inviteEmail.trim() || inviteMemberMutation.isPending}
-                                className="bg-black hover:bg-black/90 text-white rounded-xl px-6"
+                                className="text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                    boxShadow: theme.shadows.md,
+                  }}
                               >
                                 {inviteMemberMutation.isPending ? (
                                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -437,14 +463,14 @@ export default function Teams() {
                               initial="initial"
                               animate="animate"
                               exit="exit"
-                              className="flex items-center justify-between p-4 bg-black/5 rounded-xl"
+                              className="flex items-center justify-between p-3 sm:p-4 bg-blue-50 rounded-xl"
                             >
                               <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-black/10 rounded-xl flex items-center justify-center">
-                                  <User className="h-6 w-6 text-black/60" />
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                  <User className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: theme.colors.blue }} />
                                 </div>
                                 <div>
-                                  <p className="font-medium text-black">{member.userId}</p>
+                                  <p className="font-medium text-gray-900 text-sm sm:text-base">{member.userId}</p>
                                   <Badge className={`mt-1 ${roleColors[member.role as keyof typeof roleColors]}`}>
                                     <RoleIcon className="h-3 w-3 mr-1" />
                                     {roleLabels[member.role as keyof typeof roleLabels]}
@@ -472,18 +498,18 @@ export default function Teams() {
 
                       {(!teamMembers || teamMembers.length === 0) && (
                         <div className="text-center py-12">
-                          <Users className="h-16 w-16 mx-auto text-black/20 mb-4" strokeWidth={1} />
-                          <p className="text-black/40">Keine Mitglieder gefunden</p>
+                          <Users className="h-14 w-14 sm:h-16 sm:w-16 mx-auto mb-4" style={{ color: theme.colors.blue + '40' }} strokeWidth={1} />
+                          <p className="text-gray-600 text-sm sm:text-base">Keine Mitglieder gefunden</p>
                         </div>
                       )}
                     </div>
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="border-black/10 rounded-3xl overflow-hidden">
+                <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                   <CardContent className="p-12 text-center">
-                    <Users className="h-20 w-20 mx-auto text-black/20 mb-6" strokeWidth={1} />
-                    <p className="text-xl text-black/40">Wählen Sie ein Team aus</p>
+                    <Users className="h-16 w-16 sm:h-20 sm:w-20 mx-auto mb-6" style={{ color: theme.colors.blue + '40' }} strokeWidth={1} />
+                    <p className="text-lg sm:text-xl text-gray-600">Wählen Sie ein Team aus</p>
                   </CardContent>
                 </Card>
               )}
@@ -494,17 +520,21 @@ export default function Teams() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Card className="border-black/10 rounded-3xl overflow-hidden">
+            <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
               <CardContent className="p-16 text-center">
-                <Users className="h-24 w-24 mx-auto text-black/20 mb-6" strokeWidth={1} />
-                <h3 className="text-2xl font-light mb-3">Noch keine Teams</h3>
-                <p className="text-black/40 mb-8 text-lg max-w-md mx-auto">
+                <Users className="h-20 w-20 sm:h-24 sm:w-24 mx-auto mb-6" style={{ color: theme.colors.blue + '40' }} strokeWidth={1} />
+                <h3 className="text-xl sm:text-2xl font-light mb-3 text-gray-900">Noch keine Teams</h3>
+                <p className="text-gray-600 mb-8 text-base sm:text-lg max-w-md mx-auto">
                   Erstellen Sie ein Team, um Rechnungen mit Kollegen zu teilen und gemeinsam zu verwalten.
                 </p>
                 <Button 
                   onClick={() => setCreateDialogOpen(true)}
                   size="lg"
-                  className="bg-black hover:bg-black/90 text-white rounded-xl px-8"
+                  className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                  boxShadow: theme.shadows.md,
+                }}
                 >
                   <Plus className="h-5 w-5 mr-2" />
                   Erstes Team erstellen

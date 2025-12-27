@@ -190,8 +190,8 @@ export default function Projects() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-          <span className="text-xl text-black/50">Lädt...</span>
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
     );
@@ -273,25 +273,31 @@ export default function Projects() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5"
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center">
+            <div 
+              className="w-12 h-12 rounded-2xl flex items-center justify-center"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                boxShadow: theme.shadows.md,
+              }}
+            >
               <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <h1 className="text-2xl font-medium tracking-tight text-black">{APP_TITLE}</h1>
-              <p className="text-sm text-black/40">Rechnungsverwaltung</p>
+              <h1 className="text-xl sm:text-2xl font-medium tracking-tight text-gray-900">{APP_TITLE}</h1>
+              <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-base text-black/60">{user?.email}</span>
+            <span className="text-sm sm:text-base text-gray-600 hidden sm:inline">{user?.email}</span>
             <Button 
               variant="outline" 
               size="lg"
               onClick={logout}
-              className="border-black/20 text-black hover:bg-black hover:text-white transition-all duration-300 rounded-xl px-6"
+              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
               <LogOut className="h-5 w-5 mr-2" />
               Abmelden
@@ -312,17 +318,17 @@ export default function Projects() {
               variant="outline" 
               size="lg"
               onClick={() => setLocation("/dashboard")} 
-              className="border-black/20 text-black hover:bg-black hover:text-white transition-all rounded-xl"
+              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-sm sm:text-base px-4 sm:px-6"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Zurück
             </Button>
             <div>
-              <h2 className="text-4xl font-light text-black flex items-center gap-3">
-                <FolderKanban className="h-10 w-10" strokeWidth={1.5} />
+              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 flex items-center gap-3">
+                <FolderKanban className="h-8 w-8 sm:h-10 sm:w-10" style={{ color: theme.colors.blue }} strokeWidth={1.5} />
                 Projekte
               </h2>
-              <p className="text-lg text-black/50 mt-1">Verwalten Sie Ihre Projekte</p>
+              <p className="text-base sm:text-lg text-gray-600 mt-1">Verwalten Sie Ihre Projekte</p>
             </div>
           </div>
 
@@ -333,22 +339,29 @@ export default function Projects() {
                 disabled={initializeDefaultsMutation.isPending}
                 size="lg"
                 variant="outline"
-                className="border-black/20 text-black hover:bg-black hover:text-white rounded-xl px-6"
+                className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
               >
                 {initializeDefaultsMutation.isPending ? "Wird hinzugefügt..." : "Standard-Projekte"}
               </Button>
             )}
             <Dialog open={projectDialogOpen} onOpenChange={setProjectDialogOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" className="bg-black hover:bg-black/90 text-white rounded-xl px-8">
+                <Button 
+                  size="lg" 
+                  className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                    boxShadow: theme.shadows.md,
+                  }}
+                >
                   <Plus className="h-5 w-5 mr-2" />
                   Neues Projekt
                 </Button>
               </DialogTrigger>
-              <DialogContent className="rounded-3xl border-black/10 p-8">
+              <DialogContent className="rounded-3xl border-blue-100 p-6 sm:p-8">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-medium">Neues Projekt</DialogTitle>
-                  <DialogDescription className="text-black/50 text-base">
+                  <DialogDescription className="text-gray-600 text-sm sm:text-base">
                     Erstellen Sie ein Projekt zur Organisation
                   </DialogDescription>
                 </DialogHeader>
@@ -360,7 +373,7 @@ export default function Projects() {
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
                       placeholder="z.B. Marketing Tools"
-                      className="h-14 rounded-xl border-black/20 text-base"
+                      className="h-12 sm:h-14 rounded-xl border-blue-200 text-sm sm:text-base"
                     />
                   </div>
                   <div className="space-y-3">
@@ -371,13 +384,13 @@ export default function Projects() {
                         type="color"
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
-                        className="w-20 h-14 p-2 rounded-xl border-black/20"
+                        className="w-16 sm:w-20 h-12 sm:h-14 p-2 rounded-xl border-blue-200"
                       />
                       <Input
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
                         placeholder="#000000"
-                        className="flex-1 h-14 rounded-xl border-black/20 text-base"
+                        className="flex-1 h-12 sm:h-14 rounded-xl border-blue-200 text-sm sm:text-base"
                       />
                     </div>
                   </div>
@@ -394,7 +407,11 @@ export default function Projects() {
                     }}
                     disabled={!newProjectName.trim() || createProjectMutation.isPending}
                     size="lg"
-                    className="bg-black hover:bg-black/90 text-white rounded-xl px-8"
+                    className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                      boxShadow: theme.shadows.md,
+                    }}
                   >
                     Erstellen
                   </Button>
@@ -411,7 +428,13 @@ export default function Projects() {
           transition={{ delay: 0.1 }}
           className="grid md:grid-cols-3 gap-6 mb-10"
         >
-          <Card className="border-0 bg-black text-white rounded-3xl overflow-hidden">
+          <Card 
+            className="border-0 text-white rounded-3xl overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+              boxShadow: theme.shadows.md,
+            }}
+          >
             <CardContent className="p-8">
               <div className="flex items-center justify-between">
                 <div>
@@ -425,29 +448,29 @@ export default function Projects() {
             </CardContent>
           </Card>
           
-          <Card className="border-black/10 rounded-3xl overflow-hidden hover:border-black/30 transition-colors">
+          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
             <CardContent className="p-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-black/50 text-lg mb-2">Projekte</p>
-                  <p className="text-5xl font-light text-black">{projects?.length || 0}</p>
+                  <p className="text-gray-600 text-base sm:text-lg mb-2">Projekte</p>
+                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{projects?.length || 0}</p>
                 </div>
-                <div className="w-16 h-16 bg-black/5 rounded-2xl flex items-center justify-center">
-                  <FolderKanban className="h-8 w-8 text-black/60" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
+                  <FolderKanban className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-black/10 rounded-3xl overflow-hidden hover:border-black/30 transition-colors">
+          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
             <CardContent className="p-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-black/50 text-lg mb-2">Nicht zugeordnet</p>
-                  <p className="text-5xl font-light text-black">{unassignedInvoices.length}</p>
+                  <p className="text-gray-600 text-base sm:text-lg mb-2">Nicht zugeordnet</p>
+                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{unassignedInvoices.length}</p>
                 </div>
-                <div className="w-16 h-16 bg-black/5 rounded-2xl flex items-center justify-center">
-                  <FileText className="h-8 w-8 text-black/60" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
+                  <FileText className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
@@ -461,20 +484,20 @@ export default function Projects() {
           transition={{ delay: 0.2 }}
           className="mb-8"
         >
-          <Card className="border-black/10 rounded-3xl">
+          <Card className="border-blue-100 rounded-3xl bg-white">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-black/30" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     placeholder="Projekte durchsuchen..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 h-14 border-black/20 focus:border-black rounded-xl text-base"
+                    className="pl-12 h-12 sm:h-14 border-blue-200 focus:border-blue-500 rounded-xl text-sm sm:text-base"
                   />
                 </div>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full md:w-[220px] h-14 border-black/20 rounded-xl">
+                  <SelectTrigger className="w-full md:w-[220px] h-12 sm:h-14 border-blue-200 rounded-xl text-sm sm:text-base">
                     <SelectValue placeholder="Sortieren" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
@@ -507,7 +530,7 @@ export default function Projects() {
               >
                 <Card 
                   id={`project-${project.id}`}
-                  className={`border-black/10 rounded-3xl overflow-hidden hover:border-black/30 transition-colors ${projectIdFromUrl === project.id.toString() ? "ring-2 ring-black" : ""}`}
+                  className={`border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white ${projectIdFromUrl === project.id.toString() ? "ring-2 ring-blue-500" : ""}`}
                 >
                   <CardHeader className="p-8">
                     <div className="flex justify-between items-start">
@@ -518,13 +541,16 @@ export default function Projects() {
                               type="color"
                               value={editingColor}
                               onChange={(e) => setEditingColor(e.target.value)}
-                              className="w-10 h-10 rounded-lg cursor-pointer border-2 border-black/10"
+                              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg cursor-pointer border-2 border-blue-200"
                             />
                             <Button
                               size="sm"
                               onClick={saveColor}
                               disabled={updateProjectMutation.isPending}
-                              className="bg-black hover:bg-black/90 text-white rounded-lg h-10"
+                              className="text-white rounded-lg h-9 sm:h-10 text-sm sm:text-base"
+                              style={{
+                                background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                              }}
                             >
                               Speichern
                             </Button>
@@ -532,7 +558,7 @@ export default function Projects() {
                               size="sm"
                               variant="outline"
                               onClick={() => setEditingColorProjectId(null)}
-                              className="border-black/20 rounded-lg h-10"
+                              className="border-blue-200 rounded-lg h-9 sm:h-10 text-sm sm:text-base"
                             >
                               Abbrechen
                             </Button>
@@ -540,7 +566,7 @@ export default function Projects() {
                         ) : (
                           <button
                             onClick={() => handleColorChange(project.id, project.color || "#000000")}
-                            className="w-8 h-8 rounded-full border-2 border-black/10 hover:border-black/30 transition-colors cursor-pointer flex items-center justify-center group"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-blue-200 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group"
                             style={{ backgroundColor: project.color || "#000000" }}
                             title="Farbe ändern"
                           >
@@ -549,7 +575,7 @@ export default function Projects() {
                         )}
                         <div>
                           <CardTitle className="text-2xl font-light">{project.name}</CardTitle>
-                          <CardDescription className="mt-2 text-black/40 text-base">
+                          <CardDescription className="mt-2 text-gray-600 text-sm sm:text-base">
                             {project.invoices.length} Rechnung(en) · €{(project.totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                           </CardDescription>
                         </div>
@@ -560,7 +586,7 @@ export default function Projects() {
                           size="sm"
                           onClick={() => downloadProjectMutation.mutate({ projectId: project.id })}
                           disabled={downloadProjectMutation.isPending || project.invoices.length === 0}
-                          className="border-black/20 text-black hover:bg-black hover:text-white rounded-lg"
+                          className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-lg text-sm sm:text-base"
                           title="Alle Rechnungen herunterladen"
                         >
                           {downloadProjectMutation.isPending ? (
@@ -586,27 +612,27 @@ export default function Projects() {
                       <div className="overflow-x-auto">
                         <Table>
                           <TableHeader>
-                            <TableRow className="border-black/10">
-                              <TableHead className="text-black/50 font-medium text-base py-4">Tool</TableHead>
-                              <TableHead className="text-black/50 font-medium text-base py-4">Firma</TableHead>
-                              <TableHead className="text-right text-black/50 font-medium text-base py-4">Betrag</TableHead>
-                              <TableHead className="text-black/50 font-medium text-base py-4">Monat</TableHead>
+                            <TableRow className="border-blue-100">
+                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
+                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
+                              <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
+                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden md:table-cell">Monat</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {project.invoices.map((invoice) => (
-                              <TableRow key={invoice.id} className="border-black/5">
+                              <TableRow key={invoice.id} className="border-blue-100">
                                 <TableCell className="font-medium text-base py-4">
                                   {invoice.toolName || "—"}
                                 </TableCell>
-                                <TableCell className="text-black/60 text-base py-4">
+                                <TableCell className="text-gray-700 text-sm sm:text-base py-3 sm:py-4">
                                   {invoice.companyName || "—"}
                                 </TableCell>
                                 <TableCell className="text-right font-mono text-base py-4">
                                   €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
                                 </TableCell>
                                 <TableCell className="py-4">
-                                  <Badge variant="outline" className="border-black/20 px-3 py-1">
+                                  <Badge variant="outline" className="border-blue-200 px-2 sm:px-3 py-1 text-xs sm:text-sm">
                                     {invoice.month}
                                   </Badge>
                                 </TableCell>
@@ -625,7 +651,7 @@ export default function Projects() {
           {/* Unassigned Invoices */}
           {filteredUnassigned.length > 0 && (
             <motion.div variants={fadeInUp}>
-              <Card className="border-dashed border-2 border-black/20 rounded-3xl overflow-hidden">
+              <Card className="border-dashed border-2 border-blue-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8">
                   <div className="flex items-center gap-4">
                     <div className="w-6 h-6 rounded-full bg-black/10" />
@@ -641,20 +667,20 @@ export default function Projects() {
                   <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
-                        <TableRow className="border-black/10">
-                          <TableHead className="text-black/50 font-medium text-base py-4">Tool</TableHead>
-                          <TableHead className="text-black/50 font-medium text-base py-4">Firma</TableHead>
-                          <TableHead className="text-right text-black/50 font-medium text-base py-4">Betrag</TableHead>
-                          <TableHead className="text-black/50 font-medium text-base py-4">Monat</TableHead>
+                        <TableRow className="border-blue-100">
+                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
+                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
+                          <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
+                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden md:table-cell">Monat</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {filteredUnassigned.map((invoice) => (
-                          <TableRow key={invoice.id} className="border-black/5">
+                          <TableRow key={invoice.id} className="border-blue-100">
                             <TableCell className="font-medium text-base py-4">
                               {invoice.toolName || "—"}
                             </TableCell>
-                            <TableCell className="text-black/60 text-base py-4">
+                            <TableCell className="text-gray-700 text-sm sm:text-base py-3 sm:py-4">
                               {invoice.companyName || "—"}
                             </TableCell>
                             <TableCell className="text-right font-mono text-base py-4">

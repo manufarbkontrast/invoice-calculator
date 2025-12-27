@@ -601,7 +601,7 @@ export default function Home() {
             </div>
 
             {/* Right Side - Next-Gen KI-Modules */}
-            <div>
+            <div id="modules" className="scroll-mt-20">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

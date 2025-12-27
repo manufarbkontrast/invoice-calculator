@@ -482,11 +482,6 @@ export async function updateUserSubscription(
     throw error;
   }
 }
-  return bulkUpdateInvoices(ids, userId, {
-    paymentStatus: isPaid ? "paid" : "pending",
-    paidAt: isPaid ? new Date() : null,
-  });
-}
 
 // Type exports
 export type { User, InsertUser, Invoice, InsertInvoice, Project, InsertProject, UserSettings, InsertUserSettings, ExportHistory, InsertExportHistory };

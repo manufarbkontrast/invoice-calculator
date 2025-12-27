@@ -19,20 +19,24 @@ export function registerStripeRoutes(app: Express) {
    */
   app.post("/api/stripe/checkout", async (req: Request, res: Response) => {
     try {
-      const { planType, userId } = req.body;
+      const reqAny = req as any;
+      const { planType, userId } = reqAny.body || {};
 
       if (!planType || !userId) {
-        return res.status(400).json({ error: "planType and userId are required" });
+        (res as any).status(400).json({ error: "planType and userId are required" });
+        return;
       }
 
       if (planType !== "pro" && planType !== "business") {
-        return res.status(400).json({ error: "planType must be 'pro' or 'business'" });
+        (res as any).status(400).json({ error: "planType must be 'pro' or 'business'" });
+        return;
       }
 
       // Get user to check if they already have a Stripe customer ID
       const user = await getUser(userId);
       if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        (res as any).status(404).json({ error: "User not found" });
+        return;
       }
 
       // Get price IDs from environment variables
@@ -42,9 +46,10 @@ export function registerStripeRoutes(app: Express) {
 
       if (!priceId) {
         console.error(`[Stripe] Missing price ID for plan: ${planType}`);
-        return res.status(500).json({ 
+        (res as any).status(500).json({ 
           error: `Stripe price ID not configured for ${planType} plan` 
         });
+        return;
       }
 
       // Get or create Stripe customer
@@ -279,25 +284,28 @@ export function registerStripeRoutes(app: Express) {
    */
   app.post("/api/stripe/portal", async (req: Request, res: Response) => {
     try {
-      const { userId } = req.body;
+      const reqAny = req as any;
+      const { userId } = reqAny.body || {};
 
       if (!userId) {
-        return res.status(400).json({ error: "userId is required" });
+        (res as any).status(400).json({ error: "userId is required" });
+        return;
       }
 
       const user = await getUser(userId);
       if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        (res as any).status(404).json({ error: "User not found" });
+        return;
       }
 
       if (!user.stripeCustomerId) {
-        return res.status(400).json({ 
+        (res as any).status(400).json({ 
           error: "No active subscription found. Please subscribe first." 
         });
+        return;
       }
 
       // Get base URL from environment or request
-      const reqAny = req as any;
       const baseUrl = process.env.BASE_URL || 
         `${reqAny.protocol || "https"}://${reqAny.get ? reqAny.get("host") : reqAny.headers?.host || "localhost:3000"}`;
 
@@ -311,7 +319,7 @@ export function registerStripeRoutes(app: Express) {
       return;
     } catch (error) {
       console.error("[Stripe] Portal error:", error);
-      return res.status(500).json({ 
+      (res as any).status(500).json({ 
         error: "Failed to create portal session",
         message: error instanceof Error ? error.message : "Unknown error"
       });

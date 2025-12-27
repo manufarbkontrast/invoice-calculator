@@ -73,8 +73,9 @@ export function registerStripeRoutes(app: Express) {
       }
 
       // Get base URL from environment or request
+      const reqAnyCheckout = req as any;
       const baseUrl = process.env.BASE_URL || 
-        `${req.protocol}://${req.get("host")}`;
+        `${reqAnyCheckout.protocol || "https"}://${reqAnyCheckout.get ? reqAnyCheckout.get("host") : reqAnyCheckout.headers?.host || "localhost:3000"}`;
 
       // Create checkout session
       const session = await stripe.checkout.sessions.create({

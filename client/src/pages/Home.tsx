@@ -591,8 +591,8 @@ export default function Home() {
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
                     </div>
-                        <h3 className="text-sm sm:text-base font-semibold mb-2 text-gray-900">{feature.title}</h3>
-                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{feature.text}</p>
+                        <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900">{feature.title}</h3>
+                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.text}</p>
                   </CardContent>
                 </Card>
               </motion.div>

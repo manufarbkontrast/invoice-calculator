@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_TITLE } from "@/const";
-import { Receipt, ArrowRight, TrendingUp, FileSpreadsheet, Lightbulb, Shield, FileText, BarChart3, AlertCircle, CheckCircle2, Sparkles } from "lucide-react";
+import { Receipt, ArrowRight, TrendingUp, FileSpreadsheet, Lightbulb, Shield, FileText, BarChart3, AlertCircle, CheckCircle2, Sparkles, Check, Crown, Users, Zap } from "lucide-react";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
@@ -52,6 +52,7 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const { scrollYProgress } = useScroll();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isYearly, setIsYearly] = useState(false);
 
   useEffect(() => {
     if (!loading && isAuthenticated) {
@@ -503,7 +504,7 @@ export default function Home() {
                 Rechnungen verwalten.
                 <br />
                 <span className="text-blue-600">KI-gestützt.</span>
-                <br />
+              <br />
                 <span className="text-gray-700">Mühelos.</span>
             </motion.h1>
             
@@ -749,8 +750,231 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom CTA / Pricing */}
-      <section id="pricing" className="py-20 px-6 relative z-10 scroll-mt-20">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10 scroll-mt-20">
+        <div className="container mx-auto max-w-7xl">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+              Transparente Preise
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Wählen Sie den Plan, der perfekt zu Ihren Bedürfnissen passt
+            </p>
+          </motion.div>
+
+          {/* Billing Toggle */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-4 mb-12"
+          >
+            <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
+              Monatlich
+            </span>
+            <button
+              onClick={() => setIsYearly(!isYearly)}
+              className="relative w-14 h-8 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              style={{
+                backgroundColor: isYearly ? theme.colors.blue : theme.colors.gray[300],
+              }}
+            >
+              <span
+                className="absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform"
+                style={{
+                  transform: isYearly ? 'translateX(24px)' : 'translateX(0)',
+                }}
+              />
+            </button>
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
+                Jährlich
+              </span>
+              <span className="px-2 py-0.5 text-xs font-semibold text-white rounded-full" style={{ backgroundColor: theme.colors.blue }}>
+                20% Rabatt
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            {/* Basis Plan */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-6 sm:p-8">
+                  <div className="mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Basis</h3>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">0€</span>
+                      <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-2">Kostenlos starten</p>
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      'Bis zu 5 Rechnungen pro Monat',
+                      'KI-Erkennung (Basis)',
+                      'Export als CSV',
+                    ].map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span className="text-sm sm:text-base text-gray-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    onClick={() => setLocation("/auth")}
+                    variant="outline"
+                    className="w-full rounded-lg border-2 h-12 font-semibold"
+                    style={{
+                      borderColor: theme.colors.blue,
+                      color: theme.colors.blue,
+                    }}
+                  >
+                    Kostenlos starten
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Pro Plan - Highlighted */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="relative"
+            >
+              {/* Popular Badge */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <span className="px-4 py-1.5 text-xs font-semibold text-white rounded-full shadow-lg" style={{ backgroundColor: theme.colors.blue }}>
+                  Beliebt
+                </span>
+              </div>
+
+              <Card className="h-full rounded-xl border-2 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden" style={{ borderColor: theme.colors.blue }}>
+                {/* Subtle gradient overlay */}
+                <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)` }} />
+                
+                <CardContent className="p-6 sm:p-8 pt-10">
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Crown className="h-5 w-5" style={{ color: theme.colors.blue }} />
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Pro</h3>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">
+                        {isYearly ? '115€' : '12€'}
+                      </span>
+                      <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
+                    </div>
+                    {isYearly && (
+                      <p className="text-sm text-gray-500 mt-1 line-through">144€/Jahr</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-2">Für Profis</p>
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      'Unbegrenzte Rechnungen',
+                      'Erweiterte KI-Analyse & Kategorisierung',
+                      'Excel & DATEV Export',
+                      'Projektverwaltung',
+                    ].map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span className="text-sm sm:text-base text-gray-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    onClick={() => setLocation("/auth")}
+                    className="w-full rounded-lg h-12 font-semibold text-white shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                      boxShadow: `0 8px 24px ${theme.colors.blue}30`,
+                    }}
+                  >
+                    Jetzt Pro wählen
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Business Plan */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-6 sm:p-8">
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Business</h3>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">
+                        {isYearly ? '278€' : '29€'}
+                      </span>
+                      <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
+                    </div>
+                    {isYearly && (
+                      <p className="text-sm text-gray-500 mt-1 line-through">348€/Jahr</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-2">Für Teams</p>
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      'Alles aus Pro',
+                      'Mehrere Benutzer/Team-Accounts',
+                      'Vorrangiger Support',
+                      'API-Zugriff (Beta)',
+                    ].map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span className="text-sm sm:text-base text-gray-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    onClick={() => setLocation("/auth")}
+                    variant="outline"
+                    className="w-full rounded-lg border-2 h-12 font-semibold"
+                    style={{
+                      borderColor: theme.colors.blue,
+                      color: theme.colors.blue,
+                    }}
+                  >
+                    Kontakt aufnehmen
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="container mx-auto max-w-3xl text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}

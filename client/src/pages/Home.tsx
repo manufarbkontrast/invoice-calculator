@@ -540,7 +540,7 @@ export default function Home() {
       </section>
 
       {/* Content Section */}
-      <section className="py-20 px-6 relative z-10">
+      <section id="features" className="py-20 px-6 relative z-10 scroll-mt-20">
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Left Side - Feature Cards */}
@@ -743,8 +743,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-20 px-6 relative z-10">
+      {/* Bottom CTA / Pricing */}
+      <section id="pricing" className="py-20 px-6 relative z-10 scroll-mt-20">
         <div className="container mx-auto max-w-3xl text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -771,8 +771,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-blue-100 bg-white/60 backdrop-blur-sm">
+      {/* Footer / Contact */}
+      <footer id="contact" className="py-12 px-6 border-t border-blue-100 bg-white/60 backdrop-blur-sm scroll-mt-20">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div 

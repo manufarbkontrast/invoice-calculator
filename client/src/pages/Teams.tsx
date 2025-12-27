@@ -201,20 +201,146 @@ export default function Teams() {
               <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3">
             <span className="text-sm sm:text-base text-gray-600 hidden sm:inline">{user?.email}</span>
+            
+            {/* Menu Toggle Button */}
             <Button 
-              variant="outline" 
+              variant="outline"
               size="lg"
-              onClick={logout}
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+              onClick={() => setSidebarOpen(true)}
+              className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
             >
-              <LogOut className="h-5 w-5 mr-2" />
-              Abmelden
+              <PanelRightOpen className="h-5 w-5 mr-2" />
+              Menü
             </Button>
           </div>
         </div>
       </motion.header>
+
+      {/* Sidebar Overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 z-40 backdrop-blur-sm"
+            style={{
+              backgroundColor: `${theme.colors.blue}15`,
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Sidebar - Right Side */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.aside
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-blue-100 z-50 shadow-2xl flex"
+          >
+            {/* Header */}
+            <div className="p-5 border-b border-blue-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div 
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                  }}
+                >
+                  <Receipt className="h-5 w-5 text-white" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h1 className="text-lg font-medium text-gray-900">Menü</h1>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setSidebarOpen(false)}
+                className="rounded-xl"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-3 mb-3">Navigation</p>
+              
+              <button
+                onClick={() => { setLocation("/dashboard"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+              >
+                <Home className="h-5 w-5" />
+                <span>Dashboard</span>
+              </button>
+
+              <button
+                onClick={() => { setLocation("/analytics"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+              >
+                <BarChart3 className="h-5 w-5" />
+                <span>Analyse & Statistiken</span>
+              </button>
+
+              <button
+                onClick={() => { setLocation("/projects"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+              >
+                <FolderKanban className="h-5 w-5" />
+                <span>Projekte</span>
+              </button>
+
+              <button
+                onClick={() => { setLocation("/teams"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white transition-all"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                }}
+              >
+                <Users className="h-5 w-5" />
+                <span className="font-medium">Teams</span>
+              </button>
+
+              <button
+                onClick={() => { setLocation("/settings"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+              >
+                <User className="h-5 w-5" />
+                <span>Profil bearbeiten</span>
+              </button>
+            </nav>
+
+            {/* User Info */}
+            <div className="p-4 border-t border-blue-100">
+              <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 rounded-xl">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 truncate">{user?.email}</p>
+                  <p className="text-xs text-gray-500">Angemeldet</p>
+                </div>
+              </div>
+              <Button 
+                variant="outline"
+                size="sm"
+                onClick={logout}
+                className="w-full mt-3 border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Abmelden
+              </Button>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
 
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-7xl">
         {/* Back Button & Title */}

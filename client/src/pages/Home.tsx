@@ -26,13 +26,21 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { 
+    opacity: 0, 
+    y: 40,
+    scale: 0.9
+  },
   show: { 
     opacity: 1, 
     y: 0,
+    scale: 1,
     transition: {
-      duration: 0.8,
-      ease: [0.6, -0.05, 0.01, 0.99]
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+      type: "spring",
+      stiffness: 100,
+      damping: 15
     }
   }
 };

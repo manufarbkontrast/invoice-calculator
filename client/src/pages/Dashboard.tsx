@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { APP_TITLE } from "@/const";
-import { FileUp, LogOut, Receipt, Calendar, TrendingUp, FolderKanban, Plus, Upload, CloudUpload, Sparkles, Loader2, Search, X, Users, BarChart3, Settings, Home, ChevronRight, PanelRightOpen, PanelRightClose } from "lucide-react";
+import { FileUp, LogOut, Receipt, Calendar, TrendingUp, FolderKanban, Plus, Upload, CloudUpload, Sparkles, Loader2, Search, X, Users, BarChart3, Settings, Home, ChevronRight, PanelRightOpen, PanelRightClose, User } from "lucide-react";
 import { theme as appTheme } from "@/theme";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
@@ -404,6 +404,14 @@ export default function Dashboard() {
               >
                 <Users className="h-5 w-5" />
                 <span>Teams</span>
+              </button>
+
+              <button
+                onClick={() => { setLocation("/settings"); setSidebarOpen(false); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+              >
+                <User className="h-5 w-5" />
+                <span>Profil bearbeiten</span>
               </button>
 
             </nav>

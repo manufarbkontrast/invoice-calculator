@@ -23,10 +23,16 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Minus,
+  PanelRightOpen,
+  X,
+  Home,
+  FolderKanban,
+  Users,
+  User,
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart,
   Bar,
@@ -59,6 +65,7 @@ export default function Analytics() {
   const [, setLocation] = useLocation();
   const { user, isAuthenticated, loading: authLoading, logout } = useAuth();
   const [exchangeRate] = useState(0.92);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: projects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,

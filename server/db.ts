@@ -429,10 +429,19 @@ export async function incrementInvoiceCount(userId: string): Promise<void> {
     return;
   }
 
+  // Get current count first
+  const user = await getUser(userId);
+  if (!user) {
+    console.warn("[Subscription] User not found, cannot increment invoice count");
+    return;
+  }
+
+  const currentCount = user.invoiceCountMonth || 0;
+
   await db
     .update(users)
     .set({
-      invoiceCountMonth: db.$count(users.invoiceCountMonth) + 1,
+      invoiceCountMonth: currentCount + 1,
       updatedAt: new Date(),
     })
     .where(eq(users.id, userId));

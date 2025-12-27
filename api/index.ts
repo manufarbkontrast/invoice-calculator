@@ -4,17 +4,25 @@ import fs from "fs";
 import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "../server/_core/oauth";
+import { registerStripeRoutes } from "../server/_core/stripe";
 import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
 
 const app = express();
 
 // Configure body parser with larger size limit for file uploads
+// Note: Stripe webhook needs raw body for signature verification
+app.use(
+  "/api/stripe/webhook",
+  express.raw({ type: "application/json" })
+);
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // OAuth callback under /api/oauth/callback
 registerOAuthRoutes(app);
+// Stripe routes under /api/stripe/*
+registerStripeRoutes(app);
 
 // tRPC API
 app.use(

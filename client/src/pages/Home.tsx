@@ -115,12 +115,48 @@ export default function Home() {
             <span className="text-xl font-semibold text-gray-900">{APP_TITLE}</span>
           </motion.div>
           
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Features</a>
-            <a href="#modules" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">KI-Module</a>
-            <a href="#pricing" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Preise</a>
-            <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Kontakt</a>
-          </nav>
+                 <nav className="hidden md:flex items-center gap-6">
+                   <a 
+                     href="#features" 
+                     onClick={(e) => {
+                       e.preventDefault();
+                       document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     }}
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                   >
+                     Features
+                   </a>
+                   <a 
+                     href="#modules" 
+                     onClick={(e) => {
+                       e.preventDefault();
+                       document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     }}
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                   >
+                     KI-Module
+                   </a>
+                   <a 
+                     href="#pricing" 
+                     onClick={(e) => {
+                       e.preventDefault();
+                       document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     }}
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                   >
+                     Preise
+                   </a>
+                   <a 
+                     href="#contact" 
+                     onClick={(e) => {
+                       e.preventDefault();
+                       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     }}
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                   >
+                     Kontakt
+                   </a>
+                 </nav>
         </div>
       </motion.header>
 

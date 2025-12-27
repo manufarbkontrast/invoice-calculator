@@ -96,10 +96,11 @@ export function registerStripeRoutes(app: Express) {
         },
       });
 
-      return res.json({ sessionId: session.id, url: session.url });
+      (res as any).json({ sessionId: session.id, url: session.url });
+      return;
     } catch (error) {
       console.error("[Stripe] Checkout error:", error);
-      return res.status(500).json({ 
+      (res as any).status(500).json({ 
         error: "Failed to create checkout session",
         message: error instanceof Error ? error.message : "Unknown error"
       });
@@ -260,10 +261,11 @@ export function registerStripeRoutes(app: Express) {
           console.log(`[Stripe] Unhandled event type: ${event.type}`);
       }
 
-      return res.json({ received: true });
+      (res as any).json({ received: true });
+      return;
     } catch (error) {
       console.error("[Stripe] Webhook handler error:", error);
-      return res.status(500).json({ 
+      (res as any).status(500).json({ 
         error: "Webhook handler failed",
         message: error instanceof Error ? error.message : "Unknown error"
       });
@@ -295,8 +297,9 @@ export function registerStripeRoutes(app: Express) {
       }
 
       // Get base URL from environment or request
+      const reqAny = req as any;
       const baseUrl = process.env.BASE_URL || 
-        `${req.protocol}://${req.get("host")}`;
+        `${reqAny.protocol || "https"}://${reqAny.get ? reqAny.get("host") : reqAny.headers?.host || "localhost:3000"}`;
 
       // Create portal session
       const session = await stripe.billingPortal.sessions.create({
@@ -304,7 +307,8 @@ export function registerStripeRoutes(app: Express) {
         return_url: `${baseUrl}/settings`,
       });
 
-      return res.json({ url: session.url });
+      (res as any).json({ url: session.url });
+      return;
     } catch (error) {
       console.error("[Stripe] Portal error:", error);
       return res.status(500).json({ 

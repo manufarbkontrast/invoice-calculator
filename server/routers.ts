@@ -1128,15 +1128,31 @@ export const appRouter = router({
         if (!db) throw new Error("Database not available");
         
         const { upsertUser } = await import("./db");
+        const { supabaseAdmin } = await import("./supabase");
         const currentUser = await getUser(ctx.user.id);
         if (!currentUser) throw new Error("User not found");
         
+        const updatedName = input.name ?? currentUser.name;
+        
+        // Update in database
         const updated = await upsertUser({
           id: ctx.user.id,
           email: currentUser.email,
-          name: input.name ?? currentUser.name,
+          name: updatedName,
           role: currentUser.role,
         });
+        
+        // Also update in Supabase Auth user metadata
+        try {
+          await supabaseAdmin.auth.admin.updateUserById(ctx.user.id, {
+            user_metadata: {
+              name: updatedName,
+            },
+          });
+        } catch (error) {
+          console.error("[Profile] Failed to update Supabase user metadata:", error);
+          // Don't fail the request if Supabase update fails, database update is more important
+        }
         
         return updated;
       }),

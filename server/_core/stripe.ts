@@ -17,7 +17,7 @@ export function registerStripeRoutes(app: Express) {
    * POST /api/stripe/checkout
    * Body: { planType: "pro" | "business", userId: string }
    */
-  app.post("/api/stripe/checkout", async (req: Request, res: Response) => {
+  (app as any).post("/api/stripe/checkout", async (req: Request, res: Response) => {
     try {
       const reqAny = req as any;
       const { planType, userId } = reqAny.body || {};
@@ -117,17 +117,20 @@ export function registerStripeRoutes(app: Express) {
    * POST /api/stripe/webhook
    * Handles: checkout.session.completed, customer.subscription.updated, invoice.payment_failed
    */
-  app.post("/api/stripe/webhook", async (req: Request, res: Response) => {
-    const sig = req.headers["stripe-signature"];
+  (app as any).post("/api/stripe/webhook", async (req: Request, res: Response) => {
+    const reqAny = req as any;
+    const sig = reqAny.headers?.["stripe-signature"];
 
     if (!sig) {
-      return res.status(400).json({ error: "Missing stripe-signature header" });
+      (res as any).status(400).json({ error: "Missing stripe-signature header" });
+      return;
     }
 
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     if (!webhookSecret) {
       console.error("[Stripe] Missing STRIPE_WEBHOOK_SECRET");
-      return res.status(500).json({ error: "Webhook secret not configured" });
+      (res as any).status(500).json({ error: "Webhook secret not configured" });
+      return;
     }
 
     let event: Stripe.Event;
@@ -135,13 +138,14 @@ export function registerStripeRoutes(app: Express) {
     try {
       // Verify webhook signature
       event = stripe.webhooks.constructEvent(
-        req.body,
+        reqAny.body,
         sig,
         webhookSecret
       );
     } catch (err) {
       console.error("[Stripe] Webhook signature verification failed:", err);
-      return res.status(400).json({ error: "Invalid signature" });
+      (res as any).status(400).json({ error: "Invalid signature" });
+      return;
     }
 
     try {
@@ -282,7 +286,7 @@ export function registerStripeRoutes(app: Express) {
    * POST /api/stripe/portal
    * Body: { userId: string }
    */
-  app.post("/api/stripe/portal", async (req: Request, res: Response) => {
+  (app as any).post("/api/stripe/portal", async (req: Request, res: Response) => {
     try {
       const reqAny = req as any;
       const { userId } = reqAny.body || {};

@@ -58,10 +58,16 @@ export default function Dashboard() {
   
   const { data: invoices, refetch, error: invoicesError } = trpc.invoices.list.useQuery(undefined, {
     enabled: isAuthenticated,
-    retry: false,
+    retry: 1, // Retry once on error
     refetchOnWindowFocus: false,
-    refetchOnMount: true, // Changed to true to refetch on mount
-    staleTime: 0, // Changed to 0 to always fetch fresh data
+    refetchOnMount: true,
+    staleTime: 0,
+  });
+
+  // Debug database connection
+  const { data: dbDebug } = trpc.debug.checkDatabase.useQuery(undefined, {
+    enabled: isAuthenticated,
+    retry: false,
   });
 
   // Debug state for visible debugging
@@ -71,6 +77,7 @@ export default function Dashboard() {
     invoiceCount?: number;
     error?: string;
     isLoading?: boolean;
+    dbStatus?: string;
   }>({ isLoading: true });
 
   // Debug logging - Always show debug box
@@ -81,6 +88,7 @@ export default function Dashboard() {
     console.log("Invoices:", invoices);
     console.log("Invoices Count:", invoices?.length ?? 0);
     console.log("Invoices Error:", invoicesError);
+    console.log("DB Debug:", dbDebug);
     console.log("============================");
     
     const newDebugInfo: typeof debugInfo = {
@@ -100,9 +108,15 @@ export default function Dashboard() {
       console.error("[Dashboard] Invoices error:", invoicesError);
       newDebugInfo.error = invoicesError.message;
     }
+    if (dbDebug) {
+      newDebugInfo.dbStatus = dbDebug.databaseStatus;
+      if (dbDebug.error) {
+        newDebugInfo.error = `DB: ${dbDebug.error}`;
+      }
+    }
     
     setDebugInfo(newDebugInfo);
-  }, [user, invoices, invoicesError, isAuthenticated]);
+  }, [user, invoices, invoicesError, isAuthenticated, dbDebug]);
 
   const { data: projects, refetch: refetchProjects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,
@@ -380,6 +394,14 @@ export default function Dashboard() {
                 {debugInfo.userEmail && (
                   <div className="text-xs text-yellow-700 mb-1">
                     <strong>E-Mail:</strong> {debugInfo.userEmail}
+                  </div>
+                )}
+                {dbDebug && (
+                  <div className="text-xs text-yellow-700 mb-1">
+                    <strong>DB-Status:</strong> <span className={dbDebug.databaseStatus === "connected" ? "text-green-700" : "text-red-700"}>{dbDebug.databaseStatus}</span>
+                    {dbDebug.hasDatabaseUrl && (
+                      <span className="ml-2 text-gray-600">(URL gesetzt: {dbDebug.databaseUrlLength} Zeichen)</span>
+                    )}
                   </div>
                 )}
                 {debugInfo.invoiceCount !== undefined ? (

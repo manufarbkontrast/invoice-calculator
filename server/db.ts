@@ -8,23 +8,35 @@ let _sql: ReturnType<typeof postgres> | null = null;
 
 // Lazily create the drizzle instance
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  if (!process.env.DATABASE_URL) {
+    console.error("[Database] DATABASE_URL environment variable is not set!");
+    console.error("[Database] Available env vars:", Object.keys(process.env).filter(k => k.includes('DATABASE') || k.includes('SUPABASE')));
+    return null;
+  }
+  
+  if (!_db) {
     try {
       console.log("[Database] Connecting to database...");
-      _sql = postgres(process.env.DATABASE_URL, {
+      const dbUrl = process.env.DATABASE_URL;
+      if (!dbUrl || dbUrl.length < 20) {
+        console.error("[Database] DATABASE_URL appears to be invalid (too short)");
+        return null;
+      }
+      
+      _sql = postgres(dbUrl, {
         max: 1, // Limit connections for serverless
         idle_timeout: 20,
         connect_timeout: 10,
       });
       _db = drizzle(_sql);
-      console.log("[Database] Database connection established");
+      console.log("[Database] Database connection established successfully");
     } catch (error) {
       console.error("[Database] Failed to connect:", error);
+      console.error("[Database] Error details:", error instanceof Error ? error.message : String(error));
       _db = null;
-      throw error;
+      _sql = null;
+      // Don't throw, return null instead
     }
-  } else if (!process.env.DATABASE_URL) {
-    console.error("[Database] DATABASE_URL environment variable is not set!");
   }
   return _db;
 }

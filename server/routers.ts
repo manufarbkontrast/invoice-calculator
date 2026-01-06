@@ -33,32 +33,73 @@ function detectRecurringGroup(toolName: string, companyName: string): string {
 }
 
 export const appRouter = router({
-  // Debug endpoint to check all user IDs with invoices
+  // Debug endpoint to check database connection and user IDs
   debug: router({
+    checkDatabase: protectedProcedure.query(async ({ ctx }) => {
+      const hasDbUrl = !!process.env.DATABASE_URL;
+      const dbUrlLength = process.env.DATABASE_URL?.length || 0;
+      
+      let dbStatus = "not_connected";
+      let errorMessage = null;
+      let invoiceCount = 0;
+      
+      try {
+        const db = await getDb();
+        if (db) {
+          dbStatus = "connected";
+          // Try a simple query
+          const testResult = await db.select({ count: sql<number>`count(*)`.as('count') }).from(invoices);
+          invoiceCount = Number(testResult[0]?.count || 0);
+        } else {
+          dbStatus = "failed";
+          errorMessage = "getDb() returned null";
+        }
+      } catch (error) {
+        dbStatus = "error";
+        errorMessage = error instanceof Error ? error.message : String(error);
+      }
+      
+      return {
+        hasDatabaseUrl: hasDbUrl,
+        databaseUrlLength: dbUrlLength,
+        databaseStatus: dbStatus,
+        error: errorMessage,
+        totalInvoicesInDb: invoiceCount,
+        currentUserId: ctx.user.id,
+      };
+    }),
+    
     checkUserIds: protectedProcedure.query(async ({ ctx }) => {
       const db = await getDb();
       if (!db) return { error: "Database not available" };
       
-      // Get all unique user IDs from invoices
-      const allInvoices = await db.select({ 
-        userId: invoices.userId,
-        count: sql<number>`count(*)`.as('count')
-      })
-      .from(invoices)
-      .groupBy(invoices.userId);
-      
-      // Get current user info
-      const currentUser = await getUser(ctx.user.id);
-      
-      return {
-        currentUserId: ctx.user.id,
-        currentUserEmail: currentUser?.email,
-        invoicesByUserId: allInvoices.map(i => ({
-          userId: i.userId,
-          count: Number(i.count)
-        })),
-        totalInvoices: allInvoices.reduce((sum, i) => sum + Number(i.count), 0)
-      };
+      try {
+        // Get all unique user IDs from invoices
+        const allInvoices = await db.select({ 
+          userId: invoices.userId,
+          count: sql<number>`count(*)`.as('count')
+        })
+        .from(invoices)
+        .groupBy(invoices.userId);
+        
+        // Get current user info
+        const currentUser = await getUser(ctx.user.id);
+        
+        return {
+          currentUserId: ctx.user.id,
+          currentUserEmail: currentUser?.email,
+          invoicesByUserId: allInvoices.map(i => ({
+            userId: i.userId,
+            count: Number(i.count)
+          })),
+          totalInvoices: allInvoices.reduce((sum, i) => sum + Number(i.count), 0)
+        };
+      } catch (error) {
+        return {
+          error: error instanceof Error ? error.message : String(error),
+          currentUserId: ctx.user.id,
+        };
+      }
     }),
   }),
 

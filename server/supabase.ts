@@ -3,21 +3,19 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.warn('Supabase credentials not found. Some features will not work.');
-}
+// Create Supabase client only when credentials are present; otherwise keep it null
+export const supabaseAdmin = supabaseUrl && supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    })
+  : null;
 
-// Server-side client with service role key for admin operations
-export const supabaseAdmin = createClient(
-  supabaseUrl || '',
-  supabaseServiceKey || '',
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  }
-);
+if (!supabaseAdmin) {
+  console.warn('[Supabase] SUPABASE_URL oder SUPABASE_SERVICE_ROLE_KEY fehlen. Admin-Client wird nicht initialisiert.');
+}
 
 // Storage operations
 export async function uploadFile(
@@ -27,7 +25,7 @@ export async function uploadFile(
   contentType: string
 ) {
   // Check if Supabase is configured
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseAdmin || !supabaseUrl || !supabaseServiceKey) {
     throw new Error(
       "Supabase Storage ist nicht konfiguriert. SUPABASE_URL und SUPABASE_SERVICE_ROLE_KEY müssen gesetzt sein."
     );
@@ -86,6 +84,9 @@ export async function uploadFile(
 }
 
 export async function deleteFile(bucket: string, path: string) {
+  if (!supabaseAdmin) {
+    throw new Error("Supabase ist nicht konfiguriert.");
+  }
   const { error } = await supabaseAdmin.storage
     .from(bucket)
     .remove([path]);
@@ -94,6 +95,9 @@ export async function deleteFile(bucket: string, path: string) {
 }
 
 export async function getSignedUrl(bucket: string, path: string, expiresIn = 3600) {
+  if (!supabaseAdmin) {
+    throw new Error("Supabase ist nicht konfiguriert.");
+  }
   const { data, error } = await supabaseAdmin.storage
     .from(bucket)
     .createSignedUrl(path, expiresIn);

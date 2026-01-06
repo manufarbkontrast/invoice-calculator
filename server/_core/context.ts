@@ -20,7 +20,12 @@ export async function createContext(
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.substring(7);
       
-      // Verify the JWT token with Supabase
+      // Verify the JWT token with Supabase (only if configured)
+      if (!supabaseAdmin) {
+        console.warn("[Auth] Supabase Admin nicht konfiguriert. Überspringe Token-Verification.");
+        return { req: opts.req, res: opts.res, user: null };
+      }
+
       const supabaseAuth = supabaseAdmin.auth as any;
       const { data: { user: supabaseUser }, error } = await supabaseAuth.getUser(token);
       

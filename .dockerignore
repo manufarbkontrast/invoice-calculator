@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output (will be created fresh)
+dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment files (secrets should be passed as env vars)
+.env
+.env.local
+.env.*.local
+
+# Test files
+*.test.ts
+*.spec.ts
+__tests__
+coverage
+
+# Documentation (not needed in container)
+*.md
+!README.md
+
+# Vercel (no longer needed)
+.vercel
+vercel.json
+
+# Misc
+*.tgz
+.npmrc
+

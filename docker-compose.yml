@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  invoice-calculator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # Database
+      - DATABASE_URL=${DATABASE_URL}
+      # Supabase Server
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      # Supabase Client (these are baked into the frontend build, but good to have)
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+      # Optional: Stripe (if used)
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_PRICE_ID_PRO=${STRIPE_PRICE_ID_PRO:-}
+      - STRIPE_PRICE_ID_BUSINESS=${STRIPE_PRICE_ID_BUSINESS:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      # Optional: AI
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# Optional: Add a reverse proxy like Traefik or Nginx for HTTPS
+# networks:
+#   - web
+

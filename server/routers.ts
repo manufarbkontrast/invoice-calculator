@@ -5,7 +5,7 @@ import { extractInvoiceData, extractInvoiceDataFromImage, isImageFile, isPdfFile
 import { generateMonthlyExcel, generateDatevExport, generatePdfReport } from "./excelExporter";
 import { storagePut } from "./storage";
 import { invoices, projects, teams, teamMembers, teamInvitations } from "../drizzle/schema";
-import { eq, and, or, ilike, desc, gte, lte, inArray } from "drizzle-orm";
+import { eq, and, or, ilike, desc, gte, lte, inArray, sql } from "drizzle-orm";
 import crypto from "crypto";
 
 // Helper: Generate content hash for duplicate detection
@@ -33,6 +33,35 @@ function detectRecurringGroup(toolName: string, companyName: string): string {
 }
 
 export const appRouter = router({
+  // Debug endpoint to check all user IDs with invoices
+  debug: router({
+    checkUserIds: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return { error: "Database not available" };
+      
+      // Get all unique user IDs from invoices
+      const allInvoices = await db.select({ 
+        userId: invoices.userId,
+        count: sql<number>`count(*)`.as('count')
+      })
+      .from(invoices)
+      .groupBy(invoices.userId);
+      
+      // Get current user info
+      const currentUser = await getUser(ctx.user.id);
+      
+      return {
+        currentUserId: ctx.user.id,
+        currentUserEmail: currentUser?.email,
+        invoicesByUserId: allInvoices.map(i => ({
+          userId: i.userId,
+          count: Number(i.count)
+        })),
+        totalInvoices: allInvoices.reduce((sum, i) => sum + Number(i.count), 0)
+      };
+    }),
+  }),
+
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
   }),

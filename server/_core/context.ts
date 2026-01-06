@@ -1,6 +1,5 @@
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import type { User } from "../../drizzle/schema";
-import { supabaseAdmin } from "../supabase";
 import { getUser, upsertUser, initializeDefaultProjects } from "../db";
 
 export type TrpcContext = {
@@ -17,17 +16,27 @@ export async function createContext(
   try {
     const authHeader = (opts.req as any).headers?.authorization;
     
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.substring(7);
-      
-      // Verify the JWT token with Supabase (only if configured)
-      if (!supabaseAdmin) {
-        console.warn("[Auth] Supabase Admin nicht konfiguriert. Überspringe Token-Verification.");
-        return { req: opts.req, res: opts.res, user: null };
-      }
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.substring(7);
+        
+        // Verify the JWT token with Supabase (only if configured)
+        // Import dynamically to avoid module loading errors
+        let supabaseAdmin;
+        try {
+          const supabaseModule = await import("../supabase");
+          supabaseAdmin = supabaseModule.supabaseAdmin;
+        } catch (error) {
+          console.warn("[Auth] Supabase-Modul konnte nicht geladen werden:", error);
+          return { req: opts.req, res: opts.res, user: null };
+        }
 
-      const supabaseAuth = supabaseAdmin.auth as any;
-      const { data: { user: supabaseUser }, error } = await supabaseAuth.getUser(token);
+        if (!supabaseAdmin) {
+          console.warn("[Auth] Supabase Admin nicht konfiguriert. Überspringe Token-Verification.");
+          return { req: opts.req, res: opts.res, user: null };
+        }
+
+        const supabaseAuth = supabaseAdmin.auth as any;
+        const { data: { user: supabaseUser }, error } = await supabaseAuth.getUser(token);
       
       if (error || !supabaseUser) {
         return { req: opts.req, res: opts.res, user: null };

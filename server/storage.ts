@@ -1,4 +1,4 @@
-import { uploadFile, deleteFile, getSignedUrl, supabaseAdmin } from "./supabase";
+import { uploadFile, deleteFile, getSignedUrl } from "./supabase";
 
 const INVOICE_BUCKET = "invoices";
 const EXPORT_BUCKET = "exports";

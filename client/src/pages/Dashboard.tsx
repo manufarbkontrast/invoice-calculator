@@ -56,13 +56,26 @@ export default function Dashboard() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  const { data: invoices, refetch } = trpc.invoices.list.useQuery(undefined, {
+  const { data: invoices, refetch, error: invoicesError } = trpc.invoices.list.useQuery(undefined, {
     enabled: isAuthenticated,
     retry: false,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: 1000 * 60 * 5,
+    refetchOnMount: true, // Changed to true to refetch on mount
+    staleTime: 0, // Changed to 0 to always fetch fresh data
   });
+
+  // Debug logging
+  useEffect(() => {
+    if (user) {
+      console.log("[Dashboard] Current user:", { id: user.id, email: user.email });
+    }
+    if (invoices) {
+      console.log("[Dashboard] Invoices loaded:", invoices.length);
+    }
+    if (invoicesError) {
+      console.error("[Dashboard] Invoices error:", invoicesError);
+    }
+  }, [user, invoices, invoicesError]);
 
   const { data: projects, refetch: refetchProjects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,

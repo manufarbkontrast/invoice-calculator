@@ -203,7 +203,10 @@ export const appRouter = router({
 
     // List all invoices
     list: protectedProcedure.query(async ({ ctx }) => {
-      return await getUserInvoices(ctx.user.id);
+      console.log(`[Invoices List] User ID: ${ctx.user.id}, Email: ${ctx.user.email}`);
+      const invoices = await getUserInvoices(ctx.user.id);
+      console.log(`[Invoices List] Found ${invoices.length} invoices for user ${ctx.user.id}`);
+      return invoices;
     }),
 
     // Global search

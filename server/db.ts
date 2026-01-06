@@ -108,9 +108,21 @@ export async function updateInvoice(id: number, updates: Partial<InsertInvoice>)
 
 export async function getUserInvoices(userId: string): Promise<Invoice[]> {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) {
+    console.warn(`[getUserInvoices] Database not available for user ${userId}`);
+    return [];
+  }
   
+  console.log(`[getUserInvoices] Querying invoices for user ID: ${userId}`);
   const results = await db.select().from(invoices).where(eq(invoices.userId, userId)).orderBy(desc(invoices.createdAt));
+  console.log(`[getUserInvoices] Found ${results.length} invoices for user ${userId}`);
+  
+  // Debug: Check if there are any invoices with different user IDs
+  if (results.length === 0) {
+    const allInvoices = await db.select({ userId: invoices.userId, id: invoices.id, fileName: invoices.fileName }).from(invoices).limit(10);
+    console.log(`[getUserInvoices] Sample invoices in database (first 10):`, allInvoices.map(i => ({ id: i.id, userId: i.userId, fileName: i.fileName })));
+  }
+  
   return results as Invoice[];
 }
 

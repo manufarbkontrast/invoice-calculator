@@ -52,3 +52,5 @@ COMMENT ON COLUMN users.plan_type IS 'Subscription plan type: free (5 invoices/m
 COMMENT ON COLUMN users.invoice_count_month IS 'Number of invoices uploaded in the current month';
 COMMENT ON COLUMN users.last_reset_date IS 'Date when invoice_count_month was last reset (monthly reset)';
 
+
+

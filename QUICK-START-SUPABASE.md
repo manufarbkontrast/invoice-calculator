@@ -75,3 +75,5 @@ Für eine ausführliche Anleitung siehe: **SUPABASE-SETUP.md**
 
 **Fertig!** 🎉 Deine Supabase-Konfiguration ist komplett!
 
+
+

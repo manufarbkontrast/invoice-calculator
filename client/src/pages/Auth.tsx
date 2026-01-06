@@ -38,6 +38,14 @@ export default function Auth() {
     setError(null);
 
     try {
+      // Check if Supabase is configured
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      
+      if (!supabaseUrl || !supabaseKey) {
+        throw new Error("Supabase ist nicht konfiguriert. Bitte kontaktieren Sie den Administrator.");
+      }
+
       if (isSignUp) {
         const { error } = await supabase.auth.signUp({
           email,
@@ -54,7 +62,21 @@ export default function Auth() {
         setLocation("/dashboard");
       }
     } catch (err: any) {
-      setError(err.message || "Ein Fehler ist aufgetreten");
+      console.error("Auth error:", err);
+      // Better error messages
+      let errorMessage = "Ein Fehler ist aufgetreten";
+      
+      if (err.message) {
+        errorMessage = err.message;
+      } else if (err instanceof TypeError && err.message.includes("fetch")) {
+        errorMessage = "Verbindungsfehler. Bitte prüfen Sie Ihre Internetverbindung oder kontaktieren Sie den Support.";
+      } else if (err.status === 400) {
+        errorMessage = "Ungültige E-Mail oder Passwort.";
+      } else if (err.status === 429) {
+        errorMessage = "Zu viele Anfragen. Bitte versuchen Sie es später erneut.";
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

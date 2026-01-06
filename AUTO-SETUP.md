@@ -83,3 +83,5 @@ npm run supabase:check
 
 **Tipp:** Das Skript ist idempotent - du kannst es mehrfach ausführen ohne Probleme!
 
+
+

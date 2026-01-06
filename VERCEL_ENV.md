@@ -62,3 +62,5 @@ vercel env add OPENAI_API_KEY production
 - Variablen ohne `VITE_` Prefix sind nur server-seitig verfügbar
 - Nach dem Setzen der Variablen muss ein neues Deployment erstellt werden
 
+
+

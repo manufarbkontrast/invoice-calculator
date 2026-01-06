@@ -69,3 +69,5 @@ pnpm drizzle-kit migrate
    - Bulk-Operationen in MonthDetail testen
    - Erweiterte Suche testen
 
+
+

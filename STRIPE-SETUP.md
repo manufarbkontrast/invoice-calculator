@@ -155,3 +155,5 @@ Für Tests verwenden Sie:
 - ✅ Sensitive Daten werden nur serverseitig verarbeitet
 - ✅ Umgebungsvariablen werden nicht im Client-Code exponiert
 
+
+

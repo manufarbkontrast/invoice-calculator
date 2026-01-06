@@ -177,3 +177,5 @@ Nach dem Setup:
 
 **Fertig!** 🎉 Ihre Supabase-Konfiguration ist jetzt vollständig eingerichtet.
 
+
+

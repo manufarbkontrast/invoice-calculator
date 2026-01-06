@@ -10,12 +10,21 @@ let _sql: ReturnType<typeof postgres> | null = null;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _sql = postgres(process.env.DATABASE_URL);
+      console.log("[Database] Connecting to database...");
+      _sql = postgres(process.env.DATABASE_URL, {
+        max: 1, // Limit connections for serverless
+        idle_timeout: 20,
+        connect_timeout: 10,
+      });
       _db = drizzle(_sql);
+      console.log("[Database] Database connection established");
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+      console.error("[Database] Failed to connect:", error);
       _db = null;
+      throw error;
     }
+  } else if (!process.env.DATABASE_URL) {
+    console.error("[Database] DATABASE_URL environment variable is not set!");
   }
   return _db;
 }
@@ -107,23 +116,41 @@ export async function updateInvoice(id: number, updates: Partial<InsertInvoice>)
 }
 
 export async function getUserInvoices(userId: string): Promise<Invoice[]> {
-  const db = await getDb();
-  if (!db) {
-    console.warn(`[getUserInvoices] Database not available for user ${userId}`);
-    return [];
+  try {
+    const db = await getDb();
+    if (!db) {
+      console.warn(`[getUserInvoices] Database not available for user ${userId}`);
+      return [];
+    }
+    
+    console.log(`[getUserInvoices] Querying invoices for user ID: ${userId}`);
+    
+    const results = await db
+      .select()
+      .from(invoices)
+      .where(eq(invoices.userId, userId))
+      .orderBy(desc(invoices.createdAt));
+    
+    console.log(`[getUserInvoices] Found ${results.length} invoices for user ${userId}`);
+    
+    // Debug: Check if there are any invoices with different user IDs
+    if (results.length === 0) {
+      try {
+        const allInvoices = await db
+          .select({ userId: invoices.userId, id: invoices.id, fileName: invoices.fileName })
+          .from(invoices)
+          .limit(10);
+        console.log(`[getUserInvoices] Sample invoices in database (first 10):`, allInvoices.map(i => ({ id: i.id, userId: i.userId, fileName: i.fileName })));
+      } catch (debugError) {
+        console.error(`[getUserInvoices] Error fetching sample invoices:`, debugError);
+      }
+    }
+    
+    return results as Invoice[];
+  } catch (error) {
+    console.error(`[getUserInvoices] Error fetching invoices for user ${userId}:`, error);
+    throw new Error(`Failed to fetch invoices: ${error instanceof Error ? error.message : String(error)}`);
   }
-  
-  console.log(`[getUserInvoices] Querying invoices for user ID: ${userId}`);
-  const results = await db.select().from(invoices).where(eq(invoices.userId, userId)).orderBy(desc(invoices.createdAt));
-  console.log(`[getUserInvoices] Found ${results.length} invoices for user ${userId}`);
-  
-  // Debug: Check if there are any invoices with different user IDs
-  if (results.length === 0) {
-    const allInvoices = await db.select({ userId: invoices.userId, id: invoices.id, fileName: invoices.fileName }).from(invoices).limit(10);
-    console.log(`[getUserInvoices] Sample invoices in database (first 10):`, allInvoices.map(i => ({ id: i.id, userId: i.userId, fileName: i.fileName })));
-  }
-  
-  return results as Invoice[];
 }
 
 export async function getInvoicesByMonth(userId: string, month: string): Promise<Invoice[]> {

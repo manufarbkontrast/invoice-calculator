@@ -232,10 +232,15 @@ export const appRouter = router({
 
     // List all invoices
     list: protectedProcedure.query(async ({ ctx }) => {
-      console.log(`[Invoices List] User ID: ${ctx.user.id}, Email: ${ctx.user.email}`);
-      const invoices = await getUserInvoices(ctx.user.id);
-      console.log(`[Invoices List] Found ${invoices.length} invoices for user ${ctx.user.id}`);
-      return invoices;
+      try {
+        console.log(`[Invoices List] User ID: ${ctx.user.id}, Email: ${ctx.user.email}`);
+        const invoices = await getUserInvoices(ctx.user.id);
+        console.log(`[Invoices List] Found ${invoices.length} invoices for user ${ctx.user.id}`);
+        return invoices;
+      } catch (error) {
+        console.error(`[Invoices List] Error:`, error);
+        throw new Error(`Failed to load invoices: ${error instanceof Error ? error.message : String(error)}`);
+      }
     }),
 
     // Global search

@@ -64,16 +64,27 @@ export default function Dashboard() {
     staleTime: 0, // Changed to 0 to always fetch fresh data
   });
 
+  // Debug state for visible debugging
+  const [debugInfo, setDebugInfo] = useState<{
+    userId?: string;
+    userEmail?: string;
+    invoiceCount?: number;
+    error?: string;
+  }>({});
+
   // Debug logging
   useEffect(() => {
     if (user) {
       console.log("[Dashboard] Current user:", { id: user.id, email: user.email });
+      setDebugInfo(prev => ({ ...prev, userId: user.id, userEmail: user.email || undefined }));
     }
     if (invoices) {
       console.log("[Dashboard] Invoices loaded:", invoices.length);
+      setDebugInfo(prev => ({ ...prev, invoiceCount: invoices.length }));
     }
     if (invoicesError) {
       console.error("[Dashboard] Invoices error:", invoicesError);
+      setDebugInfo(prev => ({ ...prev, error: invoicesError.message }));
     }
   }, [user, invoices, invoicesError]);
 
@@ -332,6 +343,45 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen" style={{ background: appTheme.colors.bgGradient }}>
+      {/* Debug Info Box - Visible at top */}
+      {(debugInfo.userId || debugInfo.error) && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 mx-4 mt-4 rounded-lg">
+          <div className="flex items-start">
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-yellow-800 mb-2">🔍 Debug-Informationen</h3>
+              {debugInfo.userId && (
+                <div className="text-xs text-yellow-700 mb-1">
+                  <strong>User-ID:</strong> <code className="bg-yellow-100 px-1 rounded">{debugInfo.userId}</code>
+                </div>
+              )}
+              {debugInfo.userEmail && (
+                <div className="text-xs text-yellow-700 mb-1">
+                  <strong>E-Mail:</strong> {debugInfo.userEmail}
+                </div>
+              )}
+              {debugInfo.invoiceCount !== undefined && (
+                <div className="text-xs text-yellow-700 mb-1">
+                  <strong>Rechnungen gefunden:</strong> {debugInfo.invoiceCount}
+                </div>
+              )}
+              {debugInfo.error && (
+                <div className="text-xs text-red-700 mt-2">
+                  <strong>Fehler:</strong> {debugInfo.error}
+                </div>
+              )}
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setDebugInfo({})}
+              className="text-yellow-600 hover:text-yellow-800"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+      
       {/* Sidebar Overlay */}
       <AnimatePresence>
         {sidebarOpen && (

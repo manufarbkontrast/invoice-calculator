@@ -1,12 +1,21 @@
 import type { Express, Request, Response } from "express";
-import Stripe from "stripe";
 import { getUser, updateUserSubscription } from "../db";
-import { ENV } from "./env";
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-12-15.clover",
-});
+// Initialize Stripe only if secret key is available
+let stripe: any = null;
+try {
+  const Stripe = (await import("stripe")).default;
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (secretKey) {
+    stripe = new Stripe(secretKey, {
+      apiVersion: "2025-12-15.clover",
+    });
+  } else {
+    console.warn("[Stripe] STRIPE_SECRET_KEY not set, Stripe features disabled");
+  }
+} catch (error) {
+  console.warn("[Stripe] Failed to initialize Stripe:", error);
+}
 
 /**
  * Register Stripe routes
@@ -119,6 +128,11 @@ export function registerStripeRoutes(app: Express) {
    * Handles: checkout.session.completed, customer.subscription.updated, invoice.payment_failed
    */
   (app as any).post("/api/stripe/webhook", async (req: Request, res: Response) => {
+    if (!stripe) {
+      (res as any).status(503).json({ error: "Stripe is not configured" });
+      return;
+    }
+
     const reqAny = req as any;
     const sig = reqAny.headers?.["stripe-signature"];
 
@@ -288,6 +302,11 @@ export function registerStripeRoutes(app: Express) {
    * Body: { userId: string }
    */
   (app as any).post("/api/stripe/portal", async (req: Request, res: Response) => {
+    if (!stripe) {
+      (res as any).status(503).json({ error: "Stripe is not configured" });
+      return;
+    }
+
     try {
       const reqAny = req as any;
       const { userId } = reqAny.body || {};

@@ -4,9 +4,17 @@ import fs from "fs";
 import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "../server/_core/oauth";
-import { registerStripeRoutes } from "../server/_core/stripe";
 import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
+
+// Try to import Stripe routes, but don't fail if it doesn't work
+let registerStripeRoutes: ((app: express.Express) => void) | null = null;
+try {
+  const stripeModule = require("../server/_core/stripe");
+  registerStripeRoutes = stripeModule.registerStripeRoutes;
+} catch (error) {
+  console.warn("[API] Stripe module could not be loaded:", error);
+}
 
 const app = express();
 

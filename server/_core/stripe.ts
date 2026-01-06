@@ -1,15 +1,14 @@
 import type { Express, Request, Response } from "express";
 import type Stripe from "stripe";
+import StripeLib from "stripe";
 import { getUser, updateUserSubscription } from "../db";
 
 // Initialize Stripe only if secret key is available
 let stripe: Stripe | null = null;
 try {
-  const StripeModule = await import("stripe");
-  const StripeClass = StripeModule.default;
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (secretKey) {
-    stripe = new StripeClass(secretKey, {
+    stripe = new StripeLib(secretKey, {
       apiVersion: "2025-12-15.clover",
     });
   } else {

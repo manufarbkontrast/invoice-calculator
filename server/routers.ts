@@ -5,7 +5,7 @@ import { extractInvoiceData, extractInvoiceDataFromImage, isImageFile, isPdfFile
 import { generateMonthlyExcel, generateDatevExport, generatePdfReport } from "./excelExporter";
 import { storagePut } from "./storage";
 import { invoices, projects, teams, teamMembers, teamInvitations } from "../drizzle/schema";
-import { eq, and, or, ilike, desc, gte, lte, inArray, sql } from "drizzle-orm";
+import { eq, and, or, ilike, desc, gte, lte, inArray, sql, isNull } from "drizzle-orm";
 import crypto from "crypto";
 
 // Helper: Generate content hash for duplicate detection

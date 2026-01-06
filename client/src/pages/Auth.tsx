@@ -38,6 +38,15 @@ export default function Auth() {
     setError(null);
 
     try {
+      // Validate input
+      if (!email || !email.trim()) {
+        throw new Error("Bitte geben Sie eine E-Mail-Adresse ein.");
+      }
+      
+      if (!password || password.length < 6) {
+        throw new Error("Das Passwort muss mindestens 6 Zeichen lang sein.");
+      }
+
       // Check if Supabase is configured
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -46,17 +55,20 @@ export default function Auth() {
         throw new Error("Supabase ist nicht konfiguriert. Bitte kontaktieren Sie den Administrator.");
       }
 
+      // Trim email
+      const trimmedEmail = email.trim();
+
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
+        const { data, error } = await supabase.auth.signUp({
+          email: trimmedEmail,
+          password: password,
         });
         if (error) throw error;
         alert("Registrierung erfolgreich! Bitte prüfen Sie Ihre E-Mails.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: trimmedEmail,
+          password: password,
         });
         if (error) throw error;
         setLocation("/dashboard");

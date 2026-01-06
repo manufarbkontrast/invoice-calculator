@@ -1249,13 +1249,17 @@ export const appRouter = router({
         // Also update in Supabase Auth user metadata
         try {
           const { supabaseAdmin } = await import("./supabase");
-          const { error: updateError } = await (supabaseAdmin.auth as any).admin.updateUserById(ctx.user.id, {
-            user_metadata: {
-              name: updatedName,
-            },
-          });
-          if (updateError) {
-            console.error("[Profile] Failed to update Supabase user metadata:", updateError);
+          if (supabaseAdmin) {
+            const { error: updateError } = await (supabaseAdmin.auth as any).admin.updateUserById(ctx.user.id, {
+              user_metadata: {
+                name: updatedName,
+              },
+            });
+            if (updateError) {
+              console.error("[Profile] Failed to update Supabase user metadata:", updateError);
+            }
+          } else {
+            console.warn("[Profile] Supabase admin client not available; skipping metadata update");
           }
         } catch (error) {
           console.error("[Profile] Failed to update Supabase user metadata:", error);

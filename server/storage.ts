@@ -61,6 +61,10 @@ export function storageGetPublicUrl(path: string): string {
     ? path.replace(/^(exports|invoices)\//, "")
     : path;
 
+  if (!supabaseAdmin) {
+    throw new Error("Supabase ist nicht konfiguriert.");
+  }
+
   const { data } = supabaseAdmin.storage.from(bucket).getPublicUrl(filePath);
   return data.publicUrl;
 }

@@ -66,7 +66,7 @@ export function registerStripeRoutes(app: Express) {
       // Get or create Stripe customer
       let customerId = user.stripeCustomerId;
 
-      if (!customerId) {
+      if (!customerId && stripe) {
         // Create new Stripe customer
         const customer = await stripe.customers.create({
           email: user.email,
@@ -89,6 +89,11 @@ export function registerStripeRoutes(app: Express) {
         `${reqAnyCheckout.protocol || "https"}://${reqAnyCheckout.get ? reqAnyCheckout.get("host") : reqAnyCheckout.headers?.host || "localhost:3000"}`;
 
       // Create checkout session
+      if (!stripe) {
+        (res as any).status(503).json({ error: "Stripe is not configured" });
+        return;
+      }
+
       const session = await stripe.checkout.sessions.create({
         customer: customerId,
         payment_method_types: ["card"],

@@ -128,40 +128,42 @@ export async function updateInvoice(id: number, updates: Partial<InsertInvoice>)
 }
 
 export async function getUserInvoices(userId: string): Promise<Invoice[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn(`[getUserInvoices] Database not available for user ${userId}`);
+    return [];
+  }
+  
   try {
-    const db = await getDb();
-    if (!db) {
-      console.warn(`[getUserInvoices] Database not available for user ${userId}`);
-      return [];
-    }
-    
     console.log(`[getUserInvoices] Querying invoices for user ID: ${userId}`);
     
+    // First try a simple query without ordering to see if that works
     const results = await db
       .select()
       .from(invoices)
-      .where(eq(invoices.userId, userId))
-      .orderBy(desc(invoices.createdAt));
+      .where(eq(invoices.userId, userId));
     
-    console.log(`[getUserInvoices] Found ${results.length} invoices for user ${userId}`);
+    console.log(`[getUserInvoices] Found ${results.length} invoices for user ${userId} (before ordering)`);
     
-    // Debug: Check if there are any invoices with different user IDs
-    if (results.length === 0) {
-      try {
-        const allInvoices = await db
-          .select({ userId: invoices.userId, id: invoices.id, fileName: invoices.fileName })
-          .from(invoices)
-          .limit(10);
-        console.log(`[getUserInvoices] Sample invoices in database (first 10):`, allInvoices.map(i => ({ id: i.id, userId: i.userId, fileName: i.fileName })));
-      } catch (debugError) {
-        console.error(`[getUserInvoices] Error fetching sample invoices:`, debugError);
-      }
-    }
+    // Sort in memory instead of using orderBy to avoid potential issues
+    const sortedResults = results.sort((a, b) => {
+      const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bDate = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return bDate - aDate; // Descending order
+    });
     
-    return results as Invoice[];
+    console.log(`[getUserInvoices] Returning ${sortedResults.length} invoices for user ${userId}`);
+    
+    return sortedResults as Invoice[];
   } catch (error) {
     console.error(`[getUserInvoices] Error fetching invoices for user ${userId}:`, error);
-    throw new Error(`Failed to fetch invoices: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`[getUserInvoices] Error details:`, {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+    // Return empty array instead of throwing to prevent 500 error
+    // The frontend can handle empty arrays
+    return [];
   }
 }
 

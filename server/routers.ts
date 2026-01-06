@@ -1,6 +1,6 @@
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createInvoice, createProject, deleteInvoice, deleteProject, getInvoice, getInvoicesByMonth, getUserInvoices, getUserProjects, updateInvoice, updateProject, getDb, initializeDefaultProjects, getUserSettings, upsertUserSettings, createExportHistory, getUserExportHistory, getExportHistory, deleteExportHistory, bulkDeleteInvoices, bulkUpdateInvoices, bulkAssignToProject, bulkMarkAsPaid, getUser } from "./db";
+import { createInvoice, createProject, deleteInvoice, deleteProject, getInvoice, getInvoicesByMonth, getUserInvoices, getUserProjects, updateInvoice, updateProject, getDb, initializeDefaultProjects, getUserSettings, upsertUserSettings, createExportHistory, getUserExportHistory, getExportHistory, deleteExportHistory, bulkDeleteInvoices, bulkUpdateInvoices, bulkAssignToProject, bulkMarkAsPaid, getUser, checkSubscriptionLimit, incrementInvoiceCount } from "./db";
 import { extractInvoiceData, extractInvoiceDataFromImage, isImageFile, isPdfFile } from "./pdfExtractor";
 import { generateMonthlyExcel, generateDatevExport, generatePdfReport } from "./excelExporter";
 import { storagePut } from "./storage";
@@ -48,6 +48,16 @@ export const appRouter = router({
       }))
       .mutation(async ({ ctx, input }) => {
         try {
+          // Check subscription limit before upload
+          console.log(`[Upload] Checking subscription limit for user: ${ctx.user.id}`);
+          const subscriptionCheck = await checkSubscriptionLimit(ctx.user.id);
+          
+          if (!subscriptionCheck.canUpload) {
+            throw new Error(subscriptionCheck.reason || "Upload-Limit erreicht. Bitte upgraden Sie Ihren Plan.");
+          }
+          
+          console.log(`[Upload] Subscription check passed. Remaining: ${subscriptionCheck.remaining ?? 'unlimited'}`);
+          
           const mimeType = input.fileType || "application/pdf";
           const isImage = isImageFile(mimeType);
           const isPdf = isPdfFile(mimeType);
@@ -60,12 +70,25 @@ export const appRouter = router({
           const filePath = `${ctx.user.id}/${Date.now()}-${input.fileName}`;
           
           console.log(`[Upload] Uploading file: ${input.fileName} (${input.fileSize} bytes, type: ${mimeType})`);
-          const { url: fileUrl, path: storagePath } = await storagePut(
-            `invoices/${filePath}`,
-            fileBuffer,
-            mimeType
-          );
-          console.log(`[Upload] File uploaded successfully: ${fileUrl}`);
+          
+          let fileUrl: string;
+          let storagePath: string;
+          
+          try {
+            const storageResult = await storagePut(
+              `invoices/${filePath}`,
+              fileBuffer,
+              mimeType
+            );
+            fileUrl = storageResult.url;
+            storagePath = storageResult.path;
+            console.log(`[Upload] File uploaded successfully: ${fileUrl}`);
+          } catch (storageError) {
+            console.error(`[Upload] Storage upload failed:`, storageError);
+            throw new Error(
+              `Datei-Upload fehlgeschlagen: ${storageError instanceof Error ? storageError.message : String(storageError)}`
+            );
+          }
 
           const now = new Date();
           const initialMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;

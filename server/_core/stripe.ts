@@ -94,6 +94,11 @@ export function registerStripeRoutes(app: Express) {
         return;
       }
 
+      if (!customerId) {
+        (res as any).status(500).json({ error: "Failed to create or retrieve customer" });
+        return;
+      }
+
       const session = await stripe.checkout.sessions.create({
         customer: customerId,
         payment_method_types: ["card"],

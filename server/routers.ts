@@ -326,7 +326,7 @@ export const appRouter = router({
         
         if (input.projectId !== undefined) {
           if (input.projectId === null) {
-            conditions.push(eq(invoices.projectId, null));
+            conditions.push(isNull(invoices.projectId));
           } else {
             conditions.push(eq(invoices.projectId, input.projectId));
           }

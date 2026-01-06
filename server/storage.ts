@@ -55,12 +55,14 @@ export async function storageDelete(path: string): Promise<void> {
 /**
  * Get public URL for a file
  */
-export function storageGetPublicUrl(path: string): string {
+export async function storageGetPublicUrl(path: string): Promise<string> {
   const bucket = path.startsWith("exports/") ? EXPORT_BUCKET : INVOICE_BUCKET;
   const filePath = path.startsWith("exports/") || path.startsWith("invoices/")
     ? path.replace(/^(exports|invoices)\//, "")
     : path;
 
+  // Import dynamically to avoid module loading errors
+  const { supabaseAdmin } = await import("./supabase");
   if (!supabaseAdmin) {
     throw new Error("Supabase ist nicht konfiguriert.");
   }

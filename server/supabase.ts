@@ -26,24 +26,63 @@ export async function uploadFile(
   file: Buffer,
   contentType: string
 ) {
-  const { data, error } = await supabaseAdmin.storage
-    .from(bucket)
-    .upload(path, file, {
-      contentType,
-      cacheControl: '3600',
-      upsert: false,
-    });
+  // Check if Supabase is configured
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error(
+      "Supabase Storage ist nicht konfiguriert. SUPABASE_URL und SUPABASE_SERVICE_ROLE_KEY müssen gesetzt sein."
+    );
+  }
 
-  if (error) throw error;
+  try {
+    const { data, error } = await supabaseAdmin.storage
+      .from(bucket)
+      .upload(path, file, {
+        contentType,
+        cacheControl: '3600',
+        upsert: false,
+      });
 
-  const { data: urlData } = supabaseAdmin.storage
-    .from(bucket)
-    .getPublicUrl(data.path);
+    if (error) {
+      console.error(`[Supabase Storage] Upload error for bucket "${bucket}":`, error);
+      
+      // Provide helpful error messages
+      if (error.message?.includes('Bucket not found') || error.message?.includes('does not exist')) {
+        throw new Error(
+          `Storage-Bucket "${bucket}" existiert nicht. Bitte erstellen Sie den Bucket in Supabase Dashboard > Storage.`
+        );
+      }
+      
+      if (error.message?.includes('new row violates row-level security')) {
+        throw new Error(
+          `Storage-Bucket "${bucket}" hat RLS aktiviert. Bitte deaktivieren Sie RLS oder konfigurieren Sie die Storage-Policies.`
+        );
+      }
+      
+      throw new Error(
+        `Supabase Storage Upload fehlgeschlagen: ${error.message || String(error)}`
+      );
+    }
 
-  return {
-    path: data.path,
-    url: urlData.publicUrl,
-  };
+    if (!data) {
+      throw new Error("Supabase Storage hat keine Daten zurückgegeben");
+    }
+
+    const { data: urlData } = supabaseAdmin.storage
+      .from(bucket)
+      .getPublicUrl(data.path);
+
+    if (!urlData || !urlData.publicUrl) {
+      throw new Error("Konnte keine öffentliche URL für die hochgeladene Datei generieren");
+    }
+
+    return {
+      path: data.path,
+      url: urlData.publicUrl,
+    };
+  } catch (error) {
+    console.error(`[Supabase Storage] Upload failed for bucket "${bucket}", path "${path}":`, error);
+    throw error;
+  }
 }
 
 export async function deleteFile(bucket: string, path: string) {

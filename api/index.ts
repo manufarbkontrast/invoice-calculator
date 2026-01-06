@@ -3,9 +3,17 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "../server/_core/oauth";
 import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
+
+// Try to import OAuth routes, but don't fail if it doesn't work
+let registerOAuthRoutes: ((app: express.Express) => void) | null = null;
+try {
+  const oauthModule = require("../server/_core/oauth");
+  registerOAuthRoutes = oauthModule.registerOAuthRoutes;
+} catch (error) {
+  console.warn("[API] OAuth module could not be loaded:", error);
+}
 
 // Try to import Stripe routes, but don't fail if it doesn't work
 let registerStripeRoutes: ((app: express.Express) => void) | null = null;
@@ -28,7 +36,9 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // OAuth callback under /api/oauth/callback
-registerOAuthRoutes(app);
+if (registerOAuthRoutes) {
+  registerOAuthRoutes(app);
+}
 // Stripe routes under /api/stripe/*
 if (registerStripeRoutes) {
   registerStripeRoutes(app);

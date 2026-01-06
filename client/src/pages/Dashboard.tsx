@@ -58,65 +58,11 @@ export default function Dashboard() {
   
   const { data: invoices, refetch, error: invoicesError } = trpc.invoices.list.useQuery(undefined, {
     enabled: isAuthenticated,
-    retry: 1, // Retry once on error
+    retry: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     staleTime: 0,
   });
-
-  // Debug database connection
-  const { data: dbDebug } = trpc.debug.checkDatabase.useQuery(undefined, {
-    enabled: isAuthenticated,
-    retry: false,
-  });
-
-  // Debug state for visible debugging
-  const [debugInfo, setDebugInfo] = useState<{
-    userId?: string;
-    userEmail?: string;
-    invoiceCount?: number;
-    error?: string;
-    isLoading?: boolean;
-    dbStatus?: string;
-  }>({ isLoading: true });
-
-  // Debug logging - Always show debug box
-  useEffect(() => {
-    console.log("=== DASHBOARD DEBUG INFO ===");
-    console.log("User:", user);
-    console.log("Is Authenticated:", isAuthenticated);
-    console.log("Invoices:", invoices);
-    console.log("Invoices Count:", invoices?.length ?? 0);
-    console.log("Invoices Error:", invoicesError);
-    console.log("DB Debug:", dbDebug);
-    console.log("============================");
-    
-    const newDebugInfo: typeof debugInfo = {
-      isLoading: false,
-    };
-    
-    if (user) {
-      console.log("[Dashboard] Current user:", { id: user.id, email: user.email });
-      newDebugInfo.userId = user.id;
-      newDebugInfo.userEmail = user.email || undefined;
-    }
-    if (invoices !== undefined) {
-      console.log("[Dashboard] Invoices loaded:", invoices.length);
-      newDebugInfo.invoiceCount = invoices.length;
-    }
-    if (invoicesError) {
-      console.error("[Dashboard] Invoices error:", invoicesError);
-      newDebugInfo.error = invoicesError.message;
-    }
-    if (dbDebug) {
-      newDebugInfo.dbStatus = dbDebug.databaseStatus;
-      if (dbDebug.error) {
-        newDebugInfo.error = `DB: ${dbDebug.error}`;
-      }
-    }
-    
-    setDebugInfo(newDebugInfo);
-  }, [user, invoices, invoicesError, isAuthenticated, dbDebug]);
 
   const { data: projects, refetch: refetchProjects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,

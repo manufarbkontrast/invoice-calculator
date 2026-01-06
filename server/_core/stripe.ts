@@ -1,21 +1,26 @@
 import type { Express, Request, Response } from "express";
 import type Stripe from "stripe";
-import StripeLib from "stripe";
 import { getUser, updateUserSubscription } from "../db";
 
 // Initialize Stripe only if secret key is available
 let stripe: Stripe | null = null;
+let StripeLib: any = null;
+
 try {
+  // Try to load Stripe module
+  StripeLib = require("stripe");
   const secretKey = process.env.STRIPE_SECRET_KEY;
-  if (secretKey) {
-    stripe = new StripeLib(secretKey, {
+  if (secretKey && StripeLib) {
+    const StripeClass = StripeLib.default || StripeLib;
+    stripe = new StripeClass(secretKey, {
       apiVersion: "2025-12-15.clover",
     });
-  } else {
+  } else if (!secretKey) {
     console.warn("[Stripe] STRIPE_SECRET_KEY not set, Stripe features disabled");
   }
 } catch (error) {
   console.warn("[Stripe] Failed to initialize Stripe:", error);
+  stripe = null;
 }
 
 /**

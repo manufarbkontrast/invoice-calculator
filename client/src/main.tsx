@@ -92,6 +92,20 @@ const trpcClient = trpc.createClient({
         
         return {};
       },
+      fetch: async (url, options) => {
+        const response = await fetch(url, options);
+        
+        // Check if response is HTML (error page) instead of JSON
+        const contentType = response.headers.get("content-type");
+        if (contentType && !contentType.includes("application/json")) {
+          const text = await response.text();
+          throw new Error(
+            `Server returned non-JSON response (${response.status} ${response.statusText}): ${text.substring(0, 100)}`
+          );
+        }
+        
+        return response;
+      },
     }),
   ],
 });

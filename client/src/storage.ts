@@ -26,7 +26,33 @@ export async function storagePut(
   });
 
   if (!response.ok) {
-    throw new Error(`Storage upload failed: ${response.statusText}`);
+    const contentType = response.headers.get("content-type");
+    let errorMessage = `Storage upload failed: ${response.statusText}`;
+    
+    // Try to get error message from response
+    try {
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorData.error || errorMessage;
+      } else {
+        const text = await response.text();
+        // If it's HTML, extract a meaningful error
+        if (text.includes("error") || text.includes("Error")) {
+          errorMessage = `Storage upload failed: ${response.status} ${response.statusText}`;
+        }
+      }
+    } catch {
+      // If parsing fails, use default error message
+    }
+    
+    throw new Error(errorMessage);
+  }
+
+  // Verify response is JSON before parsing
+  const contentType = response.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    const text = await response.text();
+    throw new Error(`Expected JSON response but got ${contentType}: ${text.substring(0, 100)}`);
   }
 
   return response.json();

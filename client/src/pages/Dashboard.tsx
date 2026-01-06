@@ -70,23 +70,39 @@ export default function Dashboard() {
     userEmail?: string;
     invoiceCount?: number;
     error?: string;
-  }>({});
+    isLoading?: boolean;
+  }>({ isLoading: true });
 
-  // Debug logging
+  // Debug logging - Always show debug box
   useEffect(() => {
+    console.log("=== DASHBOARD DEBUG INFO ===");
+    console.log("User:", user);
+    console.log("Is Authenticated:", isAuthenticated);
+    console.log("Invoices:", invoices);
+    console.log("Invoices Count:", invoices?.length ?? 0);
+    console.log("Invoices Error:", invoicesError);
+    console.log("============================");
+    
+    const newDebugInfo: typeof debugInfo = {
+      isLoading: false,
+    };
+    
     if (user) {
       console.log("[Dashboard] Current user:", { id: user.id, email: user.email });
-      setDebugInfo(prev => ({ ...prev, userId: user.id, userEmail: user.email || undefined }));
+      newDebugInfo.userId = user.id;
+      newDebugInfo.userEmail = user.email || undefined;
     }
-    if (invoices) {
+    if (invoices !== undefined) {
       console.log("[Dashboard] Invoices loaded:", invoices.length);
-      setDebugInfo(prev => ({ ...prev, invoiceCount: invoices.length }));
+      newDebugInfo.invoiceCount = invoices.length;
     }
     if (invoicesError) {
       console.error("[Dashboard] Invoices error:", invoicesError);
-      setDebugInfo(prev => ({ ...prev, error: invoicesError.message }));
+      newDebugInfo.error = invoicesError.message;
     }
-  }, [user, invoices, invoicesError]);
+    
+    setDebugInfo(newDebugInfo);
+  }, [user, invoices, invoicesError, isAuthenticated]);
 
   const { data: projects, refetch: refetchProjects } = trpc.projects.list.useQuery(undefined, {
     enabled: isAuthenticated,
@@ -343,44 +359,60 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen" style={{ background: appTheme.colors.bgGradient }}>
-      {/* Debug Info Box - Visible at top */}
-      {(debugInfo.userId || debugInfo.error) && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 mx-4 mt-4 rounded-lg">
-          <div className="flex items-start">
-            <div className="flex-1">
-              <h3 className="text-sm font-medium text-yellow-800 mb-2">🔍 Debug-Informationen</h3>
-              {debugInfo.userId && (
-                <div className="text-xs text-yellow-700 mb-1">
-                  <strong>User-ID:</strong> <code className="bg-yellow-100 px-1 rounded">{debugInfo.userId}</code>
-                </div>
-              )}
-              {debugInfo.userEmail && (
-                <div className="text-xs text-yellow-700 mb-1">
-                  <strong>E-Mail:</strong> {debugInfo.userEmail}
-                </div>
-              )}
-              {debugInfo.invoiceCount !== undefined && (
-                <div className="text-xs text-yellow-700 mb-1">
-                  <strong>Rechnungen gefunden:</strong> {debugInfo.invoiceCount}
-                </div>
-              )}
-              {debugInfo.error && (
-                <div className="text-xs text-red-700 mt-2">
-                  <strong>Fehler:</strong> {debugInfo.error}
-                </div>
-              )}
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setDebugInfo({})}
-              className="text-yellow-600 hover:text-yellow-800"
-            >
-              <X className="h-4 w-4" />
-            </Button>
+      {/* Debug Info Box - Always visible */}
+      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 mx-4 mt-4 rounded-lg">
+        <div className="flex items-start">
+          <div className="flex-1">
+            <h3 className="text-sm font-medium text-yellow-800 mb-2">🔍 Debug-Informationen</h3>
+            {debugInfo.isLoading ? (
+              <div className="text-xs text-yellow-700">Lädt...</div>
+            ) : (
+              <>
+                {debugInfo.userId ? (
+                  <div className="text-xs text-yellow-700 mb-1">
+                    <strong>User-ID:</strong> <code className="bg-yellow-100 px-1 rounded text-xs">{debugInfo.userId}</code>
+                  </div>
+                ) : (
+                  <div className="text-xs text-red-700 mb-1">
+                    <strong>⚠️ Keine User-ID gefunden!</strong>
+                  </div>
+                )}
+                {debugInfo.userEmail && (
+                  <div className="text-xs text-yellow-700 mb-1">
+                    <strong>E-Mail:</strong> {debugInfo.userEmail}
+                  </div>
+                )}
+                {debugInfo.invoiceCount !== undefined ? (
+                  <div className="text-xs text-yellow-700 mb-1">
+                    <strong>Rechnungen gefunden:</strong> {debugInfo.invoiceCount}
+                  </div>
+                ) : (
+                  <div className="text-xs text-yellow-700 mb-1">
+                    <strong>Rechnungen:</strong> Wird geladen...
+                  </div>
+                )}
+                {debugInfo.error && (
+                  <div className="text-xs text-red-700 mt-2">
+                    <strong>Fehler:</strong> {debugInfo.error}
+                  </div>
+                )}
+              </>
+            )}
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              console.log("Refetching invoices...");
+              refetch();
+            }}
+            className="text-yellow-600 hover:text-yellow-800"
+            title="Neu laden"
+          >
+            <Loader2 className="h-4 w-4" />
+          </Button>
         </div>
-      )}
+      </div>
       
       {/* Sidebar Overlay */}
       <AnimatePresence>

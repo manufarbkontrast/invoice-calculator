@@ -22,9 +22,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // OAuth callback under /api/oauth/callback
 registerOAuthRoutes(app);
 // Stripe routes under /api/stripe/*
-if (registerStripeRoutes) {
-  registerStripeRoutes(app);
-}
+registerStripeRoutes(app);
 
 // tRPC API
 app.use(

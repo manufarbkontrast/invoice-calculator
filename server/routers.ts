@@ -94,18 +94,26 @@ export const appRouter = router({
           const initialMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 
           console.log(`[Upload] Creating invoice record for user: ${ctx.user.id}`);
-          const invoice = await createInvoice({
-            userId: ctx.user.id,
-            fileName: input.fileName,
-            filePath: storagePath,
-            fileUrl,
-            fileSize: input.fileSize,
-            month: initialMonth,
-            amount: 0,
-            currency: "EUR",
-            status: "processing",
-          });
-          console.log(`[Upload] Invoice created with ID: ${invoice.id}`);
+          let invoice;
+          try {
+            invoice = await createInvoice({
+              userId: ctx.user.id,
+              fileName: input.fileName,
+              filePath: storagePath,
+              fileUrl,
+              fileSize: input.fileSize,
+              month: initialMonth,
+              amount: 0,
+              currency: "EUR",
+              status: "processing",
+            });
+            console.log(`[Upload] Invoice created with ID: ${invoice.id}`);
+          } catch (dbError) {
+            console.error(`[Upload] Failed to create invoice record:`, dbError);
+            throw new Error(
+              `Datenbank-Fehler beim Erstellen der Rechnung: ${dbError instanceof Error ? dbError.message : String(dbError)}`
+            );
+          }
 
           const extractionIsImage = isImage;
           (async () => {

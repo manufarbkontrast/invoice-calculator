@@ -398,8 +398,8 @@ export default function MonthDetail() {
               <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <h1 className="text-2xl font-medium tracking-tight text-blue-600">{APP_TITLE}</h1>
-              <p className="text-sm text-gray-500">Rechnungsverwaltung</p>
+              <h1 className="text-xl sm:text-2xl font-medium tracking-tight text-blue-600">{APP_TITLE}</h1>
+              <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

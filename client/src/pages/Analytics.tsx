@@ -288,8 +288,8 @@ export default function Analytics() {
               <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="font-medium text-blue-600">{APP_TITLE}</span>
-              <p className="text-xs text-gray-500">Rechnungsverwaltung</p>
+              <h1 className="text-xl sm:text-2xl font-medium tracking-tight text-blue-600">{APP_TITLE}</h1>
+              <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

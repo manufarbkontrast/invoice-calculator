@@ -434,27 +434,28 @@ export default function Dashboard() {
         <motion.header 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-blue-100"
+          className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
         >
-          <div className="px-6 py-4 flex justify-between items-center">
+          <div className="container mx-auto px-6 py-5 flex justify-between items-center">
             {/* Logo */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <div 
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, ${appTheme.colors.blue} 0%, ${appTheme.colors.lightBlue} 100%)`,
+                  boxShadow: appTheme.shadows.md,
                 }}
               >
-                <Receipt className="h-5 w-5 text-white" strokeWidth={1.5} />
+                <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
               </div>
               <div>
-                <span className="font-medium text-blue-600">{APP_TITLE}</span>
-                <p className="text-xs text-gray-500">Rechnungsverwaltung</p>
+                <h1 className="text-xl sm:text-2xl font-medium tracking-tight text-blue-600">{APP_TITLE}</h1>
+                <p className="text-xs sm:text-sm text-gray-500">Rechnungsverwaltung</p>
               </div>
             </div>
 
             {/* Search */}
-            <div className="relative flex-1 max-w-md mx-6 hidden md:block">
+            <div className="relative flex-1 max-w-md mx-6 hidden lg:block">
               <div className="flex items-center gap-2 bg-blue-50 rounded-xl px-4 py-2.5">
                 <Search className="h-4 w-4 text-gray-400" />
                 <input

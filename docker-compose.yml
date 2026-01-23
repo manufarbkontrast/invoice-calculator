@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  invoice-calculator:
+  invoice-app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,7 +9,7 @@ services:
         - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
         - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
     ports:
-      - "3001:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -29,6 +29,9 @@ services:
       # Optional: AI
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     restart: unless-stopped
+    networks:
+      - default
+      - caddy_net
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s
@@ -36,7 +39,7 @@ services:
       retries: 3
       start_period: 10s
 
-# Optional: Add a reverse proxy like Traefik or Nginx for HTTPS
-# networks:
-#   - web
+networks:
+  caddy_net:
+    external: true
 

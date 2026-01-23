@@ -42,4 +42,5 @@ services:
 networks:
   caddy_net:
     external: true
+    name: n8n-docker-caddy_default
 

@@ -614,7 +614,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {/* Datei auswählen */}
             <label className="cursor-pointer">
               <Input
@@ -637,7 +637,8 @@ export default function Dashboard() {
               >
                 <span>
                   <FileUp className="h-4 w-4" />
-                  Dateien
+                  <span className="hidden sm:inline">Dateien</span>
+                  <span className="sm:hidden">Datei</span>
                 </span>
               </Button>
             </label>
@@ -691,7 +692,8 @@ export default function Dashboard() {
               ) : (
                 <>
                   <Upload className="h-4 w-4" />
-                  Hochladen
+                  <span className="hidden sm:inline">Hochladen</span>
+                  <span className="sm:hidden">↑</span>
                 </>
               )}
             </Button>
@@ -704,7 +706,8 @@ export default function Dashboard() {
                   className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
                 >
                   <Plus className="h-4 w-4" />
-                  Projekt hinzufügen
+                  <span className="hidden sm:inline">Projekt hinzufügen</span>
+                  <span className="sm:hidden">+ Projekt</span>
                 </Button>
               </DialogTrigger>
               <DialogContent className="rounded-3xl border-blue-100 p-8">

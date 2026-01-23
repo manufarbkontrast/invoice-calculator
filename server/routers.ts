@@ -181,9 +181,11 @@ export const appRouter = router({
           (async () => {
             try {
               console.log(`[Upload] Starting data extraction for invoice ${invoice.id}`);
+              // Use storagePath instead of fileUrl for private buckets
+              const extractionSource = storagePath || fileUrl;
               const extractedData = extractionIsImage 
-                ? await extractInvoiceDataFromImage(fileUrl)
-                : await extractInvoiceData(fileUrl);
+                ? await extractInvoiceDataFromImage(fileUrl) // Images still need URL for Vision API
+                : await extractInvoiceData(extractionSource);
               console.log(`[Upload] Data extracted successfully:`, extractedData);
               
               let month = initialMonth;

@@ -1,5 +1,6 @@
 import { invokeLLM } from "./_core/llm";
 import { extractText } from "unpdf";
+import { downloadFile } from "./supabase";
 
 export interface ExtractedInvoiceData {
   toolName: string;
@@ -25,15 +26,33 @@ export function isPdfFile(mimeType: string): boolean {
 }
 
 /**
- * Download PDF from URL and extract text
+ * Download PDF from URL or Storage path and extract text
+ * Supports both public URLs and Supabase Storage paths
  */
-async function extractTextFromPdf(pdfUrl: string): Promise<string> {
-  const response = await fetch(pdfUrl);
-  if (!response.ok) {
-    throw new Error(`Failed to download PDF: ${response.status}`);
+async function extractTextFromPdf(pdfUrlOrPath: string): Promise<string> {
+  let arrayBuffer: ArrayBuffer;
+  
+  // Check if it's a Supabase Storage path (not a full HTTP URL)
+  // Storage paths look like: "userId/timestamp-filename.pdf"
+  // URLs look like: "https://..."
+  if (!pdfUrlOrPath.startsWith('http://') && !pdfUrlOrPath.startsWith('https://')) {
+    // It's a storage path - download directly from Supabase Storage
+    const bucket = 'invoices';
+    const path = pdfUrlOrPath;
+    
+    console.log(`[PDF] Downloading from Supabase Storage: bucket=${bucket}, path=${path}`);
+    const buffer = await downloadFile(bucket, path);
+    arrayBuffer = buffer.buffer;
+  } else {
+    // It's a URL - try to download from public URL
+    console.log(`[PDF] Downloading from URL: ${pdfUrlOrPath}`);
+    const response = await fetch(pdfUrlOrPath);
+    if (!response.ok) {
+      throw new Error(`Failed to download PDF: ${response.status}`);
+    }
+    arrayBuffer = await response.arrayBuffer();
   }
   
-  const arrayBuffer = await response.arrayBuffer();
   const result = await extractText(arrayBuffer);
   
   // Handle different return formats

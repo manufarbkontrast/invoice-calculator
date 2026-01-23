@@ -557,7 +557,7 @@ export default function Projects() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white/60 text-lg mb-2">Gesamt zugeordnet</p>
-                  <p className="text-5xl font-light">€{(totalProjectAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-3xl sm:text-4xl font-light">€{(totalProjectAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
                 <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
                   <TrendingUp className="h-8 w-8 text-white" />

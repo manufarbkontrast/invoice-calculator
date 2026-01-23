@@ -547,7 +547,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white/80 text-xs mb-1">Gesamtausgaben</p>
-                  <p className="text-2xl font-medium">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-3xl sm:text-4xl font-light">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
                 <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                   <TrendingUp className="h-5 w-5 text-white" />
@@ -934,7 +934,7 @@ export default function Dashboard() {
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-gray-500 mb-1">Gesamt</p>
-                            <p className="text-3xl font-medium text-gray-900">
+                            <p className="text-3xl sm:text-4xl font-light text-gray-900">
                               €{(totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                             </p>
                           </div>

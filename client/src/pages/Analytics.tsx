@@ -461,7 +461,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white/80 text-xs mb-1">Gesamt</p>
-                  <p className="text-2xl font-medium">€{totalSpending.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-3xl sm:text-4xl font-light">€{totalSpending.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                   <TrendingUp className="h-5 w-5 text-white" />
@@ -475,7 +475,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Rechnung</p>
-                  <p className="text-2xl font-medium text-gray-900">€{averageInvoice.toFixed(2)}</p>
+                  <p className="text-3xl sm:text-4xl font-light text-gray-900">€{averageInvoice.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <FileText className="h-5 w-5" style={{ color: theme.colors.blue }} />
@@ -489,7 +489,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Monat</p>
-                  <p className="text-2xl font-medium text-gray-900">€{averageMonthly.toFixed(2)}</p>
+                  <p className="text-3xl sm:text-4xl font-light text-gray-900">€{averageMonthly.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <Calendar className="h-5 w-5" style={{ color: theme.colors.blue }} />

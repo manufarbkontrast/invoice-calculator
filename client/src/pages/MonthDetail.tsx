@@ -674,7 +674,7 @@ export default function MonthDetail() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white/60 text-sm mb-1">Gesamt</p>
-                  <p className="text-3xl font-light">€{(summary.totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-3xl sm:text-4xl font-light">€{(summary.totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                   <TrendingUp className="h-6 w-6 text-white" />

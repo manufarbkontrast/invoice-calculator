@@ -771,7 +771,7 @@ export default function Analytics() {
                         width={100}
                       />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="amount" fill="#3b82f6" radius={[0, 8, 8, 0]} />
+                      <Bar dataKey="amount" fill="#000000" radius={[0, 8, 8, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>

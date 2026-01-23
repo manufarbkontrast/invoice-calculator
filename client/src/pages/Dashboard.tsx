@@ -288,7 +288,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-blue-100 border-t-gray-900 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -343,10 +343,10 @@ export default function Dashboard() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-gray-200 z-50 shadow-2xl flex"
+            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-blue-100 z-50 shadow-2xl flex"
           >
             {/* Header */}
-            <div className="p-5 border-b border-gray-200 flex items-center justify-between">
+            <div className="p-5 border-b border-blue-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -357,7 +357,7 @@ export default function Dashboard() {
                   <Receipt className="h-5 w-5 text-white" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h1 className="text-lg font-medium text-gray-900">Menü</h1>
+                  <h1 className="text-lg font-medium text-blue-600">Menü</h1>
                 </div>
               </div>
               <Button
@@ -387,7 +387,7 @@ export default function Dashboard() {
 
               <button
                 onClick={() => { setLocation("/analytics"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
               >
                 <BarChart3 className="h-5 w-5" />
                 <span>Analyse & Statistiken</span>
@@ -395,7 +395,7 @@ export default function Dashboard() {
 
               <button
                 onClick={() => { setLocation("/projects"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
               >
                 <FolderKanban className="h-5 w-5" />
                 <span>Projekte</span>
@@ -404,13 +404,13 @@ export default function Dashboard() {
             </nav>
 
             {/* User Info */}
-            <div className="p-4 border-t border-gray-200">
-              <div className="flex items-center gap-3 px-3 py-2 bg-gray-100 rounded-xl">
-                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
+            <div className="p-4 border-t border-blue-100">
+              <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 rounded-xl">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                   <Users className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{user?.email}</p>
+                  <p className="text-sm font-medium text-blue-600 truncate">{user?.email}</p>
                   <p className="text-xs text-gray-500">Angemeldet</p>
                 </div>
               </div>
@@ -418,7 +418,7 @@ export default function Dashboard() {
                 variant="outline"
                 size="sm"
                 onClick={logout}
-                className="w-full mt-3 border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl"
+                className="w-full mt-3 border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Abmelden
@@ -434,7 +434,7 @@ export default function Dashboard() {
         <motion.header 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-gray-200"
+          className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-blue-100"
         >
           <div className="px-6 py-4 flex justify-between items-center">
             {/* Logo */}
@@ -448,14 +448,14 @@ export default function Dashboard() {
                 <Receipt className="h-5 w-5 text-white" strokeWidth={1.5} />
               </div>
               <div>
-                <span className="font-medium text-gray-900">{APP_TITLE}</span>
+                <span className="font-medium text-blue-600">{APP_TITLE}</span>
                 <p className="text-xs text-gray-500">Rechnungsverwaltung</p>
               </div>
             </div>
 
             {/* Search */}
             <div className="relative flex-1 max-w-md mx-6 hidden md:block">
-              <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-4 py-2.5">
+              <div className="flex items-center gap-2 bg-blue-50 rounded-xl px-4 py-2.5">
                 <Search className="h-4 w-4 text-gray-400" />
                 <input
                   type="text"
@@ -466,7 +466,7 @@ export default function Dashboard() {
                     setSearchOpen(e.target.value.length >= 2);
                   }}
                   onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
-                  className="bg-transparent border-none outline-none flex-1 text-sm text-gray-900 placeholder:text-gray-400"
+                  className="bg-transparent border-none outline-none flex-1 text-sm text-blue-600 placeholder:text-gray-400"
                 />
                 {searchQuery && (
                   <button onClick={() => { setSearchQuery(""); setSearchOpen(false); }}>
@@ -482,7 +482,7 @@ export default function Dashboard() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full mt-2 left-0 right-0 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden z-50 max-h-80 overflow-y-auto"
+                    className="absolute top-full mt-2 left-0 right-0 bg-white border border-blue-100 rounded-xl shadow-xl overflow-hidden z-50 max-h-80 overflow-y-auto"
                   >
                     {searchResults.map((inv) => (
                       <button
@@ -492,9 +492,9 @@ export default function Dashboard() {
                           setSearchOpen(false);
                           setSearchQuery("");
                         }}
-                        className="w-full px-4 py-3 text-left hover:bg-gray-100 border-b border-gray-200 last:border-0"
+                        className="w-full px-4 py-3 text-left hover:bg-blue-50 border-b border-blue-100 last:border-0"
                       >
-                        <div className="font-medium text-sm text-gray-900">{inv.toolName || inv.fileName}</div>
+                        <div className="font-medium text-sm text-blue-600">{inv.toolName || inv.fileName}</div>
                         <div className="text-xs text-gray-500 flex items-center gap-2 mt-0.5">
                           <span>{inv.companyName || '—'}</span>
                           <span>•</span>
@@ -518,7 +518,7 @@ export default function Dashboard() {
                 variant="outline"
                 size="lg"
                 onClick={() => setSidebarOpen(true)}
-                className="border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl px-4"
+                className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
               >
                 <PanelRightOpen className="h-5 w-5 mr-2" />
                 Menü
@@ -555,28 +555,28 @@ export default function Dashboard() {
             </CardContent>
           </Card>
           
-          <Card className="border-gray-200 rounded-xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
+          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
-                  <p className="text-2xl font-medium text-gray-900">{totalInvoices}</p>
+                  <p className="text-2xl font-medium text-blue-600">{totalInvoices}</p>
                 </div>
-                <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
                   <Receipt className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-gray-200 rounded-xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
+          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Projekte</p>
-                  <p className="text-2xl font-medium text-gray-900">{projects?.length || 0}</p>
+                  <p className="text-2xl font-medium text-blue-600">{projects?.length || 0}</p>
                 </div>
-                <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
                   <FolderKanban className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
                 </div>
               </div>
@@ -593,14 +593,14 @@ export default function Dashboard() {
         >
           {/* Ausgewählte Dateien anzeigen */}
           {selectedFiles.length > 0 && (
-            <div className="mb-4 p-4 bg-gray-100 rounded-xl border border-gray-200">
+            <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-gray-700">{selectedFiles.length} Datei(en) ausgewählt</span>
               </div>
               <div className="space-y-2 max-h-32 overflow-y-auto">
                 {selectedFiles.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between bg-white p-2 rounded-lg text-sm border border-gray-200">
-                    <span className="truncate flex-1 text-gray-900">{file.name}</span>
+                  <div key={index} className="flex items-center justify-between bg-white p-2 rounded-lg text-sm border border-blue-100">
+                    <span className="truncate flex-1 text-blue-600">{file.name}</span>
                     <button
                       onClick={() => removeSelectedFile(index)}
                       className="ml-3 text-red-500 hover:text-red-700 font-bold"
@@ -627,7 +627,7 @@ export default function Dashboard() {
               <Button 
                 size="sm" 
                 variant="outline"
-                className="w-full h-12 border-2 border-gray-300 hover:bg-gray-900 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
                 style={{
                   borderColor: appTheme.colors.blue + '40',
                 }}
@@ -646,7 +646,7 @@ export default function Dashboard() {
               <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
                 <SelectTrigger 
                   size="default"
-                  className="!h-12 !min-h-[3rem] !max-h-[3rem] w-full !px-4 !py-0 rounded-xl bg-white border-2 border-gray-300 text-gray-900 text-sm font-medium hover:border-gray-500 transition-all flex items-center justify-between [&[data-size=default]]:!h-12 [&[data-size=sm]]:!h-12"
+                  className="!h-12 !min-h-[3rem] !max-h-[3rem] w-full !px-4 !py-0 rounded-xl bg-white border-2 border-blue-200 text-blue-600 text-sm font-medium hover:border-blue-400 transition-all flex items-center justify-between [&[data-size=default]]:!h-12 [&[data-size=sm]]:!h-12"
                 >
                   <SelectValue placeholder="Projekt" />
                 </SelectTrigger>
@@ -670,7 +670,7 @@ export default function Dashboard() {
                 onClick={() => initializeDefaultsMutation.mutate()}
                 disabled={initializeDefaultsMutation.isPending}
                 variant="outline"
-                className="w-full h-12 border-2 border-gray-300 hover:bg-gray-900 hover:text-white rounded-xl text-sm font-medium"
+                className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium"
               >
                 + Projekte
               </Button>
@@ -680,7 +680,7 @@ export default function Dashboard() {
             <Button
               onClick={handleUploadConfirm}
               disabled={uploading || selectedFiles.length === 0}
-              className="w-full h-12 text-white disabled:bg-gray-200 disabled:text-gray-400 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+              className="w-full h-12 text-white disabled:bg-blue-100 disabled:text-gray-400 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
               style={{
                 background: `linear-gradient(135deg, ${appTheme.colors.blue} 0%, ${appTheme.colors.lightBlue} 100%)`,
               }}
@@ -700,15 +700,15 @@ export default function Dashboard() {
               <DialogTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="w-full h-12 border-2 border-gray-300 hover:bg-gray-900 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                  className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
                 >
                   <Plus className="h-4 w-4" />
                   Projekt hinzufügen
                 </Button>
               </DialogTrigger>
-              <DialogContent className="rounded-3xl border-gray-200 p-8">
+              <DialogContent className="rounded-3xl border-blue-100 p-8">
                 <DialogHeader>
-                  <DialogTitle className="text-2xl font-medium text-gray-900">Neues Projekt</DialogTitle>
+                  <DialogTitle className="text-2xl font-medium text-blue-600">Neues Projekt</DialogTitle>
                   <DialogDescription className="text-gray-600 text-base">
                     Erstellen Sie ein Projekt zur Organisation Ihrer Rechnungen
                   </DialogDescription>
@@ -721,7 +721,7 @@ export default function Dashboard() {
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
                       placeholder="z.B. Marketing Tools"
-                      className="h-14 rounded-xl border-gray-300 text-base"
+                      className="h-14 rounded-xl border-blue-200 text-base"
                     />
                   </div>
                   <div className="space-y-3">
@@ -732,13 +732,13 @@ export default function Dashboard() {
                         type="color"
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
-                        className="w-20 h-14 p-2 rounded-xl border-gray-300"
+                        className="w-20 h-14 p-2 rounded-xl border-blue-200"
                       />
                       <Input
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
                         placeholder="#000000"
-                        className="flex-1 h-14 rounded-xl border-gray-300"
+                        className="flex-1 h-14 rounded-xl border-blue-200"
                       />
                     </div>
                   </div>
@@ -768,7 +768,7 @@ export default function Dashboard() {
           
           {uploading && (
             <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-3">
-              <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-blue-200 border-t-gray-900 rounded-full animate-spin" />
               Wird verarbeitet...
             </div>
           )}
@@ -784,12 +784,12 @@ export default function Dashboard() {
               className="mb-12"
             >
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-medium text-gray-900">Ihre Projekte</h2>
+                <h2 className="text-2xl font-medium text-blue-600">Ihre Projekte</h2>
                 <div className="flex gap-3">
                   <Button 
                     variant="outline" 
                     onClick={() => setLocation("/analytics")}
-                    className="rounded-xl border-gray-300 hover:bg-gray-900 hover:text-white h-12 px-6"
+                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white h-12 px-6"
                   >
                     <TrendingUp className="h-5 w-5 mr-2" />
                     Analyse
@@ -797,7 +797,7 @@ export default function Dashboard() {
                   <Button 
                     variant="outline" 
                     onClick={() => setLocation("/projects")}
-                    className="rounded-xl border-gray-300 hover:bg-gray-900 hover:text-white h-12 px-6"
+                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white h-12 px-6"
                   >
                     Alle Projekte
                   </Button>
@@ -829,7 +829,7 @@ export default function Dashboard() {
                       className="cursor-pointer"
                       onClick={() => setLocation(`/projects?project=${project.id}`)}
                     >
-                      <Card className="border-gray-200 rounded-2xl hover:border-gray-400 transition-all h-full bg-white">
+                      <Card className="border-blue-100 rounded-2xl hover:border-blue-300 transition-all h-full bg-white">
                         <CardContent className="p-6">
                           <div className="flex items-start gap-4">
                             <div
@@ -837,11 +837,11 @@ export default function Dashboard() {
                               style={{ backgroundColor: displayColor }}
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-lg text-gray-900 truncate">{project.name}</h3>
+                              <h3 className="font-medium text-lg text-blue-600 truncate">{project.name}</h3>
                               <p className="text-gray-600 text-base mt-1">
                                 {projectInvoices.length} Rechnungen
                               </p>
-                              <p className="text-gray-900 font-medium text-xl mt-2">
+                              <p className="text-blue-600 font-medium text-xl mt-2">
                                 €{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                               </p>
                             </div>
@@ -863,16 +863,16 @@ export default function Dashboard() {
           transition={{ delay: 0.4 }}
         >
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
               <Calendar className="h-6 w-6" style={{ color: appTheme.colors.blue }} />
             </div>
-            <h2 className="text-2xl font-medium text-gray-900">Monatliche Übersicht</h2>
+            <h2 className="text-2xl font-medium text-blue-600">Monatliche Übersicht</h2>
           </div>
 
           {months.length === 0 ? (
-            <Card className="border-gray-200 rounded-3xl bg-white">
+            <Card className="border-blue-100 rounded-3xl bg-white">
               <CardContent className="py-20 text-center">
-                <div className="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Receipt className="h-10 w-10" style={{ color: appTheme.colors.blue + '60' }} />
                 </div>
                 <h3 className="text-2xl font-medium text-gray-700 mb-3">Noch keine Rechnungen</h3>
@@ -908,19 +908,19 @@ export default function Dashboard() {
                 return (
                   <motion.div key={month} variants={fadeInUp}>
                     <Card
-                      className="border-gray-200 hover:border-gray-400 cursor-pointer transition-all duration-300 group rounded-2xl overflow-hidden bg-white"
+                      className="border-blue-100 hover:border-blue-300 cursor-pointer transition-all duration-300 group rounded-2xl overflow-hidden bg-white"
                       onClick={() => setLocation(`/month/${month}`)}
                     >
                       <CardContent className="p-8">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-6">
                             <div 
-                              className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center transition-colors"
+                              className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors"
                             >
                               <Calendar className="h-8 w-8" style={{ color: appTheme.colors.blue }} />
                             </div>
                             <div>
-                              <h3 className="text-2xl font-medium text-gray-900 group-hover:translate-x-2 transition-transform">
+                              <h3 className="text-2xl font-medium text-blue-600 group-hover:translate-x-2 transition-transform">
                                 {monthName}
                               </h3>
                               <p className="text-lg text-gray-600 mt-1">
@@ -930,7 +930,7 @@ export default function Dashboard() {
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-gray-500 mb-1">Gesamt</p>
-                            <p className="text-3xl font-medium text-gray-900">
+                            <p className="text-3xl font-medium text-blue-600">
                               €{(totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                             </p>
                           </div>

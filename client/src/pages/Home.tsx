@@ -68,7 +68,7 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -97,7 +97,7 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 shadow-sm"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <motion.div 
@@ -113,7 +113,7 @@ export default function Home() {
             >
               <Receipt className="h-5 w-5 text-white" strokeWidth={2} />
             </div>
-            <span className="text-xl font-semibold text-gray-900">{APP_TITLE}</span>
+            <span className="text-xl font-semibold text-blue-600">{APP_TITLE}</span>
           </motion.div>
           
                  <nav className="hidden md:flex items-center gap-6">
@@ -123,7 +123,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Features
                    </a>
@@ -133,7 +133,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
                    >
                      KI-Module
                    </a>
@@ -143,7 +143,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Preise
                    </a>
@@ -153,7 +153,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Kontakt
                    </a>
@@ -229,7 +229,7 @@ export default function Home() {
                             initial={{ width: 0 }}
                             animate={{ width: "100%" }}
                             transition={{ delay: 1.1 + i * 0.1, duration: 0.5 }}
-                            className="h-1.5 bg-gray-200 rounded"
+                            className="h-1.5 bg-blue-100 rounded"
                           />
                         ))}
                       </div>
@@ -257,7 +257,7 @@ export default function Home() {
                             initial={{ width: 0 }}
                             animate={{ width: "100%" }}
                             transition={{ delay: 1.6 + i * 0.1, duration: 0.5 }}
-                            className="h-1.5 bg-gray-200 rounded"
+                            className="h-1.5 bg-blue-100 rounded"
                           />
                         ))}
                       </div>
@@ -281,8 +281,8 @@ export default function Home() {
                         <path d="M20 5 A15 15 0 0 1 35 20 L20 20 Z" fill="#10b981" />
                       </svg>
                       <div className="flex-1 space-y-1">
-                        <div className="h-1 bg-gray-200 rounded" />
-                        <div className="h-1 bg-gray-200 rounded w-3/4" />
+                        <div className="h-1 bg-blue-100 rounded" />
+                        <div className="h-1 bg-blue-100 rounded w-3/4" />
                       </div>
                     </div>
                   </motion.div>
@@ -385,7 +385,7 @@ export default function Home() {
                             initial={{ width: 0 }}
                             animate={{ width: "100%" }}
                             transition={{ delay: 0.8 + i * 0.1, duration: 0.4 }}
-                            className="h-1 bg-gray-200 rounded"
+                            className="h-1 bg-blue-100 rounded"
                           />
                         ))}
                       </div>
@@ -413,7 +413,7 @@ export default function Home() {
                             initial={{ width: 0 }}
                             animate={{ width: "100%" }}
                             transition={{ delay: 1.3 + i * 0.1, duration: 0.4 }}
-                            className="h-1 bg-gray-200 rounded"
+                            className="h-1 bg-blue-100 rounded"
                           />
                         ))}
                       </div>
@@ -436,8 +436,8 @@ export default function Home() {
                         <path d="M20 5 A15 15 0 0 1 35 20 L20 20 Z" fill="#10b981" />
                       </svg>
                       <div className="flex-1 space-y-0.5">
-                        <div className="h-0.5 bg-gray-200 rounded" />
-                        <div className="h-0.5 bg-gray-200 rounded w-2/3" />
+                        <div className="h-0.5 bg-blue-100 rounded" />
+                        <div className="h-0.5 bg-blue-100 rounded w-2/3" />
                       </div>
                     </div>
                   </motion.div>
@@ -499,11 +499,11 @@ export default function Home() {
                 variants={item}
                 initial="hidden"
                 animate="show"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight md:leading-tight lg:leading-tight text-gray-900 relative z-10 px-4 sm:px-0"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight md:leading-tight lg:leading-tight text-blue-600 relative z-10 px-4 sm:px-0"
             >
                 Rechnungen verwalten.
                 <br />
-                <span className="text-gray-900">KI-gestützt.</span>
+                <span className="text-blue-600">KI-gestützt.</span>
               <br />
                 <span className="text-gray-700">Mühelos.</span>
             </motion.h1>
@@ -556,7 +556,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-bold mb-8 text-gray-900"
+                className="text-3xl md:text-4xl font-bold mb-8 text-blue-600"
           >
               Alles was Sie brauchen
               </motion.h2>
@@ -583,7 +583,7 @@ export default function Home() {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <Card 
-                      className="rounded-xl h-full border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      className="rounded-xl h-full border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
                       style={{
                         borderColor: hoveredCard === index ? blue : undefined,
                         boxShadow: hoveredCard === index ? `0 8px 24px ${theme.colors.blue}20` : undefined,
@@ -598,7 +598,7 @@ export default function Home() {
                         >
                           <feature.icon className="h-6 w-6" style={{ color: blue }} strokeWidth={1.5} />
                     </div>
-                        <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900">{feature.title}</h3>
+                        <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-blue-600">{feature.title}</h3>
                         <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.text}</p>
                   </CardContent>
                 </Card>
@@ -613,7 +613,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-bold mb-8 text-gray-900"
+                className="text-3xl md:text-4xl font-bold mb-8 text-blue-600"
               >
                 Next-Gen KI-Modules
               </motion.h2>
@@ -626,7 +626,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  <Card className="rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg">
+                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -701,7 +701,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  <Card className="rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg">
+                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -760,7 +760,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-blue-600">
               Transparente Preise
             </h2>
             <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
@@ -775,7 +775,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="flex items-center justify-center gap-4 mb-12"
           >
-            <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
+            <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-blue-600' : 'text-gray-500'}`}>
               Monatlich
             </span>
             <button
@@ -793,7 +793,7 @@ export default function Home() {
               />
             </button>
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
+              <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-blue-600' : 'text-gray-500'}`}>
                 Jährlich
               </span>
               <span className="px-2 py-0.5 text-xs font-semibold text-white rounded-full" style={{ backgroundColor: theme.colors.blue }}>
@@ -811,12 +811,12 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Card className="h-full rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6 sm:p-8">
                   <div className="mb-6">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Basis</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-blue-600 mb-2">Basis</h3>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">0€</span>
+                      <span className="text-4xl sm:text-5xl font-bold text-blue-600">0€</span>
                       <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">Kostenlos starten</p>
@@ -873,10 +873,10 @@ export default function Home() {
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
                       <Crown className="h-5 w-5" style={{ color: theme.colors.blue }} />
-                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Pro</h3>
+                      <h3 className="text-xl sm:text-2xl font-bold text-blue-600">Pro</h3>
                     </div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">
+                      <span className="text-4xl sm:text-5xl font-bold text-blue-600">
                         {isYearly ? '115€' : '12€'}
                       </span>
                       <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
@@ -922,15 +922,15 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <Card className="h-full rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6 sm:p-8">
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
                       <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
-                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Business</h3>
+                      <h3 className="text-xl sm:text-2xl font-bold text-blue-600">Business</h3>
                     </div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl sm:text-5xl font-bold text-gray-900">
+                      <span className="text-4xl sm:text-5xl font-bold text-blue-600">
                         {isYearly ? '278€' : '29€'}
                       </span>
                       <span className="text-gray-600">/ {isYearly ? 'Jahr' : 'Monat'}</span>
@@ -1002,7 +1002,7 @@ export default function Home() {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className="py-12 px-6 border-t border-gray-200 bg-white/60 backdrop-blur-sm scroll-mt-20">
+      <footer id="contact" className="py-12 px-6 border-t border-blue-100 bg-white/60 backdrop-blur-sm scroll-mt-20">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div 
@@ -1013,7 +1013,7 @@ export default function Home() {
             >
               <Receipt className="h-4 w-4 text-white" strokeWidth={2} />
             </div>
-            <span className="text-lg font-semibold text-gray-900">{APP_TITLE}</span>
+            <span className="text-lg font-semibold text-blue-600">{APP_TITLE}</span>
           </div>
           <p className="text-white/60 text-sm">© 2025 {APP_TITLE}. Automatische Rechnungsverarbeitung.</p>
         </div>

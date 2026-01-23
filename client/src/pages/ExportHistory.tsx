@@ -54,7 +54,7 @@ export default function ExportHistoryPage() {
       <DashboardLayout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
+            <div className="w-12 h-12 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
             <p className="text-gray-600">Lädt Export-Historie...</p>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function ExportHistoryPage() {
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
                     <div className="flex items-start gap-4 flex-1 w-full sm:w-auto">
-                      <div className="p-3 bg-gray-100 rounded-lg">
+                      <div className="p-3 bg-blue-50 rounded-lg">
                         {getExportIcon(exportItem.exportType)}
                       </div>
                       <div className="flex-1">
@@ -105,7 +105,7 @@ export default function ExportHistoryPage() {
                             <span>{exportItem.invoiceCount} Rechnungen</span>
                           )}
                           {exportItem.month && (
-                            <span className="px-2 py-1 bg-gray-100 rounded text-xs">
+                            <span className="px-2 py-1 bg-blue-50 rounded text-xs">
                               {exportItem.month}
                             </span>
                           )}

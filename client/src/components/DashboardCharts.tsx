@@ -60,7 +60,7 @@ export default function DashboardCharts({ projects, invoices, exchangeRate }: Da
     return {
       name: project.name,
       amount: totalAmount / 100, // Convert cents to euros
-      color: project.color || "#000000",
+      color: project.color || "#3b82f6",
     };
   });
 

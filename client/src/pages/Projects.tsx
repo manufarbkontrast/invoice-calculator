@@ -571,7 +571,7 @@ export default function Projects() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-base sm:text-lg mb-2">Projekte</p>
-                  <p className="text-4xl sm:text-5xl font-light text-blue-600">{projects?.length || 0}</p>
+                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{projects?.length || 0}</p>
                 </div>
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
                   <FolderKanban className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
@@ -585,7 +585,7 @@ export default function Projects() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-base sm:text-lg mb-2">Nicht zugeordnet</p>
-                  <p className="text-4xl sm:text-5xl font-light text-blue-600">{unassignedInvoices.length}</p>
+                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{unassignedInvoices.length}</p>
                 </div>
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
                   <FileText className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />

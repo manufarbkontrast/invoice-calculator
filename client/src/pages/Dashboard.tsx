@@ -560,7 +560,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
-                  <p className="text-2xl font-medium text-blue-600">{totalInvoices}</p>
+                  <p className="text-2xl font-medium text-gray-900">{totalInvoices}</p>
                 </div>
                 <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
                   <Receipt className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
@@ -574,7 +574,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Projekte</p>
-                  <p className="text-2xl font-medium text-blue-600">{projects?.length || 0}</p>
+                  <p className="text-2xl font-medium text-gray-900">{projects?.length || 0}</p>
                 </div>
                 <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
                   <FolderKanban className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
@@ -841,7 +841,7 @@ export default function Dashboard() {
                               <p className="text-gray-600 text-base mt-1">
                                 {projectInvoices.length} Rechnungen
                               </p>
-                              <p className="text-blue-600 font-medium text-xl mt-2">
+                              <p className="text-gray-900 font-medium text-xl mt-2">
                                 €{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                               </p>
                             </div>
@@ -930,7 +930,7 @@ export default function Dashboard() {
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-gray-500 mb-1">Gesamt</p>
-                            <p className="text-3xl font-medium text-blue-600">
+                            <p className="text-3xl font-medium text-gray-900">
                               €{(totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                             </p>
                           </div>

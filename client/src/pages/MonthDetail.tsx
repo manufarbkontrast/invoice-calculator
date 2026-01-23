@@ -626,7 +626,7 @@ export default function MonthDetail() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-sm mb-1">Rechnungen</p>
-                  <p className="text-2xl sm:text-3xl font-light text-blue-600">{summary.invoices.length}</p>
+                  <p className="text-2xl sm:text-3xl font-light text-gray-900">{summary.invoices.length}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <Calendar className="h-6 w-6" style={{ color: theme.colors.blue }} />

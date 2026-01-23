@@ -475,7 +475,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Rechnung</p>
-                  <p className="text-2xl font-medium text-blue-600">€{averageInvoice.toFixed(2)}</p>
+                  <p className="text-2xl font-medium text-gray-900">€{averageInvoice.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <FileText className="h-5 w-5" style={{ color: theme.colors.blue }} />
@@ -489,7 +489,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Monat</p>
-                  <p className="text-2xl font-medium text-blue-600">€{averageMonthly.toFixed(2)}</p>
+                  <p className="text-2xl font-medium text-gray-900">€{averageMonthly.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <Calendar className="h-5 w-5" style={{ color: theme.colors.blue }} />
@@ -503,7 +503,7 @@ export default function Analytics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
-                  <p className="text-2xl font-medium text-blue-600">{invoices?.length || 0}</p>
+                  <p className="text-2xl font-medium text-gray-900">{invoices?.length || 0}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <Receipt className="h-5 w-5" style={{ color: theme.colors.blue }} />
@@ -586,7 +586,7 @@ export default function Analytics() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Wiederkeh.</p>
-                  <p className="text-lg font-bold text-blue-600">{recurringCount}</p>
+                  <p className="text-lg font-bold text-gray-900">{recurringCount}</p>
                 </div>
               </div>
             </CardContent>

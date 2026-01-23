@@ -514,16 +514,16 @@ export default function Dashboard() {
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-600 hidden lg:block">{user?.email}</span>
               
-              {/* Menu Toggle Button */}
-              <Button 
-                variant="outline"
-                size="lg"
-                onClick={() => setSidebarOpen(true)}
-                className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
-              >
-                <PanelRightOpen className="h-5 w-5 mr-2" />
-                Menü
-              </Button>
+            {/* Menu Toggle Button */}
+            <Button 
+              variant="outline"
+              size="lg"
+              onClick={() => setSidebarOpen(true)}
+              className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4 min-h-[44px]"
+            >
+              <PanelRightOpen className="h-5 w-5 mr-2" />
+              Menü
+            </Button>
             </div>
           </div>
         </motion.header>

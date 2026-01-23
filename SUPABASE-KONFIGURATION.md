@@ -83,3 +83,5 @@ Für vollständige Funktionalität benötigen Sie auch:
 - ✅ Prüfen Sie in Supabase Dashboard → Authentication → Users
 - ✅ Löschen Sie Test-User, falls nötig
 
+
+

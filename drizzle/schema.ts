@@ -7,8 +7,6 @@ export const userRoleEnum = pgEnum("user_role", ["user", "admin"]);
 export const invoiceStatusEnum = pgEnum("invoice_status", ["processing", "completed", "failed"]);
 export const paymentStatusEnum = pgEnum("payment_status", ["pending", "paid", "overdue"]);
 export const teamRoleEnum = pgEnum("team_role", ["owner", "admin", "member", "viewer"]);
-export const subscriptionStatusEnum = pgEnum("subscription_status", ["active", "trialing", "canceled", "past_due"]);
-export const planTypeEnum = pgEnum("plan_type", ["free", "pro", "business"]);
 
 /**
  * Users table - linked to Supabase Auth
@@ -19,12 +17,6 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 320 }).notNull().unique(),
   name: text("name"),
   role: userRoleEnum("role").default("user").notNull(),
-  // Subscription fields
-  stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
-  subscriptionStatus: subscriptionStatusEnum("subscription_status").default("active"),
-  planType: planTypeEnum("plan_type").default("free").notNull(),
-  invoiceCountMonth: integer("invoice_count_month").default(0).notNull(),
-  lastResetDate: timestamp("last_reset_date").defaultNow().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

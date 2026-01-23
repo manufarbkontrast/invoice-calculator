@@ -288,8 +288,8 @@ export default function Analytics() {
               <Receipt className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <h1 className="text-2xl font-medium tracking-tight text-gray-900">{APP_TITLE}</h1>
-              <p className="text-sm text-gray-500">Rechnungsverwaltung</p>
+              <span className="font-medium text-gray-900">{APP_TITLE}</span>
+              <p className="text-xs text-gray-500">Rechnungsverwaltung</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -297,7 +297,7 @@ export default function Analytics() {
             
             {/* Menu Toggle Button */}
             <Button 
-              variant="outline"
+              variant="outline" 
               size="lg"
               onClick={() => setSidebarOpen(true)}
               className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
@@ -391,21 +391,6 @@ export default function Analytics() {
                 <span>Projekte</span>
               </button>
 
-              <button
-                onClick={() => { setLocation("/teams"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <Users className="h-5 w-5" />
-                <span>Teams</span>
-              </button>
-
-              <button
-                onClick={() => { setLocation("/settings"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <User className="h-5 w-5" />
-                <span>Profil bearbeiten</span>
-              </button>
             </nav>
 
             {/* User Info */}
@@ -450,11 +435,11 @@ export default function Analytics() {
             Zurück
           </Button>
           <div>
-            <h2 className="text-4xl font-semibold text-gray-900 flex items-center gap-3">
-              <BarChart3 className="h-10 w-10" style={{ color: theme.colors.blue }} strokeWidth={1.5} />
+            <h2 className="text-2xl font-medium text-gray-900 flex items-center gap-3">
+              <BarChart3 className="h-8 w-8" style={{ color: theme.colors.blue }} strokeWidth={1.5} />
               Analyse
             </h2>
-            <p className="text-base text-gray-600 mt-1 font-medium">Übersicht und Statistiken</p>
+            <p className="text-sm text-gray-500 mt-1">Übersicht und Statistiken</p>
           </div>
         </motion.div>
 
@@ -475,11 +460,11 @@ export default function Analytics() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/70 text-sm mb-1 font-semibold">Gesamt</p>
-                  <p className="text-3xl font-semibold">€{totalSpending.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+                  <p className="text-white/80 text-xs mb-1">Gesamt</p>
+                  <p className="text-2xl font-medium">€{totalSpending.toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-white" />
+                  <TrendingUp className="h-5 w-5 text-white" />
                 </div>
               </div>
             </CardContent>
@@ -489,11 +474,11 @@ export default function Analytics() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm mb-1 font-semibold">Ø Rechnung</p>
-                  <p className="text-3xl font-semibold text-gray-900">€{averageInvoice.toFixed(2)}</p>
+                  <p className="text-gray-600 text-xs mb-1">Ø Rechnung</p>
+                  <p className="text-2xl font-medium text-gray-900">€{averageInvoice.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <FileText className="h-6 w-6" style={{ color: theme.colors.blue }} />
+                  <FileText className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
@@ -503,11 +488,11 @@ export default function Analytics() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm mb-1 font-semibold">Ø Monat</p>
-                  <p className="text-3xl font-semibold text-gray-900">€{averageMonthly.toFixed(2)}</p>
+                  <p className="text-gray-600 text-xs mb-1">Ø Monat</p>
+                  <p className="text-2xl font-medium text-gray-900">€{averageMonthly.toFixed(2)}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <Calendar className="h-6 w-6" style={{ color: theme.colors.blue }} />
+                  <Calendar className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
@@ -517,11 +502,11 @@ export default function Analytics() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm mb-1 font-semibold">Rechng.</p>
-                  <p className="text-3xl font-semibold text-gray-900">{invoices?.length || 0}</p>
+                  <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
+                  <p className="text-2xl font-medium text-gray-900">{invoices?.length || 0}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <Receipt className="h-6 w-6" style={{ color: theme.colors.blue }} />
+                  <Receipt className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
@@ -551,7 +536,7 @@ export default function Analytics() {
                   )}
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-semibold">vs. Vorm.</p>
+                  <p className="text-xs text-gray-500">vs. Vorm.</p>
                   <p className={`text-lg font-bold ${
                     monthlyChange > 0 ? 'text-red-600' : monthlyChange < 0 ? 'text-green-600' : 'text-gray-600'
                   }`}>
@@ -570,7 +555,7 @@ export default function Analytics() {
                   <CheckCircle2 className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-semibold">Bezahlt</p>
+                  <p className="text-xs text-gray-500">Bezahlt</p>
                   <p className="text-lg font-bold text-green-600">{paidCount}</p>
                 </div>
               </div>
@@ -585,7 +570,7 @@ export default function Analytics() {
                   <Circle className="h-5 w-5 text-orange-500" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-semibold">Offen</p>
+                  <p className="text-xs text-gray-500">Offen</p>
                   <p className="text-lg font-bold text-orange-500">{pendingCount}</p>
                 </div>
               </div>
@@ -600,7 +585,7 @@ export default function Analytics() {
                   <Repeat className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-semibold">Wiederkeh.</p>
+                  <p className="text-xs text-gray-500">Wiederkeh.</p>
                   <p className="text-lg font-bold text-blue-600">{recurringCount}</p>
                 </div>
               </div>
@@ -617,7 +602,7 @@ export default function Analytics() {
                   <AlertTriangle className={`h-5 w-5 ${duplicateCount > 0 ? 'text-yellow-600' : 'text-black/40'}`} />
                 </div>
                 <div>
-                  <p className={`text-xs font-semibold ${duplicateCount > 0 ? 'text-gray-500' : 'text-gray-400'}`}>Duplikate</p>
+                  <p className={`text-xs ${duplicateCount > 0 ? 'text-gray-500' : 'text-gray-400'}`}>Duplikate</p>
                   <p className={`text-lg font-bold ${duplicateCount > 0 ? 'text-yellow-600' : 'text-gray-400'}`}>{duplicateCount}</p>
                 </div>
               </div>
@@ -637,11 +622,11 @@ export default function Analytics() {
             <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8">
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <BarChart3 className="h-6 w-6" strokeWidth={1.5} />
                     Nach Projekt
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Ausgaben pro Projekt</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Ausgaben pro Projekt</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={350}>
@@ -668,11 +653,11 @@ export default function Analytics() {
 
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <PieChartIcon className="h-6 w-6" strokeWidth={1.5} />
                     Verteilung
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Prozentuale Aufteilung</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Prozentuale Aufteilung</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={350}>
@@ -703,11 +688,11 @@ export default function Analytics() {
             <motion.div variants={fadeInUp}>
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Calendar className="h-6 w-6" strokeWidth={1.5} />
                     Monatlicher Verlauf
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Ausgaben über Zeit</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Ausgaben über Zeit</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={350}>
@@ -736,11 +721,11 @@ export default function Analytics() {
             <motion.div variants={fadeInUp}>
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <TrendingUp className="h-6 w-6" strokeWidth={1.5} />
                     Top 10 Tools
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Die teuersten Tools</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Die teuersten Tools</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={400}>
@@ -768,11 +753,11 @@ export default function Analytics() {
             {companySpendingData.length > 0 && (
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Building2 className="h-6 w-6" strokeWidth={1.5} />
                     Top 10 Firmen
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Ausgaben nach Lieferant</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Ausgaben nach Lieferant</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={350}>
@@ -797,11 +782,11 @@ export default function Analytics() {
             {paymentStatusData.length > 0 && (
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <CheckCircle2 className="h-6 w-6" strokeWidth={1.5} />
                     Zahlungsstatus
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">Übersicht der Zahlungen</CardDescription>
+                  <CardDescription className="text-gray-500 text-sm">Übersicht der Zahlungen</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-4">
                   <ResponsiveContainer width="100%" height={350}>
@@ -840,11 +825,11 @@ export default function Analytics() {
             <motion.div variants={fadeInUp}>
               <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Repeat className="h-6 w-6" strokeWidth={1.5} />
                     Wiederkehrende Ausgaben
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-sm font-medium">
+                  <CardDescription className="text-gray-500 text-sm">
                     Automatisch erkannte wiederkehrende Rechnungen
                   </CardDescription>
                 </CardHeader>
@@ -893,7 +878,7 @@ export default function Analytics() {
             <motion.div variants={fadeInUp}>
               <Card className="border-yellow-200 bg-yellow-50 rounded-3xl overflow-hidden">
                 <CardHeader className="p-8 pb-4">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-semibold text-yellow-800">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-medium text-yellow-800">
                     <AlertTriangle className="h-6 w-6" strokeWidth={1.5} />
                     Mögliche Duplikate erkannt
                   </CardTitle>
@@ -932,7 +917,7 @@ export default function Analytics() {
             <Card className="text-center py-20 border-blue-100 rounded-3xl bg-white">
               <CardContent>
                 <BarChart3 className="h-20 w-20 mx-auto mb-6" style={{ color: theme.colors.blue + '40' }} strokeWidth={1} />
-                <h3 className="text-2xl font-semibold mb-3 text-gray-900">Noch keine Daten</h3>
+                <h3 className="text-xl font-medium mb-3 text-gray-900">Noch keine Daten</h3>
                 <p className="text-gray-600 mb-8 text-lg">
                   Laden Sie Rechnungen hoch, um Analysen zu sehen
                 </p>

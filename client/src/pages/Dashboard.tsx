@@ -319,69 +319,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen" style={{ background: appTheme.colors.bgGradient }}>
-      {/* Debug Info Box - Always visible */}
-      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 mx-4 mt-4 rounded-lg">
-        <div className="flex items-start">
-          <div className="flex-1">
-            <h3 className="text-sm font-medium text-yellow-800 mb-2">🔍 Debug-Informationen</h3>
-            {debugInfo.isLoading ? (
-              <div className="text-xs text-yellow-700">Lädt...</div>
-            ) : (
-              <>
-                {debugInfo.userId ? (
-                  <div className="text-xs text-yellow-700 mb-1">
-                    <strong>User-ID:</strong> <code className="bg-yellow-100 px-1 rounded text-xs">{debugInfo.userId}</code>
-                  </div>
-                ) : (
-                  <div className="text-xs text-red-700 mb-1">
-                    <strong>⚠️ Keine User-ID gefunden!</strong>
-                  </div>
-                )}
-                {debugInfo.userEmail && (
-                  <div className="text-xs text-yellow-700 mb-1">
-                    <strong>E-Mail:</strong> {debugInfo.userEmail}
-                  </div>
-                )}
-                {dbDebug && (
-                  <div className="text-xs text-yellow-700 mb-1">
-                    <strong>DB-Status:</strong> <span className={dbDebug.databaseStatus === "connected" ? "text-green-700" : "text-red-700"}>{dbDebug.databaseStatus}</span>
-                    {dbDebug.hasDatabaseUrl && (
-                      <span className="ml-2 text-gray-600">(URL gesetzt: {dbDebug.databaseUrlLength} Zeichen)</span>
-                    )}
-                  </div>
-                )}
-                {debugInfo.invoiceCount !== undefined ? (
-                  <div className="text-xs text-yellow-700 mb-1">
-                    <strong>Rechnungen gefunden:</strong> {debugInfo.invoiceCount}
-                  </div>
-                ) : (
-                  <div className="text-xs text-yellow-700 mb-1">
-                    <strong>Rechnungen:</strong> Wird geladen...
-                  </div>
-                )}
-                {debugInfo.error && (
-                  <div className="text-xs text-red-700 mt-2">
-                    <strong>Fehler:</strong> {debugInfo.error}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              console.log("Refetching invoices...");
-              refetch();
-            }}
-            className="text-yellow-600 hover:text-yellow-800"
-            title="Neu laden"
-          >
-            <Loader2 className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-      
       {/* Sidebar Overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -462,22 +399,6 @@ export default function Dashboard() {
               >
                 <FolderKanban className="h-5 w-5" />
                 <span>Projekte</span>
-              </button>
-
-              <button
-                onClick={() => { setLocation("/teams"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <Users className="h-5 w-5" />
-                <span>Teams</span>
-              </button>
-
-              <button
-                onClick={() => { setLocation("/settings"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <User className="h-5 w-5" />
-                <span>Profil bearbeiten</span>
               </button>
 
             </nav>

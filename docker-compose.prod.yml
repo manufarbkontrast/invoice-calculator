@@ -9,7 +9,7 @@ services:
         - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
         - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3000:3000"  # Nur lokal erreichbar (Nginx als Reverse Proxy)
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -30,13 +30,17 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
+    networks:
+      - app-network
 
-# Optional: Add a reverse proxy like Traefik or Nginx for HTTPS
-# networks:
-#   - web
+networks:
+  app-network:
+    driver: bridge
+
+
 

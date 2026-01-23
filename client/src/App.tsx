@@ -9,8 +9,6 @@ import Dashboard from "./pages/Dashboard";
 import MonthDetail from "./pages/MonthDetail";
 import Projects from "./pages/Projects";
 import Analytics from "./pages/Analytics";
-import Teams from "./pages/Teams";
-import Settings from "./pages/Settings";
 import ExportHistory from "./pages/ExportHistory";
 
 function Router() {
@@ -21,8 +19,6 @@ function Router() {
       <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/projects"} component={Projects} />
       <Route path={"/analytics"} component={Analytics} />
-      <Route path={"/teams"} component={Teams} />
-      <Route path={"/settings"} component={Settings} />
       <Route path={"/exports"} component={ExportHistory} />
       <Route path={"/month/:month"} component={MonthDetail} />
       <Route path={"/404"} component={NotFound} />

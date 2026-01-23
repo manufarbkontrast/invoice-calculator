@@ -397,21 +397,6 @@ export default function Projects() {
                 <span className="font-medium">Projekte</span>
               </button>
 
-              <button
-                onClick={() => { setLocation("/teams"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <Users className="h-5 w-5" />
-                <span>Teams</span>
-              </button>
-
-              <button
-                onClick={() => { setLocation("/settings"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
-              >
-                <User className="h-5 w-5" />
-                <span>Profil bearbeiten</span>
-              </button>
             </nav>
 
             {/* User Info */}

@@ -1,34 +1,21 @@
+/**
+ * Production Server Entry Point
+ * This file is used for Docker/production deployments
+ */
 import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
-import net from "net";
+import path from "path";
+import fs from "fs";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { appRouter } from "../routers";
-import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
-
-function isPortAvailable(port: number): Promise<boolean> {
-  return new Promise(resolve => {
-    const server = net.createServer();
-    server.listen(port, () => {
-      server.close(() => resolve(true));
-    });
-    server.on("error", () => resolve(false));
-  });
-}
-
-async function findAvailablePort(startPort: number = 3000): Promise<number> {
-  for (let port = startPort; port < startPort + 20; port++) {
-    if (await isPortAvailable(port)) {
-      return port;
-    }
-  }
-  throw new Error(`No available port found starting from ${startPort}`);
-}
+import { appRouter } from "./routers";
+import { createContext } from "./_core/context";
 
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  
+  console.log("[Server] Starting production server...");
   
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
@@ -36,7 +23,7 @@ async function startServer() {
   
   // OAuth routes (optional, load dynamically)
   try {
-    const { registerOAuthRoutes } = await import("./oauth");
+    const { registerOAuthRoutes } = await import("./_core/oauth");
     registerOAuthRoutes(app);
     console.log("[Server] OAuth routes registered");
   } catch (error) {
@@ -61,23 +48,31 @@ async function startServer() {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
   
-  // development mode uses Vite, production mode uses static files
-  if (process.env.NODE_ENV === "development") {
-    await setupVite(app, server);
+  // Serve static files in production
+  const distPath = path.resolve(process.cwd(), "dist", "public");
+  
+  if (fs.existsSync(distPath)) {
+    console.log(`[Server] Serving static files from: ${distPath}`);
+    app.use(express.static(distPath));
+    
+    // SPA fallback - serve index.html for all unmatched routes
+    app.use("*", (_req, res) => {
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
   } else {
-    serveStatic(app);
+    console.error(`[Server] Static files directory not found: ${distPath}`);
+    app.use("*", (_req, res) => {
+      res.status(404).send("Build directory not found. Please run 'pnpm run build' first.");
+    });
   }
 
-  const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = await findAvailablePort(preferredPort);
-
-  if (port !== preferredPort) {
-    console.log(`[Server] Port ${preferredPort} is busy, using port ${port} instead`);
-  }
+  const port = parseInt(process.env.PORT || "3000");
 
   server.listen(port, "0.0.0.0", () => {
     console.log(`[Server] 🚀 Server running on http://0.0.0.0:${port}/`);
-    console.log(`[Server] Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`[Server] Environment: production`);
+    console.log(`[Server] Database URL: ${process.env.DATABASE_URL ? "configured" : "NOT SET"}`);
+    console.log(`[Server] Supabase URL: ${process.env.SUPABASE_URL ? "configured" : "NOT SET"}`);
   });
 }
 
@@ -85,3 +80,4 @@ startServer().catch(error => {
   console.error("[Server] Failed to start:", error);
   process.exit(1);
 });
+

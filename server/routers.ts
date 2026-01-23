@@ -1,6 +1,6 @@
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createInvoice, createProject, deleteInvoice, deleteProject, getInvoice, getInvoicesByMonth, getUserInvoices, getUserProjects, updateInvoice, updateProject, getDb, initializeDefaultProjects, getUserSettings, upsertUserSettings, createExportHistory, getUserExportHistory, getExportHistory, deleteExportHistory, bulkDeleteInvoices, bulkUpdateInvoices, bulkAssignToProject, bulkMarkAsPaid, getUser, checkSubscriptionLimit, incrementInvoiceCount } from "./db";
+import { createInvoice, createProject, deleteInvoice, deleteProject, getInvoice, getInvoicesByMonth, getUserInvoices, getUserProjects, updateInvoice, updateProject, getDb, initializeDefaultProjects, getUserSettings, upsertUserSettings, createExportHistory, getUserExportHistory, getExportHistory, deleteExportHistory, bulkDeleteInvoices, bulkUpdateInvoices, bulkAssignToProject, bulkMarkAsPaid, getUser } from "./db";
 import { extractInvoiceData, extractInvoiceDataFromImage, isImageFile, isPdfFile } from "./pdfExtractor";
 import { generateMonthlyExcel, generateDatevExport, generatePdfReport } from "./excelExporter";
 import { storagePut } from "./storage";
@@ -118,15 +118,7 @@ export const appRouter = router({
       }))
       .mutation(async ({ ctx, input }) => {
         try {
-          // Check subscription limit before upload
-          console.log(`[Upload] Checking subscription limit for user: ${ctx.user.id}`);
-          const subscriptionCheck = await checkSubscriptionLimit(ctx.user.id);
-          
-          if (!subscriptionCheck.canUpload) {
-            throw new Error(subscriptionCheck.reason || "Upload-Limit erreicht. Bitte upgraden Sie Ihren Plan.");
-          }
-          
-          console.log(`[Upload] Subscription check passed. Remaining: ${subscriptionCheck.remaining ?? 'unlimited'}`);
+          console.log(`[Upload] Starting upload for user: ${ctx.user.id}`);
           
           const mimeType = input.fileType || "application/pdf";
           const isImage = isImageFile(mimeType);

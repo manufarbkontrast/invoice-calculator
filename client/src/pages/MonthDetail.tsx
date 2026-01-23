@@ -287,7 +287,7 @@ export default function MonthDetail() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -384,7 +384,7 @@ export default function MonthDetail() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -410,7 +410,7 @@ export default function MonthDetail() {
               variant="outline"
               size="lg"
               onClick={() => setSidebarOpen(true)}
-              className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
+              className="border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl px-4"
             >
               <PanelRightOpen className="h-5 w-5 mr-2" />
               Menü
@@ -443,10 +443,10 @@ export default function MonthDetail() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-blue-100 z-50 shadow-2xl flex"
+            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-gray-200 z-50 shadow-2xl flex"
           >
             {/* Header */}
-            <div className="p-5 border-b border-blue-100 flex items-center justify-between">
+            <div className="p-5 border-b border-gray-200 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -487,7 +487,7 @@ export default function MonthDetail() {
 
               <button
                 onClick={() => { setLocation("/analytics"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <BarChart3 className="h-5 w-5" />
                 <span>Analyse & Statistiken</span>
@@ -495,7 +495,7 @@ export default function MonthDetail() {
 
               <button
                 onClick={() => { setLocation("/projects"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <FolderKanban className="h-5 w-5" />
                 <span>Projekte</span>
@@ -504,9 +504,9 @@ export default function MonthDetail() {
             </nav>
 
             {/* User Info */}
-            <div className="p-4 border-t border-blue-100">
-              <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 rounded-xl">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="p-4 border-t border-gray-200">
+              <div className="flex items-center gap-3 px-3 py-2 bg-gray-100 rounded-xl">
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
                   <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -518,7 +518,7 @@ export default function MonthDetail() {
                 variant="outline"
                 size="sm"
                 onClick={logout}
-                className="w-full mt-3 border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl"
+                className="w-full mt-3 border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Abmelden
@@ -540,7 +540,7 @@ export default function MonthDetail() {
               variant="outline" 
               size="lg"
               onClick={() => setLocation("/dashboard")} 
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl"
+              className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white transition-all rounded-xl"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Zurück
@@ -557,7 +557,7 @@ export default function MonthDetail() {
               disabled={downloadingAll || downloadAllMutation.isPending || filteredAndSortedInvoices.length === 0}
               size="lg"
               variant="outline"
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+              className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
               {(downloadingAll || downloadAllMutation.isPending) ? (
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />
@@ -571,7 +571,7 @@ export default function MonthDetail() {
               disabled={exportMutation.isPending}
               size="lg"
               variant="outline"
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+              className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
               {exportMutation.isPending ? (
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />
@@ -585,7 +585,7 @@ export default function MonthDetail() {
               disabled={exportDatevMutation.isPending}
               size="lg"
               variant="outline"
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+              className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
               {exportDatevMutation.isPending ? (
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />
@@ -621,21 +621,21 @@ export default function MonthDetail() {
           transition={{ delay: 0.1 }}
           className="grid md:grid-cols-4 gap-6 mb-10"
         >
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-sm mb-1">Rechnungen</p>
                   <p className="text-2xl sm:text-3xl font-light text-gray-900">{summary.invoices.length}</p>
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                   <Calendar className="h-6 w-6" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -649,7 +649,7 @@ export default function MonthDetail() {
             </CardContent>
           </Card>
 
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -691,7 +691,7 @@ export default function MonthDetail() {
           transition={{ delay: 0.2 }}
           className="mb-8"
         >
-          <Card className="border-blue-100 rounded-3xl bg-white">
+          <Card className="border-gray-200 rounded-3xl bg-white">
             <CardContent className="p-6">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col md:flex-row gap-4">
@@ -701,19 +701,19 @@ export default function MonthDetail() {
                       placeholder="Suchen..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-12 h-12 sm:h-14 border-blue-200 focus:border-blue-500 rounded-xl text-sm sm:text-base"
+                      className="pl-12 h-12 sm:h-14 border-gray-300 focus:border-gray-600 rounded-xl text-sm sm:text-base"
                     />
                   </div>
                   <Button
                     variant="outline"
                     onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
-                    className="h-12 sm:h-14 border-blue-200 rounded-xl"
+                    className="h-12 sm:h-14 border-gray-300 rounded-xl"
                   >
                     <Filter className="h-5 w-5 mr-2" />
                     Erweiterte Suche
                   </Button>
                   <Select value={filterCompany} onValueChange={setFilterCompany}>
-                  <SelectTrigger className="w-full md:w-[200px] h-12 sm:h-14 border-blue-200 rounded-xl">
+                  <SelectTrigger className="w-full md:w-[200px] h-12 sm:h-14 border-gray-300 rounded-xl">
                     <SelectValue placeholder="Firma" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl max-h-[300px]">
@@ -731,7 +731,7 @@ export default function MonthDetail() {
                   </SelectContent>
                 </Select>
                 <Select value={filterProject} onValueChange={setFilterProject}>
-                  <SelectTrigger className="w-full md:w-[180px] h-12 sm:h-14 border-blue-200 rounded-xl">
+                  <SelectTrigger className="w-full md:w-[180px] h-12 sm:h-14 border-gray-300 rounded-xl">
                     <SelectValue placeholder="Projekt" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
@@ -748,7 +748,7 @@ export default function MonthDetail() {
                   </SelectContent>
                 </Select>
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger className="w-full md:w-[140px] h-12 sm:h-14 border-blue-200 rounded-xl">
+                  <SelectTrigger className="w-full md:w-[140px] h-12 sm:h-14 border-gray-300 rounded-xl">
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
@@ -759,7 +759,7 @@ export default function MonthDetail() {
                   </SelectContent>
                 </Select>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full md:w-[180px] h-12 sm:h-14 border-blue-200 rounded-xl">
+                  <SelectTrigger className="w-full md:w-[180px] h-12 sm:h-14 border-gray-300 rounded-xl">
                     <SelectValue placeholder="Sortieren" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
@@ -773,7 +773,7 @@ export default function MonthDetail() {
 
                 {/* Advanced Search */}
                 {showAdvancedSearch && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4 border-t border-blue-100">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4 border-t border-gray-200">
                     <div className="space-y-2">
                       <Label className="text-sm">Von Datum</Label>
                       <Input
@@ -855,8 +855,8 @@ export default function MonthDetail() {
                 <div className="overflow-x-auto">
                   {/* Bulk Actions Bar */}
                   {selectedInvoiceIds.length > 0 && (
-                    <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between">
-                      <span className="text-sm font-medium text-blue-900">
+                    <div className="mb-4 p-4 bg-gray-100 rounded-xl border border-gray-300 flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-900">
                         {selectedInvoiceIds.length} Rechnung{selectedInvoiceIds.length !== 1 ? 'en' : ''} ausgewählt
                       </span>
                       <div className="flex items-center gap-2">
@@ -918,7 +918,7 @@ export default function MonthDetail() {
 
                   <Table>
                     <TableHeader>
-                      <TableRow className="border-blue-100">
+                      <TableRow className="border-gray-200">
                         <TableHead className="w-12">
                           <button
                             onClick={() => {
@@ -931,7 +931,7 @@ export default function MonthDetail() {
                             className="p-1 hover:bg-gray-100 rounded"
                           >
                             {selectedInvoiceIds.length === filteredAndSortedInvoices.length ? (
-                              <CheckSquare className="h-5 w-5 text-blue-600" />
+                              <CheckSquare className="h-5 w-5 text-gray-900" />
                             ) : (
                               <Square className="h-5 w-5 text-gray-400" />
                             )}
@@ -955,7 +955,7 @@ export default function MonthDetail() {
                             initial="initial"
                             animate="animate"
                             exit="exit"
-                            className={`border-blue-100 hover:bg-blue-50 transition-colors ${selectedInvoiceIds.includes(invoice.id) ? 'bg-blue-50' : ''}`}
+                            className={`border-gray-200 hover:bg-gray-100 transition-colors ${selectedInvoiceIds.includes(invoice.id) ? 'bg-gray-100' : ''}`}
                           >
                             <TableCell>
                               <button
@@ -969,7 +969,7 @@ export default function MonthDetail() {
                                 className="p-1 hover:bg-gray-100 rounded"
                               >
                                 {selectedInvoiceIds.includes(invoice.id) ? (
-                                  <CheckSquare className="h-5 w-5 text-blue-600" />
+                                  <CheckSquare className="h-5 w-5 text-gray-900" />
                                 ) : (
                                   <Square className="h-5 w-5 text-gray-400" />
                                 )}
@@ -988,7 +988,7 @@ export default function MonthDetail() {
                                     }
                                   }}
                                   autoFocus
-                                  className="h-9 sm:h-10 border-blue-200 rounded-lg font-medium text-sm sm:text-base"
+                                  className="h-9 sm:h-10 border-gray-300 rounded-lg font-medium text-sm sm:text-base"
                                 />
                               ) : (
                                 <div className="flex items-center gap-3 group">
@@ -1017,7 +1017,7 @@ export default function MonthDetail() {
                                       cancelEditing();
                                     }
                                   }}
-                                  className="h-9 sm:h-10 border-blue-200 rounded-lg text-sm sm:text-base"
+                                  className="h-9 sm:h-10 border-gray-300 rounded-lg text-sm sm:text-base"
                                 />
                               ) : (
                                 <div className="flex items-center gap-3 group">
@@ -1043,7 +1043,7 @@ export default function MonthDetail() {
                                 onValueChange={(value) => handleProjectAssign(invoice.id, value)}
                                 disabled={assignProjectMutation.isPending}
                               >
-                                <SelectTrigger className="w-full sm:w-[160px] h-9 sm:h-10 border-blue-200 rounded-lg text-sm sm:text-base">
+                                <SelectTrigger className="w-full sm:w-[160px] h-9 sm:h-10 border-gray-300 rounded-lg text-sm sm:text-base">
                                   <SelectValue placeholder="—" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl">
@@ -1064,7 +1064,7 @@ export default function MonthDetail() {
                                 <Badge className="bg-black text-white px-4 py-1 text-sm">OK</Badge>
                               )}
                               {invoice.status === "processing" && (
-                                <Badge variant="outline" className="border-blue-200 px-3 sm:px-4 py-1 text-xs sm:text-sm">
+                                <Badge variant="outline" className="border-gray-300 px-3 sm:px-4 py-1 text-xs sm:text-sm">
                                   <Loader2 className="h-3 w-3 mr-2 animate-spin" />
                                   Läuft
                                 </Badge>
@@ -1080,7 +1080,7 @@ export default function MonthDetail() {
                                 className={`p-2 rounded-lg transition-all ${
                                   invoice.paymentStatus === "paid" 
                                     ? "bg-green-100 text-green-600 hover:bg-green-200" 
-                                    : "bg-blue-50 text-gray-400 hover:bg-blue-100 hover:text-gray-600"
+                                    : "bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
                                 }`}
                                 title={invoice.paymentStatus === "paid" ? "Als unbezahlt markieren" : "Als bezahlt markieren"}
                               >
@@ -1119,7 +1119,7 @@ export default function MonthDetail() {
                                     size="sm"
                                     onClick={() => handleDownloadSingle(invoice)}
                                     disabled={downloadInvoiceMutation.isPending}
-                                    className="h-9 w-9 sm:h-10 sm:w-10 p-0 rounded-lg border-blue-200 hover:bg-blue-600 hover:text-white"
+                                    className="h-9 w-9 sm:h-10 sm:w-10 p-0 rounded-lg border-gray-300 hover:bg-gray-900 hover:text-white"
                                     title="PDF herunterladen"
                                   >
                                     {downloadInvoiceMutation.isPending ? (
@@ -1132,7 +1132,7 @@ export default function MonthDetail() {
                                     variant="outline"
                                     size="sm"
                                     onClick={() => window.open(invoice.fileUrl, "_blank")}
-                                    className="h-9 w-9 sm:h-10 sm:w-10 p-0 rounded-lg border-blue-200 hover:bg-blue-600 hover:text-white"
+                                    className="h-9 w-9 sm:h-10 sm:w-10 p-0 rounded-lg border-gray-300 hover:bg-gray-900 hover:text-white"
                                     title="PDF ansehen"
                                   >
                                     <FileText className="h-4 w-4" />

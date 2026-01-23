@@ -90,7 +90,7 @@ export default function ExportHistoryPage() {
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
                     <div className="flex items-start gap-4 flex-1 w-full sm:w-auto">
-                      <div className="p-3 bg-blue-50 rounded-lg">
+                      <div className="p-3 bg-gray-100 rounded-lg">
                         {getExportIcon(exportItem.exportType)}
                       </div>
                       <div className="flex-1">

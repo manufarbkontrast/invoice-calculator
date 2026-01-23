@@ -113,7 +113,7 @@ export default function Analytics() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -252,7 +252,7 @@ export default function Analytics() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white border border-blue-100 rounded-xl p-4 shadow-xl">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-xl">
           <p className="font-medium text-gray-900">{label || payload[0].name || payload[0].payload.name}</p>
           <p className="text-lg text-gray-700 mt-1">
             €{payload[0].value.toFixed(2)}
@@ -274,7 +274,7 @@ export default function Analytics() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -300,7 +300,7 @@ export default function Analytics() {
               variant="outline" 
               size="lg"
               onClick={() => setSidebarOpen(true)}
-              className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
+              className="border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl px-4"
             >
               <PanelRightOpen className="h-5 w-5 mr-2" />
               Menü
@@ -333,10 +333,10 @@ export default function Analytics() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-blue-100 z-50 shadow-2xl flex"
+            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-gray-200 z-50 shadow-2xl flex"
           >
             {/* Header */}
-            <div className="p-5 border-b border-blue-100 flex items-center justify-between">
+            <div className="p-5 border-b border-gray-200 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -366,7 +366,7 @@ export default function Analytics() {
               
               <button
                 onClick={() => { setLocation("/dashboard"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <Home className="h-5 w-5" />
                 <span>Dashboard</span>
@@ -385,7 +385,7 @@ export default function Analytics() {
 
               <button
                 onClick={() => { setLocation("/projects"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <FolderKanban className="h-5 w-5" />
                 <span>Projekte</span>
@@ -394,9 +394,9 @@ export default function Analytics() {
             </nav>
 
             {/* User Info */}
-            <div className="p-4 border-t border-blue-100">
-              <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 rounded-xl">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="p-4 border-t border-gray-200">
+              <div className="flex items-center gap-3 px-3 py-2 bg-gray-100 rounded-xl">
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
                   <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -408,7 +408,7 @@ export default function Analytics() {
                 variant="outline"
                 size="sm"
                 onClick={logout}
-                className="w-full mt-3 border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl"
+                className="w-full mt-3 border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Abmelden
@@ -429,7 +429,7 @@ export default function Analytics() {
             variant="outline" 
             size="lg"
             onClick={() => setLocation("/dashboard")} 
-            className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl"
+            className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white transition-all rounded-xl"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Zurück
@@ -470,42 +470,42 @@ export default function Analytics() {
             </CardContent>
           </Card>
           
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Rechnung</p>
                   <p className="text-2xl font-medium text-gray-900">€{averageInvoice.toFixed(2)}</p>
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                   <FileText className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Ø Monat</p>
                   <p className="text-2xl font-medium text-gray-900">€{averageMonthly.toFixed(2)}</p>
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                   <Calendar className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
                   <p className="text-2xl font-medium text-gray-900">{invoices?.length || 0}</p>
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                   <Receipt className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
@@ -578,15 +578,15 @@ export default function Analytics() {
           </Card>
 
           {/* Recurring */}
-          <Card className="border-blue-100 rounded-2xl overflow-hidden">
+          <Card className="border-gray-200 rounded-2xl overflow-hidden">
             <CardContent className="p-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Repeat className="h-5 w-5 text-blue-600" />
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <Repeat className="h-5 w-5 text-gray-900" />
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Wiederkeh.</p>
-                  <p className="text-lg font-bold text-blue-600">{recurringCount}</p>
+                  <p className="text-lg font-bold text-gray-900">{recurringCount}</p>
                 </div>
               </div>
             </CardContent>
@@ -620,7 +620,7 @@ export default function Analytics() {
           {/* Project Spending Charts */}
           {projectSpendingData.length > 0 && (
             <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8">
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <BarChart3 className="h-6 w-6" strokeWidth={1.5} />
@@ -651,7 +651,7 @@ export default function Analytics() {
                 </CardContent>
               </Card>
 
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <PieChartIcon className="h-6 w-6" strokeWidth={1.5} />
@@ -686,7 +686,7 @@ export default function Analytics() {
           {/* Monthly Spending Chart */}
           {monthlySpendingData.length > 0 && (
             <motion.div variants={fadeInUp}>
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Calendar className="h-6 w-6" strokeWidth={1.5} />
@@ -719,7 +719,7 @@ export default function Analytics() {
           {/* Tool Spending Chart */}
           {toolSpendingData.length > 0 && (
             <motion.div variants={fadeInUp}>
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <TrendingUp className="h-6 w-6" strokeWidth={1.5} />
@@ -751,7 +751,7 @@ export default function Analytics() {
           <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8">
             {/* Top Companies */}
             {companySpendingData.length > 0 && (
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Building2 className="h-6 w-6" strokeWidth={1.5} />
@@ -780,7 +780,7 @@ export default function Analytics() {
 
             {/* Payment Status */}
             {paymentStatusData.length > 0 && (
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <CheckCircle2 className="h-6 w-6" strokeWidth={1.5} />
@@ -823,7 +823,7 @@ export default function Analytics() {
           {/* Recurring Invoices */}
           {recurringInvoices && recurringInvoices.length > 0 && (
             <motion.div variants={fadeInUp}>
-              <Card className="border-blue-100 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-gray-200 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8 pb-4">
                   <CardTitle className="flex items-center gap-3 text-2xl font-medium">
                     <Repeat className="h-6 w-6" strokeWidth={1.5} />
@@ -838,7 +838,7 @@ export default function Analytics() {
                     {recurringInvoices.map((group) => (
                       <div
                         key={group.groupId}
-                        className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+                        className="p-4 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
                       >
                         <div className="flex items-start justify-between">
                           <div>
@@ -855,14 +855,14 @@ export default function Analytics() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+                  <div className="mt-6 p-4 bg-gray-100 rounded-xl">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Target className="h-5 w-5 text-blue-600" />
+                      <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <Target className="h-5 w-5 text-gray-900" />
                       </div>
                       <div>
-                        <p className="text-sm text-blue-800">Gesamte wiederkehrende Kosten</p>
-                        <p className="text-xl font-medium text-blue-600">
+                        <p className="text-sm text-gray-800">Gesamte wiederkehrende Kosten</p>
+                        <p className="text-xl font-medium text-gray-900">
                           €{(recurringTotal / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })} / Zeitraum
                         </p>
                       </div>
@@ -914,7 +914,7 @@ export default function Analytics() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Card className="text-center py-20 border-blue-100 rounded-3xl bg-white">
+            <Card className="text-center py-20 border-gray-200 rounded-3xl bg-white">
               <CardContent>
                 <BarChart3 className="h-20 w-20 mx-auto mb-6" style={{ color: theme.colors.blue + '40' }} strokeWidth={1} />
                 <h3 className="text-xl font-medium mb-3 text-gray-900">Noch keine Daten</h3>

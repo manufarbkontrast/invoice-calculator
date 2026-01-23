@@ -102,7 +102,7 @@ export default function Auth() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -169,7 +169,7 @@ export default function Auth() {
         <Button
           variant="ghost"
           onClick={() => setLocation("/")}
-          className="text-gray-700 hover:text-blue-600 hover:bg-white/50"
+          className="text-gray-700 hover:text-gray-900 hover:bg-white/50"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Zurück zur Startseite
@@ -183,7 +183,7 @@ export default function Auth() {
         animate="animate"
         className="w-full max-w-md px-6 relative z-10"
       >
-        <Card className="rounded-2xl border border-blue-100 bg-white/80 backdrop-blur-xl shadow-xl">
+        <Card className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-xl shadow-xl">
           <CardHeader className="text-center pb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div 
@@ -231,7 +231,7 @@ export default function Auth() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="pl-10 h-12 border-blue-200 focus:border-blue-500 rounded-lg"
+                    className="pl-10 h-12 border-gray-300 focus:border-gray-600 rounded-lg"
                   />
                 </div>
               </div>
@@ -249,7 +249,7 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="pl-10 h-12 border-blue-200 focus:border-blue-500 rounded-lg"
+                    className="pl-10 h-12 border-gray-300 focus:border-gray-600 rounded-lg"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ export default function Auth() {
                 <button
                   type="button"
                   onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {isSignUp ? (
                     <>Bereits ein Konto? <span className="font-semibold">Anmelden</span></>

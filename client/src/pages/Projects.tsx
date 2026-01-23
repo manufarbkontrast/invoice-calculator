@@ -197,7 +197,7 @@ export default function Projects() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -280,7 +280,7 @@ export default function Projects() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100"
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -306,7 +306,7 @@ export default function Projects() {
               variant="outline"
               size="lg"
               onClick={() => setSidebarOpen(true)}
-              className="border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl px-4"
+              className="border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl px-4"
             >
               <PanelRightOpen className="h-5 w-5 mr-2" />
               Menü
@@ -339,10 +339,10 @@ export default function Projects() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-blue-100 z-50 shadow-2xl flex"
+            className="w-72 flex-col fixed right-0 top-0 bottom-0 bg-white border-l border-gray-200 z-50 shadow-2xl flex"
           >
             {/* Header */}
-            <div className="p-5 border-b border-blue-100 flex items-center justify-between">
+            <div className="p-5 border-b border-gray-200 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -372,7 +372,7 @@ export default function Projects() {
               
               <button
                 onClick={() => { setLocation("/dashboard"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <Home className="h-5 w-5" />
                 <span>Dashboard</span>
@@ -380,7 +380,7 @@ export default function Projects() {
 
               <button
                 onClick={() => { setLocation("/analytics"); setSidebarOpen(false); }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-all"
               >
                 <BarChart3 className="h-5 w-5" />
                 <span>Analyse & Statistiken</span>
@@ -400,9 +400,9 @@ export default function Projects() {
             </nav>
 
             {/* User Info */}
-            <div className="p-4 border-t border-blue-100">
-              <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 rounded-xl">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="p-4 border-t border-gray-200">
+              <div className="flex items-center gap-3 px-3 py-2 bg-gray-100 rounded-xl">
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
                   <Users className="h-5 w-5" style={{ color: theme.colors.blue }} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -414,7 +414,7 @@ export default function Projects() {
                 variant="outline"
                 size="sm"
                 onClick={logout}
-                className="w-full mt-3 border-blue-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl"
+                className="w-full mt-3 border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Abmelden
@@ -436,7 +436,7 @@ export default function Projects() {
               variant="outline" 
               size="lg"
               onClick={() => setLocation("/dashboard")} 
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-sm sm:text-base px-4 sm:px-6"
+              className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white transition-all rounded-xl text-sm sm:text-base px-4 sm:px-6"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Zurück
@@ -457,7 +457,7 @@ export default function Projects() {
                 disabled={initializeDefaultsMutation.isPending}
                 size="lg"
                 variant="outline"
-                className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+                className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
               >
                 {initializeDefaultsMutation.isPending ? "Wird hinzugefügt..." : "Standard-Projekte"}
               </Button>
@@ -476,7 +476,7 @@ export default function Projects() {
                   Neues Projekt
                 </Button>
               </DialogTrigger>
-              <DialogContent className="rounded-3xl border-blue-100 p-6 sm:p-8">
+              <DialogContent className="rounded-3xl border-gray-200 p-6 sm:p-8">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-medium">Neues Projekt</DialogTitle>
                   <DialogDescription className="text-gray-600 text-sm sm:text-base">
@@ -491,7 +491,7 @@ export default function Projects() {
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
                       placeholder="z.B. Marketing Tools"
-                      className="h-12 sm:h-14 rounded-xl border-blue-200 text-sm sm:text-base"
+                      className="h-12 sm:h-14 rounded-xl border-gray-300 text-sm sm:text-base"
                     />
                   </div>
                   <div className="space-y-3">
@@ -502,13 +502,13 @@ export default function Projects() {
                         type="color"
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
-                        className="w-16 sm:w-20 h-12 sm:h-14 p-2 rounded-xl border-blue-200"
+                        className="w-16 sm:w-20 h-12 sm:h-14 p-2 rounded-xl border-gray-300"
                       />
                       <Input
                         value={newProjectColor}
                         onChange={(e) => setNewProjectColor(e.target.value)}
                         placeholder="#000000"
-                        className="flex-1 h-12 sm:h-14 rounded-xl border-blue-200 text-sm sm:text-base"
+                        className="flex-1 h-12 sm:h-14 rounded-xl border-gray-300 text-sm sm:text-base"
                       />
                     </div>
                   </div>
@@ -566,28 +566,28 @@ export default function Projects() {
             </CardContent>
           </Card>
           
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-8">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-base sm:text-lg mb-2">Projekte</p>
                   <p className="text-4xl sm:text-5xl font-light text-gray-900">{projects?.length || 0}</p>
                 </div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
                   <FolderKanban className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+          <Card className="border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white">
             <CardContent className="p-8">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-600 text-base sm:text-lg mb-2">Nicht zugeordnet</p>
                   <p className="text-4xl sm:text-5xl font-light text-gray-900">{unassignedInvoices.length}</p>
                 </div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
                   <FileText className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
@@ -602,7 +602,7 @@ export default function Projects() {
           transition={{ delay: 0.2 }}
           className="mb-8"
         >
-          <Card className="border-blue-100 rounded-3xl bg-white">
+          <Card className="border-gray-200 rounded-3xl bg-white">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
@@ -611,11 +611,11 @@ export default function Projects() {
                     placeholder="Projekte durchsuchen..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 h-12 sm:h-14 border-blue-200 focus:border-blue-500 rounded-xl text-sm sm:text-base"
+                    className="pl-12 h-12 sm:h-14 border-gray-300 focus:border-gray-600 rounded-xl text-sm sm:text-base"
                   />
                 </div>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full md:w-[220px] h-12 sm:h-14 border-blue-200 rounded-xl text-sm sm:text-base">
+                  <SelectTrigger className="w-full md:w-[220px] h-12 sm:h-14 border-gray-300 rounded-xl text-sm sm:text-base">
                     <SelectValue placeholder="Sortieren" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl">
@@ -648,7 +648,7 @@ export default function Projects() {
               >
                 <Card 
                   id={`project-${project.id}`}
-                  className={`border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white ${projectIdFromUrl === project.id.toString() ? "ring-2 ring-blue-500" : ""}`}
+                  className={`border-gray-200 rounded-3xl overflow-hidden hover:border-gray-400 transition-colors bg-white ${projectIdFromUrl === project.id.toString() ? "ring-2 ring-blue-500" : ""}`}
                 >
                   <CardHeader className="p-8">
                     <div className="flex justify-between items-start">
@@ -659,7 +659,7 @@ export default function Projects() {
                               type="color"
                               value={editingColor}
                               onChange={(e) => setEditingColor(e.target.value)}
-                              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg cursor-pointer border-2 border-blue-200"
+                              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg cursor-pointer border-2 border-gray-300"
                             />
                             <Button
                               size="sm"
@@ -676,7 +676,7 @@ export default function Projects() {
                               size="sm"
                               variant="outline"
                               onClick={() => setEditingColorProjectId(null)}
-                              className="border-blue-200 rounded-lg h-9 sm:h-10 text-sm sm:text-base"
+                              className="border-gray-300 rounded-lg h-9 sm:h-10 text-sm sm:text-base"
                             >
                               Abbrechen
                             </Button>
@@ -684,7 +684,7 @@ export default function Projects() {
                         ) : (
                           <button
                             onClick={() => handleColorChange(project.id, project.color || "#000000")}
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-blue-200 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-gray-300 hover:border-gray-500 transition-colors cursor-pointer flex items-center justify-center group"
                             style={{ backgroundColor: project.color || "#000000" }}
                             title="Farbe ändern"
                           >
@@ -704,7 +704,7 @@ export default function Projects() {
                           size="sm"
                           onClick={() => downloadProjectMutation.mutate({ projectId: project.id })}
                           disabled={downloadProjectMutation.isPending || project.invoices.length === 0}
-                          className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-lg text-sm sm:text-base"
+                          className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white rounded-lg text-sm sm:text-base"
                           title="Alle Rechnungen herunterladen"
                         >
                           {downloadProjectMutation.isPending ? (
@@ -730,7 +730,7 @@ export default function Projects() {
                       <div className="overflow-x-auto">
                         <Table>
                           <TableHeader>
-                            <TableRow className="border-blue-100">
+                            <TableRow className="border-gray-200">
                               <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
                               <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
                               <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
@@ -739,7 +739,7 @@ export default function Projects() {
                           </TableHeader>
                           <TableBody>
                             {project.invoices.map((invoice) => (
-                              <TableRow key={invoice.id} className="border-blue-100">
+                              <TableRow key={invoice.id} className="border-gray-200">
                                 <TableCell className="font-medium text-base py-4">
                                   {invoice.toolName || "—"}
                                 </TableCell>
@@ -750,7 +750,7 @@ export default function Projects() {
                                   €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
                                 </TableCell>
                                 <TableCell className="py-4">
-                                  <Badge variant="outline" className="border-blue-200 px-2 sm:px-3 py-1 text-xs sm:text-sm">
+                                  <Badge variant="outline" className="border-gray-300 px-2 sm:px-3 py-1 text-xs sm:text-sm">
                                     {invoice.month}
                                   </Badge>
                                 </TableCell>
@@ -769,7 +769,7 @@ export default function Projects() {
           {/* Unassigned Invoices */}
           {filteredUnassigned.length > 0 && (
             <motion.div variants={fadeInUp}>
-              <Card className="border-dashed border-2 border-blue-200 rounded-3xl overflow-hidden bg-white">
+              <Card className="border-dashed border-2 border-gray-300 rounded-3xl overflow-hidden bg-white">
                 <CardHeader className="p-8">
                   <div className="flex items-center gap-4">
                     <div className="w-6 h-6 rounded-full bg-black/10" />
@@ -785,7 +785,7 @@ export default function Projects() {
                   <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
-                        <TableRow className="border-blue-100">
+                        <TableRow className="border-gray-200">
                           <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
                           <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
                           <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
@@ -794,7 +794,7 @@ export default function Projects() {
                       </TableHeader>
                       <TableBody>
                         {filteredUnassigned.map((invoice) => (
-                          <TableRow key={invoice.id} className="border-blue-100">
+                          <TableRow key={invoice.id} className="border-gray-200">
                             <TableCell className="font-medium text-base py-4">
                               {invoice.toolName || "—"}
                             </TableCell>

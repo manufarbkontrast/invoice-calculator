@@ -68,7 +68,7 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           <span className="text-xl text-gray-600">Lädt...</span>
         </motion.div>
       </div>
@@ -97,7 +97,7 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-blue-100 shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-sm"
       >
         <div className="container mx-auto px-6 py-5 flex justify-between items-center">
           <motion.div 
@@ -123,7 +123,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Features
                    </a>
@@ -133,7 +133,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
                    >
                      KI-Module
                    </a>
@@ -143,7 +143,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Preise
                    </a>
@@ -153,7 +153,7 @@ export default function Home() {
                        e.preventDefault();
                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                      }}
-                     className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium cursor-pointer"
+                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium cursor-pointer"
                    >
                      Kontakt
                    </a>
@@ -503,7 +503,7 @@ export default function Home() {
             >
                 Rechnungen verwalten.
                 <br />
-                <span className="text-blue-600">KI-gestützt.</span>
+                <span className="text-gray-900">KI-gestützt.</span>
               <br />
                 <span className="text-gray-700">Mühelos.</span>
             </motion.h1>
@@ -583,7 +583,7 @@ export default function Home() {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <Card 
-                      className="rounded-xl h-full border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      className="rounded-xl h-full border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
                       style={{
                         borderColor: hoveredCard === index ? blue : undefined,
                         boxShadow: hoveredCard === index ? `0 8px 24px ${theme.colors.blue}20` : undefined,
@@ -626,7 +626,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
+                  <Card className="rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -701,7 +701,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  <Card className="rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
+                  <Card className="rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -811,7 +811,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+              <Card className="h-full rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6 sm:p-8">
                   <div className="mb-6">
                     <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Basis</h3>
@@ -922,7 +922,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <Card className="h-full rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
+              <Card className="h-full rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6 sm:p-8">
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
@@ -1002,7 +1002,7 @@ export default function Home() {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className="py-12 px-6 border-t border-blue-100 bg-white/60 backdrop-blur-sm scroll-mt-20">
+      <footer id="contact" className="py-12 px-6 border-t border-gray-200 bg-white/60 backdrop-blur-sm scroll-mt-20">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div 

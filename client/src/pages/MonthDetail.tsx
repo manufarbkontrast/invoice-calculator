@@ -622,62 +622,62 @@ export default function MonthDetail() {
           className="grid md:grid-cols-4 gap-6 mb-10"
         >
           <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm mb-1">Rechnungen</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-1">Rechnungen</p>
                   <p className="text-2xl sm:text-3xl font-light text-gray-900">{summary.invoices.length}</p>
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <Calendar className="h-6 w-6" style={{ color: theme.colors.blue }} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm mb-1">Bezahlt</p>
-                  <p className="text-3xl font-light text-green-600">{summary.paidCount}</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-1">Bezahlt</p>
+                  <p className="text-2xl sm:text-3xl font-light text-green-600">{summary.paidCount}</p>
                 </div>
-                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-                  <CheckCircle2 className="h-6 w-6 text-green-600" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm mb-1">Offen</p>
-                  <p className="text-3xl font-light text-orange-500">{summary.pendingCount}</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-1">Offen</p>
+                  <p className="text-2xl sm:text-3xl font-light text-orange-500">{summary.pendingCount}</p>
                 </div>
-                <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
-                  <Circle className="h-6 w-6 text-orange-500" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Circle className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card 
+          <Card
             className="border-0 text-white rounded-3xl overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
               boxShadow: theme.shadows.md,
             }}
           >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white/60 text-sm mb-1">Gesamt</p>
-                  <p className="text-3xl sm:text-4xl font-light">€{(summary.totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-white/60 text-xs sm:text-sm mb-1">Gesamt</p>
+                  <p className="text-2xl sm:text-3xl md:text-4xl font-light break-all">€{(summary.totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
-                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>

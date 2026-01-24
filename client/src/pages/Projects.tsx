@@ -546,49 +546,49 @@ export default function Projects() {
           transition={{ delay: 0.1 }}
           className="grid md:grid-cols-3 gap-6 mb-10"
         >
-          <Card 
+          <Card
             className="border-0 text-white rounded-3xl overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
               boxShadow: theme.shadows.md,
             }}
           >
-            <CardContent className="p-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white/60 text-lg mb-2">Gesamt zugeordnet</p>
-                  <p className="text-3xl sm:text-4xl font-light">€{(totalProjectAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+            <CardContent className="p-4 sm:p-6 md:p-8">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-white/60 text-sm sm:text-base md:text-lg mb-2">Gesamt zugeordnet</p>
+                  <p className="text-2xl sm:text-3xl md:text-4xl font-light break-all">€{(totalProjectAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
-                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-base sm:text-lg mb-2">Projekte</p>
-                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{projects?.length || 0}</p>
-                </div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
-                  <FolderKanban className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-base sm:text-lg mb-2">Nicht zugeordnet</p>
-                  <p className="text-4xl sm:text-5xl font-light text-gray-900">{unassignedInvoices.length}</p>
+            <CardContent className="p-4 sm:p-6 md:p-8">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-2">Projekte</p>
+                  <p className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900">{projects?.length || 0}</p>
                 </div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
-                  <FileText className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: theme.colors.blue }} />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <FolderKanban className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" style={{ color: theme.colors.blue }} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 rounded-3xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+            <CardContent className="p-4 sm:p-6 md:p-8">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-2">Nicht zugeordnet</p>
+                  <p className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900">{unassignedInvoices.length}</p>
+                </div>
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <FileText className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" style={{ color: theme.colors.blue }} />
                 </div>
               </div>
             </CardContent>

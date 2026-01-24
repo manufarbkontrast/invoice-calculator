@@ -536,49 +536,49 @@ export default function Dashboard() {
           transition={{ delay: 0.1 }}
           className="grid md:grid-cols-3 gap-4 mb-8"
         >
-          <Card 
+          <Card
             className="border-0 text-white rounded-xl overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${appTheme.colors.blue} 0%, ${appTheme.colors.lightBlue} 100%)`,
               boxShadow: appTheme.shadows.sm,
             }}
           >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white/80 text-xs mb-1">Gesamtausgaben</p>
-                  <p className="text-3xl sm:text-4xl font-light">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-white/80 text-xs sm:text-sm mb-1">Gesamtausgaben</p>
+                  <p className="text-2xl sm:text-3xl md:text-4xl font-light break-all">€{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}</p>
                 </div>
-                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="h-5 w-5 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-xs mb-1">Rechnungen</p>
-                  <p className="text-2xl font-medium text-gray-900">{totalInvoices}</p>
-                </div>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                  <Receipt className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-xs mb-1">Projekte</p>
-                  <p className="text-2xl font-medium text-gray-900">{projects?.length || 0}</p>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-1">Rechnungen</p>
+                  <p className="text-2xl sm:text-3xl font-medium text-gray-900">{totalInvoices}</p>
                 </div>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                  <FolderKanban className="h-5 w-5" style={{ color: appTheme.colors.blue }} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Receipt className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: appTheme.colors.blue }} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 rounded-xl overflow-hidden hover:border-blue-300 transition-colors bg-white">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-1">Projekte</p>
+                  <p className="text-2xl sm:text-3xl font-medium text-gray-900">{projects?.length || 0}</p>
+                </div>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <FolderKanban className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: appTheme.colors.blue }} />
                 </div>
               </div>
             </CardContent>
@@ -831,18 +831,18 @@ export default function Dashboard() {
                       onClick={() => setLocation(`/projects?project=${project.id}`)}
                     >
                       <Card className="border-blue-100 rounded-2xl hover:border-blue-300 transition-all h-full bg-white">
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4">
+                        <CardContent className="p-4 sm:p-6">
+                          <div className="flex items-start gap-3 sm:gap-4">
                             <div
-                              className="w-12 h-12 rounded-xl flex-shrink-0"
+                              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex-shrink-0"
                               style={{ backgroundColor: displayColor }}
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-lg text-blue-600 truncate">{project.name}</h3>
-                              <p className="text-gray-600 text-base mt-1">
+                              <h3 className="font-medium text-base sm:text-lg text-blue-600 truncate">{project.name}</h3>
+                              <p className="text-gray-600 text-sm sm:text-base mt-1">
                                 {projectInvoices.length} Rechnungen
                               </p>
-                              <p className="text-gray-900 font-medium text-xl mt-2">
+                              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-2 break-all">
                                 €{(totalAmount / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                               </p>
                             </div>
@@ -912,26 +912,26 @@ export default function Dashboard() {
                       className="border-blue-100 hover:border-blue-300 cursor-pointer transition-all duration-300 group rounded-2xl overflow-hidden bg-white"
                       onClick={() => setLocation(`/month/${month}`)}
                     >
-                      <CardContent className="p-8">
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center gap-6">
-                            <div 
-                              className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors"
+                      <CardContent className="p-4 sm:p-6 md:p-8">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                          <div className="flex items-center gap-4">
+                            <div
+                              className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors flex-shrink-0"
                             >
-                              <Calendar className="h-8 w-8" style={{ color: appTheme.colors.blue }} />
+                              <Calendar className="h-7 w-7 sm:h-8 sm:w-8" style={{ color: appTheme.colors.blue }} />
                             </div>
-                            <div>
-                              <h3 className="text-2xl font-medium text-blue-600 group-hover:translate-x-2 transition-transform">
+                            <div className="min-w-0">
+                              <h3 className="text-xl sm:text-2xl font-medium text-blue-600 group-hover:translate-x-2 transition-transform truncate">
                                 {monthName}
                               </h3>
-                              <p className="text-lg text-gray-600 mt-1">
+                              <p className="text-base sm:text-lg text-gray-600 mt-1">
                                 {monthInvoices.length} Rechnung{monthInvoices.length !== 1 ? 'en' : ''}
                               </p>
                             </div>
                           </div>
-                          <div className="text-right">
-                            <p className="text-sm text-gray-500 mb-1">Gesamt</p>
-                            <p className="text-3xl sm:text-4xl font-light text-gray-900">
+                          <div className="text-left sm:text-right">
+                            <p className="text-xs sm:text-sm text-gray-500 mb-1">Gesamt</p>
+                            <p className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-900 break-all">
                               €{(totalInEUR / 100).toLocaleString('de-DE', { minimumFractionDigits: 2 })}
                             </p>
                           </div>

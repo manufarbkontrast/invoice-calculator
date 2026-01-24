@@ -516,7 +516,6 @@ export default function Projects() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-          </div>
         </motion.div>
 
         {/* Stats Cards */}

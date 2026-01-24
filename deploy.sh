@@ -18,15 +18,15 @@ git pull origin stupefied-moser
 
 # Stop the running container
 echo "🛑 Stopping current container..."
-docker-compose -f docker-compose.prod.yml down
+docker compose down
 
 # Rebuild the Docker image (no cache to ensure fresh build)
 echo "🔨 Building Docker image..."
-docker-compose -f docker-compose.prod.yml build --no-cache
+docker compose build --no-cache
 
 # Start the container
 echo "🚀 Starting container..."
-docker-compose -f docker-compose.prod.yml up -d
+docker compose up -d
 
 # Wait a moment for the container to start
 echo "⏳ Waiting for container to start..."
@@ -34,13 +34,18 @@ sleep 5
 
 # Check container status
 echo "📊 Container status:"
-docker-compose -f docker-compose.prod.yml ps
+docker compose ps
 
 # Show logs
 echo "📋 Recent logs:"
-docker-compose -f docker-compose.prod.yml logs --tail=50
+docker compose logs --tail=50
 
 echo "✅ Deployment completed!"
 echo ""
+echo "App is available at: https://invoice.crftn.de"
+echo ""
 echo "To monitor logs in real-time, run:"
-echo "docker-compose -f docker-compose.prod.yml logs -f"
+echo "docker compose logs -f"
+echo ""
+echo "To run database migrations (if needed), run:"
+echo "docker compose --profile migrate run --rm invoice-migrate"

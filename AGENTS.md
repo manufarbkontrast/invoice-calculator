@@ -33,14 +33,33 @@ Invoice-Management App mit React/Vite (Frontend) und Node/Express + tRPC (Backen
 - Supabase Compose: `/var/www/supabase/docker-compose.yml`
 
 ## Deploy-Flow (Production)
-```
+
+**Standard Deployment (Code-Updates, Mobile-Optimierungen, etc.):**
+```bash
 cd /var/www/invoice-calculator
 make deploy
 ```
 
-**Nur bei Schema-Aenderungen:**
+**Alternative (manuell):**
+```bash
+cd /var/www/invoice-calculator
+./deploy.sh
 ```
-docker compose -f /var/www/invoice-calculator/docker-compose.yml --profile migrate run --rm invoice-migrate
+
+**Weitere Makefile-Befehle:**
+```bash
+make logs      # Logs in Echtzeit anzeigen
+make restart   # Container neu starten (ohne Rebuild)
+make migrate   # Datenbank-Migration ausführen
+make down      # Container stoppen
+make clean     # Alte Images aufräumen
+```
+
+**Nur bei Schema-Aenderungen:**
+```bash
+make migrate
+# ODER manuell:
+docker compose --profile migrate run --rm invoice-migrate
 ```
 
 ## Supabase

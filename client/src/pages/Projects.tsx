@@ -424,58 +424,38 @@ export default function Projects() {
         )}
       </AnimatePresence>
 
-      <div className="container mx-auto px-6 py-12 max-w-7xl">
-        {/* Back Button & Title */}
+      <div className="container mx-auto px-6 py-8 max-w-7xl">
+        {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          className="flex items-center justify-end gap-3 mb-8"
         >
-          <div className="flex items-center gap-6">
-            <Button 
-              variant="outline" 
+          {(!projects || projects.length === 0) && (
+            <Button
+              onClick={() => initializeDefaultsMutation.mutate()}
+              disabled={initializeDefaultsMutation.isPending}
               size="lg"
-              onClick={() => setLocation("/dashboard")} 
-              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-sm sm:text-base px-4 sm:px-6"
+              variant="outline"
+              className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
             >
-              <ArrowLeft className="h-5 w-5 mr-2" />
-              Zurück
+              {initializeDefaultsMutation.isPending ? "Wird hinzugefügt..." : "Standard-Projekte"}
             </Button>
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-light text-blue-600 flex items-center gap-3">
-                <FolderKanban className="h-8 w-8 sm:h-10 sm:w-10" style={{ color: theme.colors.blue }} strokeWidth={1.5} />
-                Projekte
-              </h2>
-              <p className="text-base sm:text-lg text-gray-600 mt-1">Verwalten Sie Ihre Projekte</p>
-            </div>
-          </div>
-
-          <div className="flex gap-3">
-            {(!projects || projects.length === 0) && (
-              <Button 
-                onClick={() => initializeDefaultsMutation.mutate()}
-                disabled={initializeDefaultsMutation.isPending}
+          )}
+          <Dialog open={projectDialogOpen} onOpenChange={setProjectDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
                 size="lg"
-                variant="outline"
-                className="border-blue-200 text-gray-700 hover:bg-blue-600 hover:text-white rounded-xl px-4 sm:px-6 text-sm sm:text-base"
+                className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
+                  boxShadow: theme.shadows.md,
+                }}
               >
-                {initializeDefaultsMutation.isPending ? "Wird hinzugefügt..." : "Standard-Projekte"}
+                <Plus className="h-5 w-5 mr-2" />
+                Neues Projekt
               </Button>
-            )}
-            <Dialog open={projectDialogOpen} onOpenChange={setProjectDialogOpen}>
-              <DialogTrigger asChild>
-                <Button 
-                  size="lg" 
-                  className="text-white rounded-xl px-6 sm:px-8 text-sm sm:text-base"
-                  style={{
-                    background: `linear-gradient(135deg, ${theme.colors.blue} 0%, ${theme.colors.lightBlue} 100%)`,
-                    boxShadow: theme.shadows.md,
-                  }}
-                >
-                  <Plus className="h-5 w-5 mr-2" />
-                  Neues Projekt
-                </Button>
-              </DialogTrigger>
+            </DialogTrigger>
               <DialogContent className="rounded-3xl border-blue-100 p-6 sm:p-8">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-medium">Neues Projekt</DialogTitle>

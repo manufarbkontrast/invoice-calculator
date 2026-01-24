@@ -852,14 +852,23 @@ export default function MonthDetail() {
                   <p className="text-lg sm:text-xl text-gray-600">Keine Rechnungen gefunden</p>
                 </div>
               ) : (
-                <div className="overflow-x-auto">
+                <div>
                   {/* Bulk Actions Bar */}
                   {selectedInvoiceIds.length > 0 && (
-                    <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between">
-                      <span className="text-sm font-medium text-blue-600">
-                        {selectedInvoiceIds.length} Rechnung{selectedInvoiceIds.length !== 1 ? 'en' : ''} ausgewählt
-                      </span>
-                      <div className="flex items-center gap-2">
+                    <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-medium text-blue-600">
+                          {selectedInvoiceIds.length} Rechnung{selectedInvoiceIds.length !== 1 ? 'en' : ''} ausgewählt
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSelectedInvoiceIds([])}
+                        >
+                          <XCircle className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
                         <Button
                           variant="outline"
                           size="sm"
@@ -873,8 +882,9 @@ export default function MonthDetail() {
                             }
                           }}
                           disabled={bulkAssignProjectMutation.isPending}
+                          className="text-xs sm:text-sm min-h-[36px]"
                         >
-                          Projekt zuweisen
+                          Projekt
                         </Button>
                         <Button
                           variant="outline"
@@ -888,8 +898,9 @@ export default function MonthDetail() {
                             }
                           }}
                           disabled={bulkMarkAsPaidMutation.isPending}
+                          className="text-xs sm:text-sm min-h-[36px]"
                         >
-                          Als bezahlt markieren
+                          Bezahlt
                         </Button>
                         <Button
                           variant="outline"
@@ -900,22 +911,136 @@ export default function MonthDetail() {
                             }
                           }}
                           disabled={bulkDeleteMutation.isPending}
-                          className="text-red-600 hover:text-red-700"
+                          className="text-red-600 hover:text-red-700 text-xs sm:text-sm min-h-[36px]"
                         >
-                          <Trash2 className="h-4 w-4 mr-2" />
-                          Löschen
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setSelectedInvoiceIds([])}
-                        >
-                          <XCircle className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
                   )}
 
+                  {/* Mobile Card View */}
+                  <div className="block lg:hidden space-y-3">
+                    {filteredAndSortedInvoices.map((invoice) => (
+                      <div key={invoice.id} className={`p-4 bg-white rounded-xl border-2 transition-all ${selectedInvoiceIds.includes(invoice.id) ? 'border-blue-500 bg-blue-50' : 'border-blue-100'}`}>
+                        <div className="flex items-start justify-between mb-3">
+                          <button
+                            onClick={() => {
+                              if (selectedInvoiceIds.includes(invoice.id)) {
+                                setSelectedInvoiceIds(selectedInvoiceIds.filter(id => id !== invoice.id));
+                              } else {
+                                setSelectedInvoiceIds([...selectedInvoiceIds, invoice.id]);
+                              }
+                            }}
+                            className="p-2 hover:bg-blue-50 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+                          >
+                            {selectedInvoiceIds.includes(invoice.id) ? (
+                              <CheckSquare className="h-6 w-6 text-blue-600" />
+                            ) : (
+                              <Square className="h-6 w-6 text-gray-400" />
+                            )}
+                          </button>
+                          <div className="flex-1 mx-3">
+                            <div className="font-semibold text-base text-blue-600 mb-1">
+                              {invoice.toolName || "—"}
+                            </div>
+                            <div className="text-sm text-gray-600 mb-2">
+                              {invoice.companyName || "—"}
+                            </div>
+                            <div className="text-xl font-bold text-gray-900">
+                              €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => togglePaidMutation.mutate({ id: invoice.id, isPaid: invoice.paymentStatus !== "paid" })}
+                            disabled={togglePaidMutation.isPending}
+                            className={`p-2 rounded-lg transition-all min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                              invoice.paymentStatus === "paid"
+                                ? "bg-green-100 text-green-600"
+                                : "bg-gray-100 text-gray-400"
+                            }`}
+                          >
+                            {invoice.paymentStatus === "paid" ? (
+                              <CheckCircle2 className="h-6 w-6" />
+                            ) : (
+                              <Circle className="h-6 w-6" />
+                            )}
+                          </button>
+                        </div>
+
+                        <div className="space-y-2 mb-3">
+                          <Select
+                            value={invoice.projectId?.toString() || "none"}
+                            onValueChange={(value) => handleProjectAssign(invoice.id, value)}
+                            disabled={assignProjectMutation.isPending}
+                          >
+                            <SelectTrigger className="w-full h-12 border-blue-200 rounded-lg text-base">
+                              <SelectValue placeholder="Projekt zuweisen" />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl">
+                              <SelectItem value="none">Kein Projekt</SelectItem>
+                              {projects?.map((project) => (
+                                <SelectItem key={project.id} value={project.id.toString()}>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: project.color || "#000" }} />
+                                    {project.name}
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex gap-2">
+                            {invoice.status === "completed" && (
+                              <Badge className="bg-green-600 text-white px-3 py-1 text-sm">Fertig</Badge>
+                            )}
+                            {invoice.status === "processing" && (
+                              <Badge variant="outline" className="border-blue-200 px-3 py-1 text-sm">
+                                <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                                Läuft
+                              </Badge>
+                            )}
+                            {invoice.status === "failed" && (
+                              <Badge variant="destructive" className="px-3 py-1 text-sm">Fehler</Badge>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleDownloadSingle(invoice)}
+                              disabled={downloadInvoiceMutation.isPending}
+                              className="h-11 w-11 p-0 rounded-lg border-blue-200"
+                            >
+                              <Download className="h-5 w-5" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => window.open(invoice.fileUrl, "_blank")}
+                              className="h-11 w-11 p-0 rounded-lg border-blue-200"
+                            >
+                              <FileText className="h-5 w-5" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleDelete(invoice.id)}
+                              disabled={deleteMutation.isPending}
+                              className="h-11 w-11 p-0 rounded-lg border-red-200"
+                            >
+                              <Trash2 className="h-5 w-5 text-red-600" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Desktop Table View */}
+                  <div className="hidden lg:block overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow className="border-blue-100">
@@ -937,13 +1062,13 @@ export default function MonthDetail() {
                             )}
                           </button>
                         </TableHead>
-                        <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
-                        <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Firma</TableHead>
-                        <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
-                        <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden md:table-cell">Projekt</TableHead>
-                        <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Status</TableHead>
-                        <TableHead className="text-center text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Bezahlt</TableHead>
-                        <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Aktionen</TableHead>
+                        <TableHead className="text-gray-600 font-medium text-base py-4">Tool</TableHead>
+                        <TableHead className="text-gray-600 font-medium text-base py-4">Firma</TableHead>
+                        <TableHead className="text-right text-gray-600 font-medium text-base py-4">Betrag</TableHead>
+                        <TableHead className="text-gray-600 font-medium text-base py-4">Projekt</TableHead>
+                        <TableHead className="text-gray-600 font-medium text-base py-4">Status</TableHead>
+                        <TableHead className="text-center text-gray-600 font-medium text-base py-4">Bezahlt</TableHead>
+                        <TableHead className="text-right text-gray-600 font-medium text-base py-4">Aktionen</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -1155,6 +1280,7 @@ export default function MonthDetail() {
                       </AnimatePresence>
                     </TableBody>
                   </Table>
+                  </div>
                 </div>
               )}
             </CardContent>

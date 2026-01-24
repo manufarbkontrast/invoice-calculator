@@ -614,7 +614,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {/* Datei auswählen */}
             <label className="cursor-pointer">
               <Input
@@ -625,10 +625,10 @@ export default function Dashboard() {
                 multiple
                 className="hidden"
               />
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 variant="outline"
-                className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                className="w-full min-h-[48px] border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-base font-medium flex items-center justify-center gap-2"
                 style={{
                   borderColor: appTheme.colors.blue + '40',
                 }}
@@ -636,9 +636,8 @@ export default function Dashboard() {
                 asChild
               >
                 <span>
-                  <FileUp className="h-4 w-4" />
-                  <span className="hidden sm:inline">Dateien</span>
-                  <span className="sm:hidden">Datei</span>
+                  <FileUp className="h-5 w-5" />
+                  <span>Dateien auswählen</span>
                 </span>
               </Button>
             </label>
@@ -646,11 +645,11 @@ export default function Dashboard() {
             {/* Projekt Auswahl */}
             {projects && projects.length > 0 ? (
               <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-                <SelectTrigger 
+                <SelectTrigger
                   size="default"
-                  className="!h-12 !min-h-[3rem] !max-h-[3rem] w-full !px-4 !py-0 rounded-xl bg-white border-2 border-blue-200 text-blue-600 text-sm font-medium hover:border-blue-400 transition-all flex items-center justify-between [&[data-size=default]]:!h-12 [&[data-size=sm]]:!h-12"
+                  className="!min-h-[48px] w-full !px-4 rounded-xl bg-white border-2 border-blue-200 text-blue-600 text-base font-medium hover:border-blue-400 transition-all flex items-center justify-between"
                 >
-                  <SelectValue placeholder="Projekt" />
+                  <SelectValue placeholder="Projekt wählen" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
                   <SelectItem value="none">Kein Projekt</SelectItem>
@@ -658,7 +657,7 @@ export default function Dashboard() {
                     <SelectItem key={project.id} value={project.id.toString()}>
                       <div className="flex items-center gap-2">
                         <div
-                          className="w-2 h-2 rounded-full"
+                          className="w-3 h-3 rounded-full"
                           style={{ backgroundColor: project.color || "#000000" }}
                         />
                         {project.name}
@@ -672,42 +671,40 @@ export default function Dashboard() {
                 onClick={() => initializeDefaultsMutation.mutate()}
                 disabled={initializeDefaultsMutation.isPending}
                 variant="outline"
-                className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium"
+                className="w-full min-h-[48px] border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-base font-medium"
               >
-                + Projekte
+                + Projekte erstellen
               </Button>
             )}
             
-            {/* Hochladen Button (schwarz) */}
+            {/* Hochladen Button */}
             <Button
               onClick={handleUploadConfirm}
               disabled={uploading || selectedFiles.length === 0}
-              className="w-full h-12 text-white disabled:bg-blue-100 disabled:text-gray-400 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+              className="w-full min-h-[48px] text-white disabled:bg-blue-100 disabled:text-gray-400 rounded-xl text-base font-medium flex items-center justify-center gap-2"
               style={{
                 background: `linear-gradient(135deg, ${appTheme.colors.blue} 0%, ${appTheme.colors.lightBlue} 100%)`,
               }}
             >
               {uploading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
-                  <Upload className="h-4 w-4" />
-                  <span className="hidden sm:inline">Hochladen</span>
-                  <span className="sm:hidden">↑</span>
+                  <Upload className="h-5 w-5" />
+                  <span>Hochladen</span>
                 </>
               )}
             </Button>
-            
+
             {/* Neues Projekt */}
             <Dialog open={projectDialogOpen} onOpenChange={setProjectDialogOpen}>
               <DialogTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  className="w-full h-12 border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                <Button
+                  variant="outline"
+                  className="w-full min-h-[48px] border-2 border-blue-200 hover:bg-blue-600 hover:text-white rounded-xl text-base font-medium flex items-center justify-center gap-2"
                 >
-                  <Plus className="h-4 w-4" />
-                  <span className="hidden sm:inline">Projekt hinzufügen</span>
-                  <span className="sm:hidden">+ Projekt</span>
+                  <Plus className="h-5 w-5" />
+                  <span>Neues Projekt</span>
                 </Button>
               </DialogTrigger>
               <DialogContent className="rounded-3xl border-blue-100 p-8">
@@ -789,19 +786,19 @@ export default function Dashboard() {
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-medium text-blue-600">Ihre Projekte</h2>
-                <div className="flex gap-3">
-                  <Button 
-                    variant="outline" 
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    variant="outline"
                     onClick={() => setLocation("/analytics")}
-                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white h-12 px-6"
+                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white min-h-[44px] px-4 sm:px-6 text-sm sm:text-base"
                   >
                     <TrendingUp className="h-5 w-5 mr-2" />
                     Analyse
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={() => setLocation("/projects")}
-                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white h-12 px-6"
+                    className="rounded-xl border-blue-200 hover:bg-blue-600 hover:text-white min-h-[44px] px-4 sm:px-6 text-sm sm:text-base"
                   >
                     Alle Projekte
                   </Button>

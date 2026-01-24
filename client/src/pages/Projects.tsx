@@ -726,15 +726,40 @@ export default function Projects() {
                     </div>
                   </CardHeader>
                   {project.invoices.length > 0 && (
-                    <CardContent className="p-8 pt-0">
-                      <div className="overflow-x-auto">
+                    <CardContent className="p-4 sm:p-8 pt-0">
+                      {/* Mobile Card View */}
+                      <div className="block md:hidden space-y-3">
+                        {project.invoices.map((invoice) => (
+                          <div key={invoice.id} className="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                            <div className="flex justify-between items-start mb-2">
+                              <div className="font-medium text-base text-blue-600 flex-1">
+                                {invoice.toolName || "—"}
+                              </div>
+                              <div className="text-right font-mono text-lg font-semibold text-gray-900 ml-3">
+                                €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
+                              </div>
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              {invoice.companyName || "—"}
+                            </div>
+                            <div className="mt-2">
+                              <Badge variant="outline" className="border-blue-200 px-3 py-1 text-xs">
+                                {invoice.month}
+                              </Badge>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Desktop Table View */}
+                      <div className="hidden md:block overflow-x-auto">
                         <Table>
                           <TableHeader>
                             <TableRow className="border-blue-100">
-                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
-                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
-                              <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
-                              <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden md:table-cell">Monat</TableHead>
+                              <TableHead className="text-gray-600 font-medium text-base py-4">Tool</TableHead>
+                              <TableHead className="text-gray-600 font-medium text-base py-4">Firma</TableHead>
+                              <TableHead className="text-right text-gray-600 font-medium text-base py-4">Betrag</TableHead>
+                              <TableHead className="text-gray-600 font-medium text-base py-4">Monat</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -743,14 +768,14 @@ export default function Projects() {
                                 <TableCell className="font-medium text-base py-4">
                                   {invoice.toolName || "—"}
                                 </TableCell>
-                                <TableCell className="text-gray-700 text-sm sm:text-base py-3 sm:py-4">
+                                <TableCell className="text-gray-700 text-base py-4">
                                   {invoice.companyName || "—"}
                                 </TableCell>
                                 <TableCell className="text-right font-mono text-base py-4">
                                   €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
                                 </TableCell>
                                 <TableCell className="py-4">
-                                  <Badge variant="outline" className="border-blue-200 px-2 sm:px-3 py-1 text-xs sm:text-sm">
+                                  <Badge variant="outline" className="border-blue-200 px-3 py-1 text-sm">
                                     {invoice.month}
                                   </Badge>
                                 </TableCell>
@@ -781,15 +806,40 @@ export default function Projects() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  <div className="overflow-x-auto">
+                <CardContent className="p-4 sm:p-8 pt-0">
+                  {/* Mobile Card View */}
+                  <div className="block md:hidden space-y-3">
+                    {filteredUnassigned.map((invoice) => (
+                      <div key={invoice.id} className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="font-medium text-base text-gray-900 flex-1">
+                            {invoice.toolName || "—"}
+                          </div>
+                          <div className="text-right font-mono text-lg font-semibold text-gray-900 ml-3">
+                            €{(convertToEUR(invoice.amount, invoice.currency) / 100).toFixed(2)}
+                          </div>
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          {invoice.companyName || "—"}
+                        </div>
+                        <div className="mt-2">
+                          <Badge variant="outline" className="border-gray-300 px-3 py-1 text-xs">
+                            {invoice.month}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Desktop Table View */}
+                  <div className="hidden md:block overflow-x-auto">
                     <Table>
                       <TableHeader>
                         <TableRow className="border-blue-100">
-                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Tool</TableHead>
-                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden sm:table-cell">Firma</TableHead>
-                          <TableHead className="text-right text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4">Betrag</TableHead>
-                          <TableHead className="text-gray-600 font-medium text-sm sm:text-base py-3 sm:py-4 hidden md:table-cell">Monat</TableHead>
+                          <TableHead className="text-gray-600 font-medium text-base py-4">Tool</TableHead>
+                          <TableHead className="text-gray-600 font-medium text-base py-4">Firma</TableHead>
+                          <TableHead className="text-right text-gray-600 font-medium text-base py-4">Betrag</TableHead>
+                          <TableHead className="text-gray-600 font-medium text-base py-4">Monat</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -798,7 +848,7 @@ export default function Projects() {
                             <TableCell className="font-medium text-base py-4">
                               {invoice.toolName || "—"}
                             </TableCell>
-                            <TableCell className="text-gray-700 text-sm sm:text-base py-3 sm:py-4">
+                            <TableCell className="text-gray-700 text-base py-4">
                               {invoice.companyName || "—"}
                             </TableCell>
                             <TableCell className="text-right font-mono text-base py-4">
